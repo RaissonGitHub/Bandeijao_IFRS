@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandeijão IFRS</title>
+    <link rel="stylesheet" type="text/css" href="./estiloprincipal.css" media="screen" />
+</head>
+<body>
+
+    <div class="header" id="header"> 
+        <button onclick="mostrarbarrinha()" class="icon"  >
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </button>
+        
+        <div class="Titulo">
+            <a href="/"><img src="./Logo1.png" alt="Bandeijão IFRS"></a>
+        </div>
+
+        <div class="navegacao" id="navegacao">
+            <button onclick="mostrarbarrinha()" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            
+            <a href="/" class="ativo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                </svg>
+                Home
+            </a>
+            
+            <a href= "/pagcadastro">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 8">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                </svg> 
+                Cadastros
+            </a>
+            
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
+                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                </svg>
+                Cardápio
+            </a>
+        </div>
+    </div>
+    <div tabindex="0" onclick="fecharbarrinha()" class="conteudo"  >
+        <h2>Bem vindo ao Bandeijão IFRS - Campus Restinga!</h2>
+        <h3>Manual do site</h3>
+        <!--caixas-->
+        <div class="menu-drop">
+            <!--caixa-video-->
+            <div>
+                <button type="button" name="drop" class="drop-button">Vídeo introdutorio</button>
+                <div class="drop-content">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/pRGgyy7Noag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+            <!--caixa01-->
+            <div>
+                <button type="button" name="drop" class="drop-button">Página inicial</button>
+                <div class="drop-content">
+                    <p>Essa página é basicamente a que você está, servindo como introdução ao website a fins de   demonstrar as funcionalidades disponíveis para uso e também introduzir o usuário ao projeto para que ele tenha ciência do que está acessando e os benefícios que pode desfrutar.</p>
+                </div>
+            </div>
+            <!--caixa02-->
+            <div>
+                <button type="button" name="drop" class="drop-button">Cadastro</button>
+                <div class="drop-content">
+                    <p>Essa página irá demonstrar os cadastros já realizados por usuários dentro do Bandeijão IFRS, com botões de inserir, atualizar e excluir cadastro.</p>
+                    <p>Caso você clique em atualizar, a página será atualizada a fim de mostrar a possibilidade de novos cadastros terem sido realizados.</p>
+                    <p>Caso você clique em excluir, existirá a possibilidade de excluir cadastros que VOCÊ JÁ REALIZOU, NÃO DE OUTROS.</p>
+                    <p>Caso clique em inserir, você será redirecionado a página do formulário.</p>
+                </div>
+            </div>
+            <!--caixa03-->
+            <div>
+                <button type="button" name="drop" class="drop-button">Formulário de cadastro</button>
+                <div class="drop-content">
+                    <p>Aqui, após clicar em INSERIR na página anterior, será aberto o formulário para cadastro, com as mais variadas requisições, onde ao final você pode CANCELAR o cadastro feito e refazer, ou, CONFIRMAR o cadastro, sendo redirecionado para uma página de confirmação de cadastro com a emissão do seu voucher para uso.</p>
+                </div>
+            </div>
+            <!--caixa04-->
+            <div>    
+                <button type="button" name="drop" class="drop-button">Confirmação de cadastro</button>
+                <div class="drop-content">
+                    <p> Após realizar seu cadastro, essa página aparecerá como confirmação do que foi feito, para fixar a informação, sendo também emitido um voucher para utilização. O voucher pode ser apresentado de forma online, com a tela do celular ou impresso e entregue à mão. No voucher constará seu ID de cadastro para uso e as informações colocadas no formulário. A apresentação do voucher deve ser realizada na sala do Bandeijão e o custo de R$2,00 será pago na hora da retirada.</p>
+                </div>
+            </div>
+                <!--caixa05-->
+                <div>                    
+                    <button type="button" name="drop" class="drop-button">Cardápio</button>
+                    <div class="drop-content">
+                        <p>Por fim, nesta página você verá nossas opções de refeições diárias. Nosso cardápio é separado em 5 dias, tendo variadas opções. Sendo assim você terá conhecimento das refeições oferecidas toda semana aos usuários do IFRS Campus Restinga.</p>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <footer id="home_footer">
+        <p>Bandeijão IFRS Campus - Restinga</p>
+        <p>R. Alberto Hoffmann, 285</p>
+        <p>De seg. a sex. 12h - 14h</p>
+    </footer>
+    <script src="abaLateral.js"></script>
+</body>    
+</html>
