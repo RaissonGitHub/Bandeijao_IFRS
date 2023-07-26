@@ -8,7 +8,8 @@ Integrantes: Giovana, Lucas, Maria Eduarda Martins, Nicolas, Raisson.
 <a href="views/pformulario.html">Página com formulário</a><br>
 <a href="views/conclusaocad.html">Conclusão de cadastro</a>
 
-[modelo conceitual](Modelo_DB/modelo_conceitual2.png)
+[Modelo conceitual](Modelo_DB/modelo_conceitual2.png)
+[Modelo conceitual](Modelo_DB/modelo_logico.png)
 
 - [ ] Analise dos requisitos
 - [x] Modelo conceitual do banco de dados
