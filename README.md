@@ -10,7 +10,7 @@ Integrantes: Giovana, Lucas, Maria Eduarda Martins, Nicolas, Raisson.
 
 [Modelo conceitual](Modelo_DB/modelo_conceitual2.png)
 
-[Modelo conceitual](Modelo_DB/modelo_logico.png)
+[Modelo lógico](Modelo_DB/modelo_logico.png)
 
 - [ ] Analise dos requisitos
 - [x] Modelo conceitual do banco de dados
