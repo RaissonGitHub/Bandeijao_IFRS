@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/header') %>
+  </header>
+  <nav>
+    <%- include('../partials/nav') %>
+  </nav>
+
+  <div class="container">
+      <h1>Fulano de Tal</h1>
+      <hr>
+      <div class="perfil-dados">
+        <div class="perfil-dados-content">
+          <span>Matricula:</span>
+          <span>1321</span>
+          <span>Telefone:</span>
+          <span>51966666666</span>
+          <span>CPF:</span>
+          <span>651651616684</span>
+          <span>Email:</span>
+          <span>a@gmail.com</span>
+          <span>Curso:</span>
+          <span>Ti</span>
+          <span>Identificação</span>
+          <span>Carnivoro</span>
+        </div>
+        <a href="/attcadastro">Atualizar cadastro</a>
+        <div class="restricoes-ali">
+          <div class="restricoes-ali-content">
+            <span>Restrições Alimentares:</span>
+            <span>Ovo</span>
+          </div>
+        </div>
+        <a href="/attrestricoes">Atualizar Restrições</a>
+        <div class="modificar-senha">
+          <div class="modificar-senha-content">
+            <span>Modificar Senha:</span>
+            <a href="/attsenha">Modificar Senha</a>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+  <footer>
+    <%- include('../partials/footer') %>
+  </footer>
+</body>
+
+</html>

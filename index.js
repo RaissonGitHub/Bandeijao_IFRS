@@ -1,49 +1,108 @@
+//Imports dos modulos
 const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
+const mysql_config = require('./mysqlconfig')
+const cors = require('cors');
 const app = express();
 
+const connection = mysql.createConnection(mysql_config)
+connection.connect((err)=>{
+  if(err){
+    console.log(err)
+  }
+  else{
+    console.log('Banco de dados conectado!')
+  }
+})
+
+//Configuracao dos modulos
 app.use(express.static(__dirname + '/views'));
+app.use(bodyParser.urlencoded({extended:true}))
+app.set('view engine', 'ejs')
+app.use(cors());
 
-app.listen(3000, function(){
-console.log("Servidor no ar - Porta 3000!")
+//Servidor listen
+app.listen(3000, function () {
+  console.log("Servidor no ar - Porta 3000!")
 });
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
+//Rotas
 
-app.get('/', function(req, res){
-res.sendFile(__dirname + '/views/home.html')
+  //login
+app.get('/login', function (req, res) {
+  res.render('login')
 });
 
-app.get('/pagcadastro', function(req, res){
-res.sendFile(__dirname + '/views/cadastro.html')
-}); 
+  //Index
+app.get('/', function (req, res) {
+  res.render('index')
+});
 
-app.post('/cadform', function(req, res){
-    const buttonClicked = req.body.button;
+  //Cadastro
+app.get('/cadastro', function (req, res) {
+  res.render('cadastro')
+});
 
-    if (buttonClicked === 'Inserir') {
-        // Lógica para o Botão 1
-        res.sendFile(__dirname + '/views/pformulario.html')
+  //Cadastro post
+app.post('/cadastro', function (req, res) {
+  const buttonClicked = req.body.button;
 
-      } 
-    else if (buttonClicked === 'Atualizar') {
+  if (buttonClicked === 'Enviar') {
+    res.render('sucesso')
 
-        // Lógica para o Botão 2
-      } 
-      else if (buttonClicked === 'Excluir') {
+  }
+  else if (buttonClicked === 'Cancelar') {
+    res.sendFile(__dirname + '/views/cadastro.html')
+  }
+})
 
-        // Lógica para o Botão 3
-      } 
-}); 
+  //Pedidos
+app.get('/pedidos', function(req,res){
+  res.render('pedidos')
+})
 
-app.post('/formulario', function(req,res){
-    const buttonClicked = req.body.button;
+  //Pedidos post
+app.post('/pedidos', function (req, res) {
+  const buttonClicked = req.body.button;
 
-    if (buttonClicked === 'Enviar') {
-        res.sendFile(__dirname+'/views/conclusaocad.html')
+  if (buttonClicked === 'Inserir') {
+    // Lógica para o Botão 1
+    res.sendFile(__dirname + '/views/pformulario.html')
 
-      } 
-    else if (buttonClicked === 'Cancelar') {
-        res.sendFile(__dirname+'/views/cadastro.html')
-      } 
+  }
+  else if (buttonClicked === 'Atualizar') {
+
+    // Lógica para o Botão 2
+  }
+  else if (buttonClicked === 'Excluir') {
+
+    // Lógica para o Botão 3
+  }
+});
+  //Perfil
+app.get('/perfil', (req,res)=>{
+  res.render('perfil')
+})
+
+app.get('/attrestricoes', (req,res)=>{
+  res.render('restricoes')
+})
+app.get('/attsenha', (req,res)=>{
+  res.render('attsenha')
+})
+app.get('/attcadastro', (req,res)=>{
+  res.render('attcadastro')
+})
+app.get('/cardapio', (req,res)=>{
+  res.render('cardapio')
+})
+app.get('/refeicao', (req,res)=>{
+  res.render('refeicao')
+})
+app.get('/pagcartao', (req,res)=>{
+  res.render('pagcartao')
+})
+app.get('/feedback', (req,res)=>{
+  res.render('feedback')
 })

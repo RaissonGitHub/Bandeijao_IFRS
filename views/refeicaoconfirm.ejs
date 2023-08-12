@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <nav>
+        <%- include('../partials/nav') %>
+    </nav>
+
+    <div class="container">
+        <div class="refeicao-confirm">
+            <div class="refeicao-confirm-content">
+                <div class="refeicao-nome-tipo">
+                    <h2>Pedido</h2>
+                    <h3>Prato</h3>
+                    <span>Preço: R$ 2,00</span>
+                    <span>Tipo:carnivoro</span>
+                </div>
+                    <div class="refeicao-confirm-ingredientes">
+                        <span>Itens:</span>
+                        <div class="refeicao-confirm-itens">
+                            <ul>
+                                <li>Tomate</li>
+                                <li>Massa</li>
+                                <li>Queijo</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="refeicao-confirm-buttons">
+                            <input type="submit" value="Ir para pagamento">
+                            <a href="#">Voltar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
+</html>

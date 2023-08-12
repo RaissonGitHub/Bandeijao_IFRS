@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/header') %>
+  </header>
+  <nav>
+    <%- include('../partials/nav') %>
+  </nav>
+  <div class="container">
+    <h2 class="index-h2">Bem vindo ao Bandeijão IFRS - Campus Restinga!</h2>
+    <h3 class="index-h3">Manual do site</h3>
+    <!--caixas-->
+    <div class="menu-drop">
+      <!--caixa-video-->
+      <div>
+        <button type="button" name="drop" class="drop-button">
+          Vídeo introdutorio
+        </button>
+        <div class="drop-content">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/pRGgyy7Noag" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+      <!--caixa01-->
+      <div>
+        <button type="button" name="drop" class="drop-button">
+          Página inicial
+        </button>
+        <div class="drop-content">
+          <p>
+            Essa página é basicamente a que você está, servindo como
+            introdução ao website a fins de demonstrar as funcionalidades
+            disponíveis para uso e também introduzir o usuário ao projeto para
+            que ele tenha ciência do que está acessando e os benefícios que
+            pode desfrutar.
+          </p>
+        </div>
+      </div>
+      <!--caixa02-->
+      <div>
+        <button type="button" name="drop" class="drop-button">
+          Cadastro
+        </button>
+        <div class="drop-content">
+          <p>
+            Essa página irá demonstrar os cadastros já realizados por usuários
+            dentro do Bandeijão IFRS, com botões de inserir, atualizar e
+            excluir cadastro.
+          </p>
+          <p>
+            Caso você clique em atualizar, a página será atualizada a fim de
+            mostrar a possibilidade de novos cadastros terem sido realizados.
+          </p>
+          <p>
+            Caso você clique em excluir, existirá a possibilidade de excluir
+            cadastros que VOCÊ JÁ REALIZOU, NÃO DE OUTROS.
+          </p>
+          <p>
+            Caso clique em inserir, você será redirecionado a página do
+            formulário.
+          </p>
+        </div>
+      </div>
+      <!--caixa03-->
+      <div>
+        <button type="button" name="drop" class="drop-button">
+          Formulário de cadastro
+        </button>
+        <div class="drop-content">
+          <p>
+            Aqui, após clicar em INSERIR na página anterior, será aberto o
+            formulário para cadastro, com as mais variadas requisições, onde
+            ao final você pode CANCELAR o cadastro feito e refazer, ou,
+            CONFIRMAR o cadastro, sendo redirecionado para uma página de
+            confirmação de cadastro com a emissão do seu voucher para uso.
+          </p>
+        </div>
+      </div>
+      <!--caixa04-->
+      <div>
+        <button type="button" name="drop" class="drop-button">
+          Confirmação de cadastro
+        </button>
+        <div class="drop-content">
+          <p>
+            Após realizar seu cadastro, essa página aparecerá como confirmação
+            do que foi feito, para fixar a informação, sendo também emitido um
+            voucher para utilização. O voucher pode ser apresentado de forma
+            online, com a tela do celular ou impresso e entregue à mão. No
+            voucher constará seu ID de cadastro para uso e as informações
+            colocadas no formulário. A apresentação do voucher deve ser
+            realizada na sala do Bandeijão e o custo de R$2,00 será pago na
+            hora da retirada.
+          </p>
+        </div>
+      </div>
+      <!--caixa05-->
+      <div>
+        <button type="button" name="drop" class="drop-button">
+          Cardápio
+        </button>
+        <div class="drop-content">
+          <p>
+            Por fim, nesta página você verá nossas opções de refeições
+            diárias. Nosso cardápio é separado em 5 dias, tendo variadas
+            opções. Sendo assim você terá conhecimento das refeições
+            oferecidas toda semana aos usuários do IFRS Campus Restinga.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <%- include('../partials/footer') %>
+  </footer>
+  <script src="js/index_boxes.js"></script>
+</body>
+
+</html>

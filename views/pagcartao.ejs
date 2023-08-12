@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <nav>
+        <%- include('../partials/nav') %>
+    </nav>
+
+    <div class="container">
+        <div class="pagcartao-box">
+            <div class="pagcartao-content">
+                <form action="/#" method="post">
+                    <div class="form-pagcartao-content">
+                        <label for="cartaonumero">Número do Cartão</label>
+                        <input type="number" name="cartaonumero" id="cartaonumero" required >
+                        <label for="cartaonome">Nome no Cartão</label>
+                        <input type="text" name="cartaonome" id="cartaonome" required>
+
+                        <div class="form-pagcartao-data">
+                            <label for="cartaovalidade">Data de validade</label>
+                            <input type="month" name="cartaovalidade" id="cartaovalidade" required>
+                        </div>
+                        <div class="form-pagcartao-cvv">
+                            <label for="cartaocvv">CVV</label>
+                            <input type="number" name="cartaocvv" id="cartaocvv" required>
+                        </div>
+                        <input type="submit" value="Pagar">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a href="#">Voltar</a>
+    </div>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
+</html>

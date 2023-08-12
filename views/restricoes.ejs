@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <nav>
+        <%- include('../partials/nav') %>
+    </nav>
+
+    <div class="container">
+        <h1>Restrições Alimentares:</h1>
+        <hr>
+        <div class="form-addrestricoes">
+            <form action="addrestricao" method="post">
+                <div class="form-addrestricoes-content">
+                    <label for="addRestricao">Adicionar restrição</label>
+                    <input type="text" name="addRestricao" id="addRestricao">
+                    <input type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+        <div class="form-restricoes-inputs">
+            <form action="/delrestricao" method="post">
+                <div class="form-restricoes-inputs-content">
+                    <input type="checkbox" name="" id="a">
+                    <label for="a">Restricao</label>
+                    <input type="submit" value="Deletar">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
+</html>
