@@ -15,31 +15,42 @@
 
     <div class="container">
         <div class="refeicao">
-            <div class="refeicao-content">
-                <div class="refeicao-imagem">
-                    <img src="" alt="">
-                </div>
-                <div class="refeicao-nome-tipo">
-                    <h2>Prato</h2>
-                    <span>Tipo:carnivoro</span>
-                </div>
-                <form action="/a">
-                    <div class="refeicao-ingredientes">
+            <form action="/a" class="refeicao-ingredientes">
+                <div class="refeicao-content">
+                    <div class="refeicao-imagem">
+                        <img src="img/pizza.jpg" alt="">
+                    </div>
+                    <div class="refeicao-nome-tipo">
+                        <h2>Prato</h2>
+                        <span>Tipo:carnivoro</span>
+                    </div>
+                    <div class="refeicao-ingredientes-inputs">
                         <span>Ingredientes:</span>
-                        <div class="refeicao-ingredientes-inputs">
-                            <label>
-                                <input type="checkbox" name="" id="">
-                                Molho de Tomate - 200ml - 200cal
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" id="">
-                                Massa
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" id="">
-                                Queijo
-                            </label>
-                        </div>
+                        <label>
+                            <input type="checkbox" name="" id="">
+                            arroz - 200ml - 200cal
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="">
+                            feijao - 200ml - 200cal
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="">
+                            carne - 200ml - 200cal
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="">
+                            tomate - 200ml - 200cal
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="">
+                            alface - 200ml - 200cal
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="">
+                            batata frita - 200ml - 200cal
+                        </label>
+                        
                     </div>
                     <div class="refeicao-descricao">
                         <span>Descrição:</span>
@@ -57,10 +68,9 @@
                             <input type="submit" value="Fazer Pedido">
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-    </div>
     </div>
     <footer>
         <%- include('../partials/footer') %>

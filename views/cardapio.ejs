@@ -17,22 +17,42 @@
         <div class="cardapio">
             <div class="cardapio-content">
                 <h1>Cardapio - dia</h1>
-                <div class="cardapio-tipos">
-                    <button name="carnivoro" onclick="abrir()"><img src="" alt=""></button>
-                    <button name="vegetariano" onclick="abrir()"><img src="" alt=""></button>
-                    <button name="vegano" onclick="abrir()"><img src="" alt=""></button>
+                <div  class="cardapio-tipos">
+                    <button name="carnivoro" onclick="abrir()"><img src="img/bife.png" alt="" class="cardapio-tipos-button-img"></button>
+                    <button name="vegetariano" onclick="abrir()"><img src="img/vegetariano.png" alt="" class="cardapio-tipos-button-img"></button>
+                    <button name="vegano" onclick="abrir()"><img src="img/vegan.png" alt="" class="cardapio-tipos-button-img"></button>
                 </div>
                 <div class="opcao-escolhida">
                     <hr>
-                    <h2>Carnivoro</h3>
+                    <h2 id="opcao-escolhida-h2">Carnivoro</h2>
                     <hr>
                 </div>         
                 <div class="cardapio-pratos">
-                    <div class="cardapio-prato">
-                        <img src="" alt="">
+                    <div class="cardapio-prato-carnivoro">
+                        <img class="cardapio-prato-img" src="img/pizza.jpg" alt="">
+                        <div class="cardapio-prato-nome-desc">
+                            <a href="/refeicao">Prato</a>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolore rerum suscipit, ex tempora vel dolor aperiam quo ea corporis delectus iure ipsam quasi nulla deserunt dolorum voluptatibus aliquam necessitatibus?</p>
+                        </div>
+                        <div class="cardapio-prato-preco">
+                            <span>R$ 2,00</span>
+                        </div>
+                    </div>
+                    <div style="display: none;"class="cardapio-prato-vegetariano">
+                        <img class="cardapio-prato-img" src="img/bife.png" alt="">
                         <div class="cardapio-prato-nome-desc">
                             <h3>Prato</h3>
-                            <p>Descrição</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolore rerum suscipit, ex tempora vel dolor aperiam quo ea corporis delectus iure ipsam quasi nulla deserunt dolorum voluptatibus aliquam necessitatibus?</p>
+                        </div>
+                        <div class="cardapio-prato-preco">
+                            <span>R$ 2,00</span>
+                        </div>
+                    </div>
+                    <div style="display: none;" class="cardapio-prato-vegano">
+                        <img class="cardapio-prato-img" src="img/bife.png" alt="">
+                        <div class="cardapio-prato-nome-desc">
+                            <h3>Prato</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolore rerum suscipit, ex tempora vel dolor aperiam quo ea corporis delectus iure ipsam quasi nulla deserunt dolorum voluptatibus aliquam necessitatibus?</p>
                         </div>
                         <div class="cardapio-prato-preco">
                             <span>R$ 2,00</span>

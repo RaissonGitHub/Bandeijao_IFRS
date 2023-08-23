@@ -365,6 +365,173 @@ a.button {
 
 /*cadastro fim*/
 
+
+/*cardapio inicio*/
+
+.cardapio{
+    width: 100%;
+
+}
+.cardapio-content{
+    padding: 25px;
+    width: 100%;
+}
+
+.opcao-escolhida{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#opcao-escolhida-h2{
+    padding: 10px;
+}
+.opcao-escolhida hr{
+    width: 40%;
+    height: 2px;
+    background-color: #000000;
+}
+.cardapio-pratos{
+    width: 100%;
+    height: 250px;
+
+}
+.cardapio-prato-carnivoro,.cardapio-prato-vegetariano,.cardapio-prato-vegano{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.cardapio-prato-img{
+    width: 300px;
+    padding: 35px;
+    
+}
+.cardapio-prato-nome-desc{
+    width: 200px;
+    display: flex;
+    height: 100%;
+    text-align: justify;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.cardapio-prato-nome-desc a{
+    text-decoration: underline;
+    padding: 25px 25px 25px 0;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: #000000;
+}
+.cardapio-prato-preco{
+    width: 130px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.cardapio-prato-preco span{
+    font-size: 1.4em;
+    padding: 25px;
+}
+.cardapio-tipos button{
+    cursor: pointer;
+}
+.cardapio-tipos-button-img{
+    width: 50px;
+    height: 50px;
+}
+/*cardapio fim*/
+
+/*refeicao inicio*/
+.refeicao{
+    width: 100%;
+    height: 100%;
+}
+.refeicao-content{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(auto-fill, minmax(65px,0.1fr));
+    grid-template-areas: 
+            "img tit ."
+            "img c e"
+            "d d e";
+    justify-items: center;
+}
+.refeicao-imagem{
+    grid-area: img;
+}
+.refeicao-imagem img{
+    width: 250px;
+    padding: 15px;
+}
+.refeicao-nome-tipo{
+    display: flex;
+    flex-direction: column;
+    grid-area: tit;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    width: 100%;
+}
+.refeicao-ingredientes-inputs{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    grid-area: c;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.refeicao-ingredientes-inputs label,input{
+    cursor: pointer;
+}
+.refeicao-descricao{
+    padding: 0 0 0 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    grid-area: d;
+}
+.refeicao-descricao span{
+    font-weight: bold;
+    font-size: 1.3em;
+    text-indent:4em;
+    margin-bottom: 10px;
+}
+.refeicao-card-preco{
+    width: 70%;
+    background-color: #bbbaba;
+    grid-area: e;
+}
+.refeicao-card-preco-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 15px;
+    align-items: center;
+}
+.refeicao-card-preco-content h2{
+    margin-top: 10px;
+}
+.refeicao-card-preco-content input{
+    padding: 15px;
+    background: rgb(54, 146, 199);
+    color: #fff;
+    border: none;
+    width: 90%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.refeicao-card-preco-content input:hover{
+    background: rgb(44, 121, 165);
+
+}
+/*refeicao fim*/
+
+
 /*sucesso inicio*/
 
 
