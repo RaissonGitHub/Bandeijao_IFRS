@@ -876,6 +876,59 @@ a.form-attsenha-button{
 }
 /*pagcartao fim*/
 
+/*attcadastro inicio*/
+.form-attcadastro{
+    margin-top: 50px;
+    width: 80%;
+    border: 1px solid black;
+}
+.form-attcadastro-content{
+    display: flex;
+    flex-direction: column;
+}
+.form-attcadastro-h2{
+    font-size: 2em;
+    margin: 10px 0 20px 0;
+}
+.form-attcadastro-inputs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.att-form-control{
+    width: 45%;
+    height: 35px;
+    margin: 5px 0;
+    font-size: 1em;
+}
+.form-attcadastro-select{
+    width: 100%;
+}
+.att-select{
+    width:95.5%;
+    height: 35px;
+    margin: 5px 0;
+    font-size: 1em;
+}
+.form-attcadastro-inputs-radio p{
+    margin: 10px 0;
+}
+.form-attcadastro-inputs-radio{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+}
+.form-attcadastro-buttons{
+    margin: 15px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+/*attcadastro fim*/
+
 /*sucesso inicio*/
 
 
