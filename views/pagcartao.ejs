@@ -18,25 +18,32 @@
             <div class="pagcartao-content">
                 <form action="/#" method="post">
                     <div class="form-pagcartao-content">
-                        <label for="cartaonumero">Número do Cartão</label>
-                        <input type="number" name="cartaonumero" id="cartaonumero" required >
-                        <label for="cartaonome">Nome no Cartão</label>
-                        <input type="text" name="cartaonome" id="cartaonome" required>
-
-                        <div class="form-pagcartao-data">
-                            <label for="cartaovalidade">Data de validade</label>
-                            <input type="month" name="cartaovalidade" id="cartaovalidade" required>
+                        <div class="form-pagcartao-numerocartao">
+                            <label class="form-pagcartao-label" for="cartaonumero">Número do Cartão</label>
+                            <input class="form-pagcartao-input" type="number" name="cartaonumero" id="cartaonumero" required>
                         </div>
-                        <div class="form-pagcartao-cvv">
-                            <label for="cartaocvv">CVV</label>
-                            <input type="number" name="cartaocvv" id="cartaocvv" required>
+                        <div class="form-pagcartao-nomecartao">
+                            <label class="form-pagcartao-label" for="cartaonome">Nome no Cartão</label>
+                            <input class="form-pagcartao-input" type="text" name="cartaonome" id="cartaonome" required>
                         </div>
-                        <input type="submit" value="Pagar">
+                        <div class="form-pagcartao-div-data-cvv">
+                            <div class="form-pagcartao-data">
+                                <label class="form-pagcartao-label-data-cvv" for="cartaovalidade">Data de validade</label>
+                                <input class="form-pagcartao-data-cvv-input" type="date" name="cartaovalidade" id="cartaovalidade" required>
+                            </div>
+                            <div class="form-pagcartao-cvv">
+                                <label class="form-pagcartao-label-data-cvv" for="cartaocvv">CVV</label>
+                                <input class="form-pagcartao-data-cvv-input" type="number" name="cartaocvv" id="cartaocvv" required>
+                            </div>
+                        </div>
+                        <input id="form-pagcartao-pagar-button" type="submit" value="Pagar">
                     </div>
                 </form>
             </div>
         </div>
-        <a href="#">Voltar</a>
+        <div class="pagcartao-voltar">
+            <a class="pagcartao-voltar-a" href="#">Voltar</a>
+        </div>
     </div>
 
     <footer>

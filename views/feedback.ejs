@@ -18,19 +18,20 @@
             <div class="feedback-content">
                 <form action="/">
                     <div class="form-feedback-content">
-                        <label for="assunto">Assunto:</label>
-                        <input type="text" name="assunto" id="assunto" required>
-                        <label for="mensagem">Mensagem:</label>
-                        <textarea name="mensagem" id="mensagem" cols="30" rows="10"></textarea>
-                        <input type="submit" value="Enviar">
+                        <label class="feedback-label" for="assunto">Assunto:</label>
+                        <input class="feedback-input-text" type="text" name="assunto" id="assunto" required>
+                        <label class="feedback-label" for="mensagem">Mensagem:</label>
+                        <textarea class="feedback-input-textarea" name="mensagem" id="mensagem" cols="30" rows="10"></textarea>
+                        <div class="feedback-div-enviar">
+                            <input class="feedback-enviar" type="submit" value="Enviar">
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <footer>
-        <%- include('../partials/footer') %>
-    </footer>
+    <footer><%- include('../partials/footer') %></footer>
 </body>
 
 </html>

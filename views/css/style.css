@@ -28,6 +28,7 @@ nav {
 
 .container {
     width: 85%;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,6 +36,7 @@ nav {
 }
 
 footer {
+    background-color: #00510f;
     width: 100%;
     margin-top: auto;
 }
@@ -50,10 +52,11 @@ footer {
 }
 
 .logo-bandeijao {
-    width: 95%;
+    width: 80%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: center;    
+    margin-left: 15%;
 }
 
 .logo-bandeijao img {
@@ -80,8 +83,7 @@ footer {
     flex-direction: column;
     background-color: rgb(141, 204, 141);
     align-items: center;
-    top: 100px;
-    height: 100vh;
+    height: 100%;
 }
 
 .nav-content li {
@@ -106,9 +108,9 @@ footer {
 }
 
 .footer-content {
-    background-color: #00510f;
+    margin-left: 8%;
     height: 100px;
-    width: 100%;
+    width: 92%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -168,10 +170,124 @@ button[name="drop"]:hover {
 
 /*Home fim*/
 
+/*login inicio*/
+.login-box{
+    width: 40%;
+    border: solid 1px black;
+}
+.login-content{
+    display: flex;
+    flex-direction: column;
+}
+.form-login-content{
+    display: flex;
+    flex-direction: column;
+}
+/*login fim*/
+
+/*perfil inicio*/
+.perfil-cabecario{
+    width: 100%;
+}
+.perfil-cabecario-content{
+    padding: 15px 0 15px 15px;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.perfil-hr{
+    width: 100%;
+    height: 2px;
+    margin: 5px 0;
+    background: #000;
+}
+.perfil-dados, .restricoes-ali, .modificar-senha{
+    width: 80%;
+    background: #a8a8a8;
+    padding: 20px 15px;
+    border-radius: 10px;
+}
+.perfil-dados{
+    height: 25%;
+    text-align: left;
+}
+.perfil-dados-content{
+    font-size: 1.1em;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2,0.5fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+    "m  t "
+    "c  e "
+    "cu i ";
+}
+.span-restricoes{
+    font-size: 1.1em;
+}
+.perfil-att-a-button{
+    margin: 20px;
+    width: 30%;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    background: #0791df;
+    color: #fffafa;
+    font-size: 1em;
+}
+.modificar-senha{
+    margin-bottom: 50px;
+}
+.modificar-senha-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.modificar-senha-content span{
+    font-size: 1.1em;
+}
+.modificar-senha-content a{
+    width: 30%;
+    text-decoration: none;
+    padding: 5px 7px;
+    text-align: center;
+    background: #0791df;
+    color: #fffafa;
+    font-size: 1em;
+}
+.span-dados{
+    width: 60%;
+}
+#matricula{
+    grid-area: m;
+}
+
+#telefone{
+    grid-area: t;
+}
+
+#cpf{
+    grid-area: c;
+}
+
+#email{
+    grid-area: e;
+}
+
+#curso{
+    grid-area: cu;
+}
+
+#identificacao{
+    grid-area: i;
+}
+
+/*perfilfim*/
+
 /*pedidos inicio*/
-
-
-
 .pedido-h1 {
     margin: 15px;
 }
@@ -286,6 +402,53 @@ button[name="drop"]:hover {
 
 /*pedidos fim*/
 
+/*feedback incio*/
+
+.feedback{
+    width: 80%;
+}
+.feedback-content{
+    display: flex;
+    flex-direction: column;
+}
+.form-feedback-content{
+    padding: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.feedback-label{
+    margin: 10px 0;
+    text-align: left;
+    font-size: 1.1em;
+    width: 100%;
+}
+.feedback-div-enviar{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.feedback-enviar{
+    margin: 20px;
+    width: 30%;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    background: #0791df;
+    color: #fffafa;
+    font-size: 1em;
+}
+.feedback-input-text{
+    height: 30px;
+}
+.feedback-input-text, .feedback-input-textarea{
+    width: 70%;
+    font-size: 1.1em;
+}
+/*feedback fim*/
+
 /*cadastro inicio*/
 
 .form-cadastro{
@@ -365,6 +528,48 @@ a.button {
 
 /*cadastro fim*/
 
+/*attsenha inicio*/
+
+.attsenha-box{
+    margin: 50px 0;
+    width: 30%;
+    background-color: #d9d9d9;
+    padding: 25px;
+}
+.attsenha-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.form-attsenha-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-attsenha-input{
+    width: 80%;
+    height: 25px;
+    margin: 9px 0;
+    font-size: 1em;
+}
+a.form-attsenha-button{
+    width: calc(80% - 20px);
+    margin: 5px;
+}
+.form-attsenha-button{
+    border: none;
+    margin: 15px 0 5px 0;
+    width: 80%;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    background: #0791df;
+    color: #fffafa;
+    font-size: 1em;
+}
+
+/*attsenha fim*/
 
 /*cardapio inicio*/
 
@@ -373,7 +578,6 @@ a.button {
 
 }
 .cardapio-content{
-    padding: 25px;
     width: 100%;
 }
 
@@ -531,6 +735,89 @@ a.button {
 }
 /*refeicao fim*/
 
+/*pagcartao inicio*/
+
+.pagcartao-box{
+    margin-top: 50px;
+    width: 60%;
+    background: rgb(168, 168, 168);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.pagcartao-content{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 35px;
+}
+.form-pagcartao-content{
+    display: flex;
+    flex-direction: column;
+}
+.form-pagcartao-numerocartao, .form-pagcartao-nomecartao{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.form-pagcartao-label{
+    text-align: left;
+    width: 100%;
+    font-size: 1.2em;
+}
+.form-pagcartao-input{
+    width: 100%;
+    height: 25px;
+    margin: 8px 0;
+}
+.form-pagcartao-div-data-cvv{
+    display: flex;
+    flex-direction: row;
+}
+.form-pagcartao-data, .form-pagcartao-cvv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+}
+.form-pagcartao-label-data-cvv{
+    text-align: center;
+    width: 100%;
+}
+.form-pagcartao-data-cvv-input{
+    width: 60%;
+    height: 30px;
+}
+#form-pagcartao-pagar-button{
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: #0791df;
+    color: #fffafa;
+    border: none;
+    font-size: 1em;
+}
+.pagcartao-voltar{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    height: 50px;
+    justify-content: flex-end;
+    align-items: center;
+}
+.pagcartao-voltar-a{
+    width: 10%;
+    text-decoration: none;
+    padding: 15px;
+    text-align: center;
+    background: #0791df;
+    color: #fffafa;
+    font-size: 1em;
+}
+/*pagcartao fim*/
 
 /*sucesso inicio*/
 
