@@ -14,23 +14,25 @@
     </nav>
 
     <div class="container">
-        <h1>Restrições Alimentares:</h1>
-        <hr>
+        <div class="restricoes-cabecario">
+            <h1>Restrições Alimentares:</h1>
+            <hr>
+        </div>
         <div class="form-addrestricoes">
             <form action="addrestricao" method="post">
                 <div class="form-addrestricoes-content">
-                    <label for="addRestricao">Adicionar restrição</label>
-                    <input type="text" name="addRestricao" id="addRestricao">
-                    <input type="submit" value="Enviar">
+                    <label class="form-addrestricoes-content-label" for="addRestricao">Adicionar restrição</label>
+                    <input class="form-addrestricoes-content-input" type="text" name="addRestricao" id="addRestricao">
+                    <input class="form-addrestricoes-content-enviar" type="submit" value="Enviar">
                 </div>
             </form>
         </div>
         <div class="form-restricoes-inputs">
             <form action="/delrestricao" method="post">
                 <div class="form-restricoes-inputs-content">
-                    <input type="checkbox" name="" id="a">
+                    <input type="checkbox" name="" id="">
                     <label for="a">Restricao</label>
-                    <input type="submit" value="Deletar">
+                    <input class="restricao-deletar" type="submit" value="Deletar">
                 </div>
 
             </form>
