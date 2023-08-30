@@ -107,3 +107,6 @@ app.get('/pagcartao', (req,res)=>{
 app.get('/feedback', (req,res)=>{
   res.render('feedback')
 })
+app.get('/refeicaoconfirm', (req,res)=>{
+  res.render('refeicaoconfirm')
+})
