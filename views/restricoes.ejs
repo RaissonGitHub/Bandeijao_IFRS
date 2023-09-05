@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <nav>
+        <%- include('../partials/nav') %>
+    </nav>
+
+    <div class="container">
+        <div class="restricoes-cabecario">
+            <h1>Restrições Alimentares:</h1>
+            <hr>
+        </div>
+        <div class="form-addrestricoes">
+            <form action="addrestricao" method="post">
+                <div class="form-addrestricoes-content">
+                    <label class="form-addrestricoes-content-label" for="addRestricao">Adicionar restrição</label>
+                    <input class="form-addrestricoes-content-input" type="text" name="addRestricao" id="addRestricao">
+                    <input class="form-addrestricoes-content-enviar" type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+        <div class="form-restricoes-inputs">
+            <form action="/delrestricao" method="post">
+                <div class="form-restricoes-inputs-content">
+                    <label class="custom-checkbox">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        Checkbox Personalizado
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        Checkbox Personalizado
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        Checkbox Personalizado
+                    </label>
+                    
+                    
+                    <div class="restricao-deletar-div">
+                        <input class="restricao-deletar" type="submit" value="Deletar">
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
+</html>

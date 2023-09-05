@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header') %></header>
+    <nav><%- include('../partials/nav') %></nav>
+
+    <div class="container">
+        <h1 class="pedido-h1">Pedidos</h1>
+        <hr class="pedido-hr" />
+        <div class="form-pedidos">
+            <form action="" method="post">
+                <div class="form-pedidos-content">
+                    <div class="form-pedidos-filtro">
+                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                        <input type="text" id="filtro" />
+                        <button id="filtrar">Filtrar</button>
+                    </div>
+                    <div class="form-pedidos-buttons">
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Novo Pedido" />
+                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Pedido" />
+                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Pedido" />
+                    </div>
+                    <div class="form-pedidos-table">
+                        <table id="pedidos-table-content">
+                            <tr>
+                                <th>Seleção</th>
+                                <th>N° Pedido</th>
+                                <th>Pedido</th>
+                                <th>Data emissão</th>
+                                <th>Pagamento</th>
+                            </tr>
+                            <%pedido.forEach((p,index) => { %>
+                            <tr>
+                                <td><input type="checkbox" id="<%=p.id_pedido%>" /></td>
+                                <td><%= p.id_pedido %></td>
+                                <td>Bla bla</td>
+                                <td><%= p.data_emissao %></td>
+                                <td><%= p.pagamento %></td>
+                            </tr>
+                            <%})%>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>        
+    </div>
+    <footer>
+        <%- include('../partials/footer')%>
+    </footer>
+</body>
+
+</html>

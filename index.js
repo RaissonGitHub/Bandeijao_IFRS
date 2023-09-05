@@ -1,49 +1,139 @@
-const express = require('express');
+//Imports dos modulos
+const express = require("express");
+const bodyParser = require("body-parser");
+const mysql = require("mysql2");
+const mysql_config = require("./mysqlconfig");
+const cors = require("cors");
 const app = express();
 
-app.use(express.static(__dirname + '/views'));
+const Pedido = require("./models/Pedido");
+const Usuario = require("./models/Usuario");
+const Cardapio = require("./models/Cardapio");
 
-app.listen(3000, function(){
-console.log("Servidor no ar - Porta 3000!")
+const connection = mysql.createConnection(mysql_config);
+connection.connect((err) => {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log("Banco de dados conectado!");
+	}
 });
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
+//Configuracao dos modulos
+app.use(express.static(__dirname + "/views"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.use(cors());
 
-app.get('/', function(req, res){
-res.sendFile(__dirname + '/views/home.html')
+//Servidor listen
+app.listen(3000, function () {
+	console.log("Servidor no ar - Porta 3000!");
 });
 
-app.get('/pagcadastro', function(req, res){
-res.sendFile(__dirname + '/views/cadastro.html')
-}); 
+//Rotas
 
-app.post('/cadform', function(req, res){
-    const buttonClicked = req.body.button;
+//login
+app.get("/login", function (req, res) {
+	res.render("login");
+});
 
-    if (buttonClicked === 'Inserir') {
-        // Lógica para o Botão 1
-        res.sendFile(__dirname + '/views/pformulario.html')
+//Index
+app.get("/", function (req, res) {
+	res.render("index");
+});
 
-      } 
-    else if (buttonClicked === 'Atualizar') {
+//Cadastro
+app.get("/cadastro", function (req, res) {
+	res.render("cadastro");
+});
 
-        // Lógica para o Botão 2
-      } 
-      else if (buttonClicked === 'Excluir') {
+//Cadastro post
+app.post("/cadastro", function (req, res) {
+	const buttonClicked = req.body.button;
+	const u = new Usuario();
 
-        // Lógica para o Botão 3
-      } 
-}); 
+	u.nome = req.body.nome;
+	u.sobrenome = req.body.sobrenome;
+	u.matricula = req.body.matricula;
+	u.cpf = req.body.cpf;
+	u.telefone = req.body.telefone;
+	u.email = req.body.email;
+	u.caracAlimenticia = req.body.escolha;
+	u.senha = req.body.senha;
+	u.curso.nome = req.body.curso;
+  
+	if (buttonClicked === "Enviar") {
+    u.cadastrar(connection);
+		res.render("sucesso");
+	} else if (buttonClicked === "Cancelar") {
+		res.sendFile(__dirname + "/views/cadastro.html");
+	}
+});
 
-app.post('/formulario', function(req,res){
-    const buttonClicked = req.body.button;
+//Pedidos
+app.get("/pedidos", function (req, res) {
+  const p = new Pedido();
+	p.listar(connection, function (result) {
+    res.render("pedidos", { pedido: result });
+	});
+});
 
-    if (buttonClicked === 'Enviar') {
-        res.sendFile(__dirname+'/views/conclusaocad.html')
+//Pedidos post
+app.post("/pedidos", function (req, res) {
+  const buttonClicked = req.body.button;
+  
+	if (buttonClicked === "Inserir") {
+    // Lógica para o Botão 1
+		res.sendFile(__dirname + "/views/pformulario.html");
+	} else if (buttonClicked === "Atualizar") {
+    // Lógica para o Botão 2
+	} else if (buttonClicked === "Excluir") {
+    // Lógica para o Botão 3
+	}
+});
+//Perfil
+app.get("/perfil", (req, res) => {
+  const u = new Usuario();
+	u.listar(connection, function (result) {
+    res.render("perfil", { usuario: result[0] });
+	});
+});
 
-      } 
-    else if (buttonClicked === 'Cancelar') {
-        res.sendFile(__dirname+'/views/cadastro.html')
-      } 
-})
+
+app.get("/cardapio", (req, res) => {
+  const cardapOnivoro = new Cardapio();
+  cardapOnivoro.listar(connection,new Date().getDay())
+  res.render("cardapio");
+});
+
+
+
+
+
+
+
+
+
+
+
+app.get("/attrestricoes", (req, res) => {
+	res.render("restricoes");
+});
+app.get("/attsenha", (req, res) => {
+	res.render("attsenha");
+});
+app.get("/attcadastro", (req, res) => {
+	res.render("attcadastro");
+});
+app.get("/refeicao", (req, res) => {
+	res.render("refeicao");
+});
+app.get("/pagcartao", (req, res) => {
+	res.render("pagcartao");
+});
+app.get("/feedback", (req, res) => {
+	res.render("feedback");
+});
+app.get("/refeicaoconfirm", (req, res) => {
+	res.render("refeicaoconfirm");
+});

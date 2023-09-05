@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <nav>
+        <%- include('../partials/nav') %>
+    </nav>
+
+    <div class="container">
+        <div class="pagcartao-box">
+            <div class="pagcartao-content">
+                <form action="/#" method="post">
+                    <div class="form-pagcartao-content">
+                        <div class="form-pagcartao-numerocartao">
+                            <label class="form-pagcartao-label" for="cartaonumero">Número do Cartão</label>
+                            <input class="form-pagcartao-input" type="number" name="cartaonumero" id="cartaonumero" required>
+                        </div>
+                        <div class="form-pagcartao-nomecartao">
+                            <label class="form-pagcartao-label" for="cartaonome">Nome no Cartão</label>
+                            <input class="form-pagcartao-input" type="text" name="cartaonome" id="cartaonome" required>
+                        </div>
+                        <div class="form-pagcartao-div-data-cvv">
+                            <div class="form-pagcartao-data">
+                                <label class="form-pagcartao-label-data-cvv" for="cartaovalidade">Data de validade</label>
+                                <input class="form-pagcartao-data-cvv-input" type="date" name="cartaovalidade" id="cartaovalidade" required>
+                            </div>
+                            <div class="form-pagcartao-cvv">
+                                <label class="form-pagcartao-label-data-cvv" for="cartaocvv">CVV</label>
+                                <input class="form-pagcartao-data-cvv-input" type="number" name="cartaocvv" id="cartaocvv" required>
+                            </div>
+                        </div>
+                        <input id="form-pagcartao-pagar-button" type="submit" value="Pagar">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="pagcartao-voltar">
+            <a class="pagcartao-voltar-a" href="#">Voltar</a>
+        </div>
+    </div>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
+</html>

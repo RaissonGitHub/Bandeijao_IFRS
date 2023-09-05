@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
+
+	<body>
+		<header><%- include('../partials/header') %></header>
+		<nav><%- include('../partials/nav') %></nav>
+
+		<div class="container">
+			<div class="perfil-cabecario">
+				<div class="perfil-cabecario-content">
+					<h1 class="perfil-h1"><%= usuario.nome +" "+ usuario.sobrenome%></h1>
+					<hr class="perfil-hr" />
+				</div>
+			</div>
+			<div class="perfil-dados">
+				<div class="perfil-dados-content">
+					<span id="matricula" class="span-dados">Matricula: <%= usuario.matricula%></span>
+					<span id="telefone" class="span-dados">Telefone:<%= usuario.telefone%></span>
+					<span id="cpf" class="span-dados">CPF: <%= usuario.cpf%></span>
+					<span id="email" class="span-dados">Email: <%= usuario.email%></span>
+					<span id="curso" class="span-dados">Curso: <%= usuario.curso_id_curso%></span>
+					<span id="identificacao" class="span-dados">Identificação: <%= usuario.caracteristica_alimenticia%></span>
+				</div>
+			</div>
+			<a href="/attcadastro" class="perfil-att-a-button">Atualizar cadastro</a>
+			<div class="restricoes-ali">
+				<div class="restricoes-ali-content">
+					<span class="span-restricoes">Restrições Alimentares:</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+					<span class="span-dados">Ovo;</span>
+				</div>
+			</div>
+			<a href="/attrestricoes" class="perfil-att-a-button">Atualizar Restrições</a>
+			<div class="modificar-senha">
+				<div class="modificar-senha-content">
+					<span>Modificar Senha: </span>
+					<a href="/attsenha">Modificar Senha</a>
+				</div>
+			</div>
+		</div>
+
+		<footer><%- include('../partials/footer') %></footer>
+	</body>
+</html>

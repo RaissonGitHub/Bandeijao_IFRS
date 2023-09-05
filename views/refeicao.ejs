@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
+
+	<body>
+		<header><%- include('../partials/header') %></header>
+		<nav><%- include('../partials/nav') %></nav>
+
+		<div class="container">
+			<div class="refeicao">
+				<form action="/a" class="refeicao-ingredientes">
+					<div class="refeicao-content">
+						<div class="refeicao-imagem">
+							<img src="img/pizza.jpg" alt="" />
+						</div>
+						<div class="refeicao-nome-tipo">
+							<h2>Prato</h2>
+							<span>Tipo:carnivoro</span>
+						</div>
+						<div class="refeicao-ingredientes-inputs">
+							<span>Ingredientes:</span>
+							<label>
+								<input type="checkbox" name="" id="" />
+								arroz - 200ml - 200cal
+							</label>
+							<label>
+								<input type="checkbox" name="" id="" />
+								feijao - 200ml - 200cal
+							</label>
+							<label>
+								<input type="checkbox" name="" id="" />
+								carne - 200ml - 200cal
+							</label>
+							<label>
+								<input type="checkbox" name="" id="" />
+								tomate - 200ml - 200cal
+							</label>
+							<label>
+								<input type="checkbox" name="" id="" />
+								alface - 200ml - 200cal
+							</label>
+							<label>
+								<input type="checkbox" name="" id="" />
+								batata frita - 200ml - 200cal
+							</label>
+						</div>
+						<div class="refeicao-descricao">
+							<span>Descrição:</span>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
+								cumque maiores illo eligendi, optio aut. Dicta optio quidem corrupti
+								similique eos. Perspiciatis perferendis doloremque consequatur
+								pariatur, suscipit assumenda ipsum? Eveniet.
+							</p>
+						</div>
+						<div class="refeicao-card-preco">
+							<div class="refeicao-card-preco-content">
+								<h2>Pedido</h2>
+								<h3>Prato</h3>
+								<span>R$ 2,00</span>
+								<input type="submit" value="Fazer Pedido" />
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<footer><%- include('../partials/footer') %></footer>
+	</body>
+</html>
