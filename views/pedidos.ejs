@@ -34,13 +34,15 @@
                                 <th>Data emissão</th>
                                 <th>Pagamento</th>
                             </tr>
+                            <%pedido.forEach((p,index) => { %>
                             <tr>
-                                <td><input type="checkbox" id="" /></td>
-                                <td>XXXXX</td>
-                                <td>YYYYYYY</td>
-                                <td>XXXXXXX</td>
+                                <td><input type="checkbox" id="<%=p.id_pedido%>" /></td>
+                                <td><%= p.id_pedido %></td>
                                 <td>Bla bla</td>
+                                <td><%= p.data_emissao %></td>
+                                <td><%= p.pagamento %></td>
                             </tr>
+                            <%})%>
                         </table>
                     </div>
                 </div>

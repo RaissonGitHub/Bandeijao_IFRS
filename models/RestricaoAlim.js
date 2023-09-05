@@ -1,5 +1,12 @@
-class RestricaoAlim{
-   constructor(){
-    this.nome ="";
+class RestricaoAlimentar {
+   constructor() {
+       this.idRestricao = 0
+       this.nome = "";
+   }
+
+
+   listar(){
+
+
    }
 }

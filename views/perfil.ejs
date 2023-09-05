@@ -11,18 +11,18 @@
 		<div class="container">
 			<div class="perfil-cabecario">
 				<div class="perfil-cabecario-content">
-					<h1 class="perfil-h1">Fulano de Tal</h1>
+					<h1 class="perfil-h1"><%= usuario.nome +" "+ usuario.sobrenome%></h1>
 					<hr class="perfil-hr" />
 				</div>
 			</div>
 			<div class="perfil-dados">
 				<div class="perfil-dados-content">
-					<span id="matricula" class="span-dados">Matricula: 10160135</span>
-					<span id="telefone" class="span-dados">Telefone:(51) 994715514</span>
-					<span id="cpf" class="span-dados">CPF: 045.263.610-89</span>
-					<span id="email" class="span-dados">Email: raissonarbustepaludo@gmail.com</span>
-					<span id="curso" class="span-dados">Curso: Técnico em Infomática</span>
-					<span id="identificacao" class="span-dados">Identificação: Onivoro</span>
+					<span id="matricula" class="span-dados">Matricula: <%= usuario.matricula%></span>
+					<span id="telefone" class="span-dados">Telefone:<%= usuario.telefone%></span>
+					<span id="cpf" class="span-dados">CPF: <%= usuario.cpf%></span>
+					<span id="email" class="span-dados">Email: <%= usuario.email%></span>
+					<span id="curso" class="span-dados">Curso: <%= usuario.curso_id_curso%></span>
+					<span id="identificacao" class="span-dados">Identificação: <%= usuario.caracteristica_alimenticia%></span>
 				</div>
 			</div>
 			<a href="/attcadastro" class="perfil-att-a-button">Atualizar cadastro</a>
