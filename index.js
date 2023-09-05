@@ -102,7 +102,7 @@ app.get("/perfil", (req, res) => {
 
 app.get("/cardapio", (req, res) => {
   const cardapOnivoro = new Cardapio();
-  cardapOnivoro.listar(connection,new Date().getDay())
+  cardapOnivoro.listar(connection, new Date().getDay(),'onivoro')
   res.render("cardapio");
 });
 

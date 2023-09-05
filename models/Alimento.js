@@ -1,5 +1,4 @@
-//Ainda nao sei se vai
-class Alimento {
+module.exports = class Alimento {
     constructor() {
         this.nome = ""
         this.unidade = ""
@@ -7,6 +6,3 @@ class Alimento {
     }
 }
 
-module.exports = {
-    Alimento
-};
