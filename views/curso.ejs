@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header') %></header>
+    <nav><%- include('../partials/nav') %></nav>
+
+    <div class="container">
+        <h1 class="curso-h1">Cursos</h1>
+        <hr class="curso-hr" />
+        <div class="form-curso">
+            <form action="" method="post">
+                <div class="form-curso-content">
+                    <div class="form-curso-filtro">
+                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                        <input type="text" id="filtro" />
+                        <button id="filtrar">Filtrar</button>
+                    </div>
+                    <div class="form-curso-buttons">
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Novo Curso" />
+                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Curso" />
+                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Curso" />
+                    </div>
+                    <div class="form-curso-table">
+                        <table id="curso-table-content">
+                            <tr>
+                                <th>Seleção</th>
+                                <th>Nome</th>
+                                <th>Tempo</th>
+                                <th>Modalidade</th>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" id="" /></td>
+                                <td>p.id_pedido </td>
+                                <td>Bla bla</td>
+                                <td>p.data_emissao </td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>        
+    </div>
+    <footer>
+        <%- include('../partials/footer')%>
+    </footer>
+</body>
+
+</html>

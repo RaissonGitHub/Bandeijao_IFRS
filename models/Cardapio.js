@@ -5,7 +5,6 @@ module.exports = class Cardapio {
 		this.tipo = "";
 		this.descricao = "";
 		this.valor = 0;
-		//this.alimentos = []
 	}
 
 	listar(connection, dia, tipo) {
