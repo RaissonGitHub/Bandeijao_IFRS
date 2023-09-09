@@ -111,9 +111,13 @@ app.get("/cardapio", (req, res) => {
 
 
 
+app.get('/usuarios', (req,res)=>{
+	res.render("usuarios")
+})
 
-
-
+app.get('/curso', (req,res)=>{
+	res.render("curso")
+})
 
 
 app.get("/attrestricoes", (req, res) => {

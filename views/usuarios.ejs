@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header') %></header>
+    <nav><%- include('../partials/nav') %></nav>
+
+    <div class="container">
+        <h1 class="usuario-h1">Usuários</h1>
+        <hr class="usuario-hr" />
+        <div class="form-usuario">
+            <form action="" method="post">
+                <div class="form-usuario-content">
+                    <div class="form-usuario-filtro">
+                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                        <input type="text" id="filtro" />
+                        <button id="filtrar">Filtrar</button>
+                    </div>
+                    <div class="form-usuario-buttons">
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Novo Usuário" />
+                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Usuário" />
+                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Usuário" />
+                    </div>
+                    <div class="form-usuario-table">
+                        <table id="usuario-table-content">
+                            <tr>
+                                <th>Seleção</th>
+                                <th>N. Usuário</th>
+                                <th>CPF</th>
+                                <th>Matrícula</th>
+                                <th>Carac. Alimenticia</th>
+                                <th>Curso</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" id="" /></td>
+                                <td>p.id_pedido </td>
+                                <td>Bla bla</td>
+                                <td>p.data_emissao </td>
+                                <td> p.pagamento </td>
+                                <td> p.pagamento </td>
+                                <td> p.pagamento </td>
+                                <td> p.pagamento </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>        
+    </div>
+    <footer>
+        <%- include('../partials/footer')%>
+    </footer>
+</body>
+
+</html>

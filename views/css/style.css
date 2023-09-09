@@ -1128,6 +1128,8 @@ a.form-attsenha-button{
 
 
 /*restricoes fim*/
+
+
 /*sucesso inicio*/
 
 
@@ -1177,6 +1179,239 @@ a.form-attsenha-button{
 }
 
 /*sucesso fim*/
+
+/*curso inicio*/
+
+.curso-h1 {
+    margin: 15px;
+}
+
+.curso-hr {
+    margin-bottom: 25px;
+    width: 90%;
+
+}
+
+.form-curso {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.form-curso-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.form-curso-filtro {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+#filtro {
+    width: 500px;
+    margin-left: 15px;
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #d3d3d3;
+}
+
+#filtrar {
+    background: none;
+    border: solid 2px green;
+    width: 75px;
+    height: 40px;
+    color: green;
+    text-align: center;
+    border-radius: 7px;
+}
+
+#filtrar:hover {
+    background-color: green;
+    color: white;
+}
+
+
+.form-curso-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#inserir {
+    margin-left: 15px;
+}
+
+.buttons {
+    background: #2e4ff3;
+    color: white;
+    width: 110px;
+    border-radius: 7px;
+    border: solid 1px #999696;
+    height: 38px;
+}
+
+.buttons:hover {
+    background: white;
+    color: #2e4ff3;
+    border: solid 2px #2e4ff3;
+}
+
+.form-curso-table {
+    width: 100%;
+    overflow: auto;
+}
+
+#curso-table-content {
+    border-collapse: collapse;
+    max-width: 1000px;
+    min-width: 700px;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+#curso-table-content th,
+#curso-table-content td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+
+}
+
+#curso-table-content th {
+    background-color: #ffff;
+    border-bottom: 2px solid #bdbdbd;
+    border-top: 2px solid #bdbdbd;
+}
+
+#curso-table-content tr:nth-child(even) {
+
+    background-color: #bdbdbd
+}
+
+/*curso fim*/
+
+/*usuarios inicio*/
+
+.usuario-h1 {
+    margin: 15px;
+}
+
+.usuario-hr {
+    margin-bottom: 25px;
+    width: 90%;
+
+}
+
+.form-usuario {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.form-usuario-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.form-usuario-filtro {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+#filtro {
+    width: 500px;
+    margin-left: 15px;
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #d3d3d3;
+}
+
+#filtrar {
+    background: none;
+    border: solid 2px green;
+    width: 75px;
+    height: 40px;
+    color: green;
+    text-align: center;
+    border-radius: 7px;
+}
+
+#filtrar:hover {
+    background-color: green;
+    color: white;
+}
+
+
+.form-usuario-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#inserir {
+    margin-left: 15px;
+}
+
+.buttons {
+    background: #2e4ff3;
+    color: white;
+    width: 110px;
+    border-radius: 7px;
+    border: solid 1px #999696;
+    height: 38px;
+}
+
+.buttons:hover {
+    background: white;
+    color: #2e4ff3;
+    border: solid 2px #2e4ff3;
+}
+
+.form-usuario-table {
+    width: 100%;
+    overflow: auto;
+}
+
+#usuario-table-content {
+    border-collapse: collapse;
+    max-width: 1000px;
+    min-width: 700px;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+#usuario-table-content th,
+#usuario-table-content td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+
+}
+
+#usuario-table-content th {
+    background-color: #ffff;
+    border-bottom: 2px solid #bdbdbd;
+    border-top: 2px solid #bdbdbd;
+}
+
+#usuario-table-content tr:nth-child(even) {
+
+    background-color: #bdbdbd
+}
+
+/*usuario fim*/
+
 
 /*Em desenvolvimento*/
 
@@ -1259,36 +1494,80 @@ a.form-attsenha-button{
 
     /*pedidos fim*/
 
-    /*cadastro inicio*/
+    /*usuarios inicio*/
 
-    .form-cadastro{
-        width: 80%;
-
+    .usuario-h1 {
+        text-align: center;
     }
-    .form-cadastro-content {
+
+    .form-usuario  {
         flex-direction: column;
-        flex-wrap: nowrap;
+    }
+
+    .form-usuario-filtro  {
+        flex-direction: row;
         align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
     }
 
-    .form-cadastro-titulo {
-        margin-bottom: 22px;
+    label[for="filtro"] {
+        width: 100%;
+        text-align: center;
     }
 
-    .form-control {
-        width: 80%;
+    #filtro {
+        width: 65%;
     }
 
-    .select {
-        font-size: 11px;
+    #filtrar {
+        margin-left: 10px;
     }
 
-    #buttons {
+    .form-usuario-buttons {
+        margin-top: 10px;
+        justify-content: space-evenly;
+    }
+
+    /*usuarios fim*/
+    /*curso inicio*/
+
+    .curso-h1 {
+        text-align: center;
+    }
+
+    .form-curso  {
         flex-direction: column;
-        align-items: center;
     }
 
-    /*cadastro fim*/
+    .form-curso-filtro  {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    label[for="filtro"] {
+        width: 100%;
+        text-align: center;
+    }
+
+    #filtro {
+        width: 65%;
+    }
+
+    #filtrar {
+        margin-left: 10px;
+    }
+
+    .form-curso-buttons {
+        margin-top: 10px;
+        justify-content: space-evenly;
+    }
+
+    /*curso fim*/
+
+    
 
     /*sucesso inicio*/
 
@@ -1314,7 +1593,19 @@ a.form-attsenha-button{
     }
 
     /*pedidos fim*/
+    /*usuarios inicio*/
+    #filtro {
+        max-width: 70%;
+        margin-right: 20px;
+    }
+    /*curso inicio*/
+    #filtro {
+        max-width: 70%;
+        margin-right: 20px;
+    }
 
+    /*curso fim*/
+    
     /*cadastro inicio*/
 
     /*cadastro fim*/
@@ -1340,7 +1631,19 @@ a.form-attsenha-button{
     }
 
     /*pedidos fim*/
+    /*usuario inicio*/
 
+    #filtro {
+        width: 500px;
+    }
+    /*curso inicio*/
+
+    #filtro {
+        width: 500px;
+    }
+
+    /*curso fim*/
+    
     /*cadastro inicio*/
 
     /*cadastro fim*/
