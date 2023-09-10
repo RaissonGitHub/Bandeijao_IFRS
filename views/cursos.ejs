@@ -13,7 +13,7 @@
         <h1 class="curso-h1">Cursos</h1>
         <hr class="curso-hr" />
         <div class="form-curso">
-            <form action="" method="post">
+            <form action="/curso" method="post">
                 <div class="form-curso-content">
                     <div class="form-curso-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
@@ -33,19 +33,27 @@
                                 <th>Tempo</th>
                                 <th>Modalidade</th>
                             </tr>
-                            
-                            <tr>
-                                <td><input type="checkbox" id="" /></td>
-                                <td>p.id_pedido </td>
-                                <td>Bla bla</td>
-                                <td>p.data_emissao </td>
-                                
-                            </tr>
+
+                            <% cursos.forEach((c, index)=> { %>
+                                <tr>
+                                    <td><input type="checkbox" id="c.id_curso" /></td>
+
+                                    <td>
+                                        <%= c.nome %>
+                                    </td>
+                                    <td>
+                                        <%= c.tempo %>
+                                    </td>
+                                    <td>
+                                        <%= c.modalidade %>
+                                    </td>
+                                </tr>
+                                <% }) %>
                         </table>
                     </div>
                 </div>
             </form>
-        </div>        
+        </div>
     </div>
     <footer>
         <%- include('../partials/footer')%>

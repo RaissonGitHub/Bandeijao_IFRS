@@ -582,6 +582,172 @@ a.button {
 
 /*cadastro fim*/
 
+
+/*addcurso inicio*/
+
+.form-addcurso{
+    border: solid 1px black;
+    width: 500px;
+    margin: 50px auto 30px auto;
+    background: white;
+
+}
+
+.form-addcurso-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+}
+
+.form-addcurso-titulo {
+    text-align: center;
+    font-size: 35px;
+    color: #4CAF50;
+    margin: 20px;
+}
+.form-addcurso-inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    align-items: start;
+}
+.form-control-addcurso {
+    padding: 5px;
+    margin-bottom: 15px;
+    width: 400px;
+}
+
+.form-addcurso-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.button {
+    width: 45%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+a.button {
+    width: calc(45% - 40px);
+    font-size: 14px;
+}
+
+/*addcurso fim*/
+/*addcardapio inicio*/
+
+.form-addcardapio{
+    border: solid 1px black;
+    width: 670px;
+    margin: 50px auto 30px auto;
+    background: white;
+
+}
+
+.form-addcardapio-content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-addcardapio-titulo {
+    text-align: center;
+    font-size: 35px;
+    color: #4CAF50;
+    margin: 20px;
+}
+.form-addcardapio-inputs-dia{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.form-addcardapio-inputs-dia span{
+    width: 100%;
+    margin-bottom: 15px;
+}
+.form-addcardapio-inputs-dia label{
+    width: 30%;
+}
+.form-addcardapio-inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    align-items: start;
+}
+.form-addcardapio-inputs-radio{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    align-items: start;
+    gap: 20px;
+}
+.form-control-addcardapio {
+    padding: 5px;
+    margin-bottom: 15px;
+    width: 400px;
+}
+.form-addcardapio-inputs-alimento{
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-control-addcardapio-alimento {
+    padding: 5px;
+    margin-bottom: 15px;
+    width: 100px;
+    
+}
+.form-addcardapio-inputs-alimento h3{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.form-control-addcardapio-label-alimento{
+    width: 15%;
+    font-size: 0.8em;
+}
+
+.form-addcardapio-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.button {
+    width: 45%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+a.button {
+    width: calc(45% - 40px);
+    font-size: 14px;
+}
+
+/*addcardapio fim*/
+
 /*attsenha inicio*/
 
 .attsenha-box{

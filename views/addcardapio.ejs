@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header')%></header>
+    <nav><%- include('../partials/nav')%></nav>
+    <div class="container">
+        <div class="form-addcardapio">
+            <form action="/addcardapio" method="post">
+                <div class="form-addcardapio-content">
+                    <h2 class="form-addcardapio-titulo">Cadastro de Cardápio</h2>
+                    <div class="form-addcardapio-inputs">
+                        <label for="descricao">Descrição do Cardápio:</label>
+                        <textarea name="descricao" id="descricao" class="form-control-addcardapio"></textarea>
+                        <label for="valor">Valor:</label>
+                        <input type="number" class="form-control-addcardapio" name="valor" id="valor"
+                            placeholder="Valor:" required />
+                    </div>
+
+                    <div class="form-addcardapio-inputs-radio">
+                        <label for="tipo">Tipo do Cardápio:</label>
+                        <div>
+                            <input type="radio" id="onivoro" value="onivoro" name="tipo" required />
+                            <label for="onivoro" class="legenda">Onívoro</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="veget" value="vegetariano" name="tipo" />
+                            <label for="veget" class="legenda">Vegetariano</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="vegan" value="vegano" name="tipo" />
+                            <label for="vegan" class="legenda">Vegano</label>
+                        </div>
+                    </div>
+
+                    <div class="form-addcardapio-inputs-dia">
+                        <span>Dia do Cardápio:</span>
+
+                        <label class="legenda">
+                            <input type="radio" id="segunda" value="segunda-feira" name="dia" required />
+                            segunda-feira
+                        </label>
+
+                        <label class="legenda">
+                            <input type="radio" id="terça" value="terça-feira" name="dia" />
+                            terça-feira
+                        </label>
+
+                        <label class="legenda">
+                            <input type="radio" id="quarta" value="quarta-feira" name="dia" />
+                            quarta-feira
+                        </label>
+
+                        <label fclass="legenda">
+                            <input type="radio" id="quinta" value="quinta-feira" name="dia" required />
+                            quinta-feira
+                        </label>
+
+                        <label class="legenda">
+                            <input type="radio" id="sexta" value="sexta-feira" name="dia" />
+                            sexta-feira
+                        </label>
+                    </div>
+                    <div class="form-addcardapio-inputs-alimento">
+                        <h3>Alimentos</h3>
+                        <label class="form-control-addcardapio-label-alimento" for="alimento1nome">Alimento 1
+                            Nome:</label>
+                        <input type="text" class="form-control-addcardapio-alimento" name="alimento1nome"
+                            id="alimento1nome" placeholder="Alimento 1 Nome:" required />
+                        <label class="form-control-addcardapio-label-alimento" for="alimento1unidade">Alimento 1
+                            Unidade:</label>
+                        <input type="text" class="form-control-addcardapio-alimento" name="alimento1unidade"
+                            id="alimento1unidade" placeholder="Alimento 1 Unidade:" required />
+                        <label class="form-control-addcardapio-label-alimento" for="alimento1valornutri">Alimento 1
+                            Valor Nutricional:</label>
+                        <input type="text" class="form-control-addcardapio-alimento" name="alimento1valornutri"
+                            id="alimento1valornutri" placeholder="Alimento 1 Valor Nutricional:" required />
+                    </div>
+                    <input type="button" id="buttonAlimento" value="Adicionar Alimento">
+
+
+                    <div class="form-addcardapio-buttons">
+                        <input type="submit" class="button" name="button" value="Enviar" />
+                        <a href="/curso" class="button">Voltar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer><%- include('../partials/footer')%></footer>
+    <script src="js/addcevent.js"></script>
+
+</body>
+
+</html>

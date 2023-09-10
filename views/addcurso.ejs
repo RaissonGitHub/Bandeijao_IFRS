@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header')%></header>
+    <nav><%- include('../partials/nav')%></nav>
+    <div class="container">
+        <div class="form-addcurso">
+            <form action="/addcurso" method="post">
+                <div class="form-addcurso-content">
+                    <h2 class="form-addcurso-titulo">Cadastro de curso</h2>
+                    <div class="form-addcurso-inputs">
+                        <label for="nome">Nome do curso:</label>
+                        <input type="text" class="form-control-addcurso" name="nome" id="nome" placeholder="Nome do curso:"
+                            required pattern="[A-Za-zÀ-ÿ]{3,}" />
+
+                        <label for="tempo">Tempo:</label>
+                        <input type="date" class="form-control-addcurso" name="tempo" id="tempo" required />
+
+                        <label for="modalidade">Modalidade:</label>
+                        <input type="text" class="form-control-addcurso" name="modalidade" id="modalidade"
+                            placeholder="Modalidade:" required pattern="[A-Za-zÀ-ÿ]{3,}" />
+                    </div>
+
+
+                    <div class="form-addcurso-buttons">
+                        <input type="submit" class="button" name="button" value="Enviar" />
+                        <a href="/curso" class="button">Voltar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer><%- include('../partials/footer')%></footer>
+</body>
+
+</html>

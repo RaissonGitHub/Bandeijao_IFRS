@@ -5,6 +5,7 @@ module.exports = class Cardapio {
 		this.tipo = "";
 		this.descricao = "";
 		this.valor = 0;
+		this.itens= []
 	}
 
 	listar(connection, dia, tipo) {
@@ -26,5 +27,13 @@ module.exports = class Cardapio {
 		connection.query(sql, [obterdia(dia),tipo], function (err, result) {
 			if (err) throw err;
 		});
+	}
+
+	inserir(connection){
+		const sql = 'INSERT INTO cardapio (dia,imagem,tipo,descricao,valor) VALUES(?,?,?,?,?)'
+		connection.query(sql,[this.dia,this.imagem,this.tipo,this.descricao,this.valor],
+			function(err,result){
+			if(err) throw err;
+		})
 	}
 };
