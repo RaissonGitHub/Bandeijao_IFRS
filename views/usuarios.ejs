@@ -29,7 +29,6 @@
                         <table id="usuario-table-content">
                             <tr>
                                 <th>Seleção</th>
-                                <th>N. Usuário</th>
                                 <th>CPF</th>
                                 <th>Matrícula</th>
                                 <th>Carac. Alimenticia</th>
@@ -38,16 +37,30 @@
                                 <th>Telefone</th>
                             </tr>
                             
-                            <tr>
-                                <td><input type="checkbox" id="" /></td>
-                                <td>p.id_pedido </td>
-                                <td>Bla bla</td>
-                                <td>p.data_emissao </td>
-                                <td> p.pagamento </td>
-                                <td> p.pagamento </td>
-                                <td> p.pagamento </td>
-                                <td> p.pagamento </td>
-                            </tr>
+                            <% usuario.forEach((u, index)=> { %>
+                                <tr>
+                                    <td><input type="checkbox" id="u.cpf" /></td>
+
+                                    <td>
+                                        <%= u.cpf %>
+                                    </td>
+                                    <td>
+                                        <%= u.matricula %>
+                                    </td>
+                                    <td>
+                                        <%= u.caracteristica_alimenticia %>
+                                    </td>
+                                    <td>
+                                        <%=u.nome_curso%>
+                                    </td>
+                                    <td>
+                                        <%= u.email %>
+                                    </td>
+                                    <td>
+                                        <%= u.telefone %>
+                                    </td>
+                                </tr>
+                                <% }) %>
                         </table>
                     </div>
                 </div>

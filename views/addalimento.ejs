@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header')%></header>
+    <nav><%- include('../partials/nav')%></nav>
+    <div class="container">
+        <div class="form-addcurso">
+            <form action="/addalimento" method="post">
+                <div class="form-addcurso-content">
+                    <h2 class="form-addcurso-titulo">Cadastro de Alimento</h2>
+                    <div class="form-addcurso-inputs">
+                        <label for="nome">Nome do Alimento:</label>
+                        <input type="text" class="form-control-addcurso" name="nome" id="nome" required pattern="[A-Za-zÀ-ÿ]{3,}" />
+
+                        <label for="unidade">Unidade:</label>
+                        <input type="text" class="form-control-addcurso" name="unidade" id="unidade" required />
+
+                        <label for="valornutri">Valor Nutricional:</label>
+                        <input type="text" class="form-control-addcurso" name="valornutri" id="valornutri"
+                             required pattern="[A-Za-zÀ-ÿ]{3,}" />
+                    </div>
+
+
+                    <div class="form-addcurso-buttons">
+                        <input type="submit" class="button" name="button" value="Enviar" />
+                        <a href="/" class="button">Voltar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer><%- include('../partials/footer')%></footer>
+</body>
+
+</html>

@@ -15,9 +15,9 @@ module.exports = class Usuario {
 
 
   listar(connection, callback){
-    var sql = "select * from usuario";
+    var sql = "SELECT u.cpf, u.nome, u.sobrenome, u.matricula, u.telefone, u.email, u.caracteristica_alimenticia, c.nome AS nome_curso FROM usuario AS u INNER JOIN curso AS c ON u.curso_id_curso = c.id_curso";
 
-    connection.query(sql, 
+    connection.query(sql, [this.cpf],
           function (err, result) {
             if (err) throw err;
             return  callback(result);
