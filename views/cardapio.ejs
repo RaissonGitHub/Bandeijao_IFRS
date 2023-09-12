@@ -18,53 +18,65 @@
             <div class="cardapio-content">
                 <h1>Cardapio - dia</h1>
                 <div  class="cardapio-tipos">
-                    <button name="carnivoro" onclick="abrir()"><img src="img/bife.png" alt="" class="cardapio-tipos-button-img"></button>
-                    <button name="vegetariano" onclick="abrir()"><img src="img/vegetariano.png" alt="" class="cardapio-tipos-button-img"></button>
-                    <button name="vegano" onclick="abrir()"><img src="img/vegan.png" alt="" class="cardapio-tipos-button-img"></button>
+                    <button name="carnivoro" id="carnivorob"><img src="img/bife.png" alt="" class="cardapio-tipos-button-img"></button>
+                    <button name="vegetariano" id="vegetarianob"><img src="img/vegetariano.png" alt="" class="cardapio-tipos-button-img"></button>
+                    <button name="vegano" id="veganob"><img src="img/vegan.png" alt="" class="cardapio-tipos-button-img"></button>
                 </div>
                 <div class="opcao-escolhida">
                     <hr>
-                    <h2 id="opcao-escolhida-h2">Carnivoro</h2>
+                    <h2 id="opcao-escolhida-h2">Onívoro</h2>
                     <hr>
                 </div>         
-                <div class="cardapio-pratos">
+                <form class="cardapio-pratos">
+                    <%cardapios.forEach((c,index)=>{%>
+                        <%if(c.tipo == "onivoro"){%>
+                   
                     <div class="cardapio-prato-carnivoro">
+                        <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                        <div class="cardapio-prato-nome-desc">
+                            <a href="/refeicao/<%=c.id_cardapio%>">Cardápio</a>
+                            <p><%=c.descricao%></p>
+                        </div>
+                        <div class="cardapio-prato-preco">
+                            <span>R$<%=c.valor.toFixed(2)%></span>
+                        </div>
+                    </div>
+                    <%}%>
+                    <%if(c.tipo == "vegetariano"){%>
+                    <div style="display: none;"class="cardapio-prato-vegetariano" >
                         <img class="cardapio-prato-img" src="img/pizza.jpg" alt="">
                         <div class="cardapio-prato-nome-desc">
-                            <a href="/refeicao">Prato</a>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolore rerum suscipit, ex tempora vel dolor aperiam quo ea corporis delectus iure ipsam quasi nulla deserunt dolorum voluptatibus aliquam necessitatibus?</p>
+                            <a href="/refeicao">Cardápio</a>
+                            <p><%=c.descricao%></p>
                         </div>
                         <div class="cardapio-prato-preco">
-                            <span>R$ 2,00</span>
+                            <span>R$<%=c.valor.toFixed(2)%></span>
                         </div>
                     </div>
-                    <div style="display: none;"class="cardapio-prato-vegetariano">
-                        <img class="cardapio-prato-img" src="img/bife.png" alt="">
+                    <%}%>
+
+                    <%if(c.tipo == "vegano"){%>
+                    <div style="display: none;" class="cardapio-prato-vegano" >
+                        <img class="cardapio-prato-img" src="img/pizza.jpg" alt="">
                         <div class="cardapio-prato-nome-desc">
-                            <h3>Prato</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolore rerum suscipit, ex tempora vel dolor aperiam quo ea corporis delectus iure ipsam quasi nulla deserunt dolorum voluptatibus aliquam necessitatibus?</p>
+                            <a href="/refeicao">Cardápio</a>
+                            <p><%=c.descricao%></p>
                         </div>
                         <div class="cardapio-prato-preco">
-                            <span>R$ 2,00</span>
+                            <span>R$<%=c.valor.toFixed(2)%></span>
                         </div>
                     </div>
-                    <div style="display: none;" class="cardapio-prato-vegano">
-                        <img class="cardapio-prato-img" src="img/bife.png" alt="">
-                        <div class="cardapio-prato-nome-desc">
-                            <h3>Prato</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolore rerum suscipit, ex tempora vel dolor aperiam quo ea corporis delectus iure ipsam quasi nulla deserunt dolorum voluptatibus aliquam necessitatibus?</p>
-                        </div>
-                        <div class="cardapio-prato-preco">
-                            <span>R$ 2,00</span>
-                        </div>
-                    </div>
-                </div>   
+                    <%}%>
+
+                    <%})%>
+                </form>   
             </div>
         </div>
     </div>
     <footer>
         <%- include('../partials/footer') %>
     </footer>
+    <script src="js/addcevent.js"></script>
 </body>
 
 </html>

@@ -10,29 +10,12 @@ module.exports = class Cardapio {
 		this.alimentos = [];
 	}
 
-	listar(connection, dia, tipo) {
-		const sql = "select * from cardapio where dia = ? and tipo = ?";
-		function obterdia(dia) {
-			switch (dia) {
-				case 1:
-					dia = "segunda-feira";
-					break;
-				case 2:
-					dia = "terça-feira";
-					break;
-				case 3:
-					dia = "quarta-feira";
-					break;
-				case 4:
-					dia = "quinta-feira";
-					break;
-				case 5:
-					dia = "sexta-feira";
-					break;
-			}
-		}
-		connection.query(sql, [obterdia(dia), tipo], function (err, result) {
+	listar(connection,callback) {
+		const sql = "select * from cardapio";
+		
+		connection.query(sql, function (err, result) {
 			if (err) throw err;
+			return callback(result)
 		});
 	}
 
@@ -68,7 +51,17 @@ module.exports = class Cardapio {
 		});
 	}
 
-	addAlimento(alimento) {
-		this.alimentos.push(alimento);
+	inserirAlimentoNoCardapio(connection, alimento){
+		const sql = "INSERT INTO cardapio_has_alimento (cardapio_id_cardapio,alimento_id_alimento) VALUES(?,?)"
+		connection.query(sql,[this.id, alimento],function(err){
+			if(err)throw err;
+		})
+	}
+	listaEspecifica(connection,id,callback){
+		const sql = "select * from cardapio where id_cardapio = ?"
+		connection.query(sql,[id],function(err,result){
+			if(err) throw err;
+			return callback(result)
+		})
 	}
 };
