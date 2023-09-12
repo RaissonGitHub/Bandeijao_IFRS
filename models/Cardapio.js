@@ -58,7 +58,14 @@ module.exports = class Cardapio {
 		})
 	}
 	listaEspecifica(connection,id,callback){
-		const sql = "select * from cardapio where id_cardapio = ?"
+		//mudar o sql
+		const sql = `
+		SELECT * FROM cardapio where id_cardapio = ?  
+		LEFT JOIN
+		  cardapio_has_alimento AS cha ON cardapio.id_cardapio = cha.cardapio_id_cardapio
+		LEFT JOIN
+		  alimento AS a ON cha.alimento_id_alimento = a.id_alimento
+	  `;
 		connection.query(sql,[id],function(err,result){
 			if(err) throw err;
 			return callback(result)

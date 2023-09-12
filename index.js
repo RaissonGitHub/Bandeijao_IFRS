@@ -130,7 +130,7 @@ app.get("/refeicao/:id", (req, res) => {
 	const c = new Cardapio();
 	c.id = req.params.id;
 	c.listaEspecifica(connection, c.id,function(result){
-		res.render("refeicao", {cardapio:result}, console.log(result));
+		res.render("refeicao", {cardapio:result[0]},console.log(result[0]));
 	})
 });
 
