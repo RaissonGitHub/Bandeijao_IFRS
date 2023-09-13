@@ -17,59 +17,67 @@
         <div class="cardapio">
             <div class="cardapio-content">
                 <h1>Cardapio - dia</h1>
-                <div  class="cardapio-tipos">
-                    <button name="carnivoro" id="carnivorob"><img src="img/bife.png" alt="" class="cardapio-tipos-button-img"></button>
-                    <button name="vegetariano" id="vegetarianob"><img src="img/vegetariano.png" alt="" class="cardapio-tipos-button-img"></button>
-                    <button name="vegano" id="veganob"><img src="img/vegan.png" alt="" class="cardapio-tipos-button-img"></button>
+                <div class="cardapio-tipos">
+                    <button name="carnivoro" id="carnivorob"><img src="img/bife.png" alt=""
+                            class="cardapio-tipos-button-img"></button>
+                    <button name="vegetariano" id="vegetarianob"><img src="img/vegetariano.png" alt=""
+                            class="cardapio-tipos-button-img"></button>
+                    <button name="vegano" id="veganob"><img src="img/vegan.png" alt=""
+                            class="cardapio-tipos-button-img"></button>
                 </div>
                 <div class="opcao-escolhida">
                     <hr>
                     <h2 id="opcao-escolhida-h2">Onívoro</h2>
                     <hr>
-                </div>         
+                </div>
                 <form class="cardapio-pratos">
                     <%cardapios.forEach((c,index)=>{%>
-                        <%if(c.tipo == "onivoro"){%>
-                   
-                    <div class="cardapio-prato-carnivoro">
-                        <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
-                        <div class="cardapio-prato-nome-desc">
-                            <a href="/refeicao/<%=c.id_cardapio%>">Cardápio</a>
-                            <p><%=c.descricao%></p>
-                        </div>
-                        <div class="cardapio-prato-preco">
-                            <span>R$<%=c.valor.toFixed(2)%></span>
-                        </div>
-                    </div>
-                    <%}%>
-                    <%if(c.tipo == "vegetariano"){%>
-                    <div style="display: none;"class="cardapio-prato-vegetariano" >
-                        <img class="cardapio-prato-img" src="img/pizza.jpg" alt="">
-                        <div class="cardapio-prato-nome-desc">
-                            <a href="/refeicao/<%=c.id_cardapio%>">Cardápio</a>
-                            <p><%=c.descricao%></p>
-                        </div>
-                        <div class="cardapio-prato-preco">
-                            <span>R$<%=c.valor.toFixed(2)%></span>
-                        </div>
-                    </div>
-                    <%}%>
+                        <%if(c.tipo==="onivoro" ){%>
+                            <div class="cardapio-prato-carnivoro">
+                                <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                                <div class="cardapio-prato-nome-desc">
+                                    <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
+                                    <p>
+                                        <%=c.descricao%>
+                                    </p>
+                                </div>
+                                <div class="cardapio-prato-preco">
+                                    <span>R$<%=c.valor.toFixed(2)%></span>
+                                </div>
+                            </div>
+                            <%}%>
+                                <%if(c.tipo==="vegetariano" ){%>
+                                    <div class="cardapio-prato-vegetariano" style="display: none;">
+                                        <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                                        <div class="cardapio-prato-nome-desc">
+                                            <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
+                                            <p>
+                                                <%=c.descricao%>
+                                            </p>
+                                        </div>
+                                        <div class="cardapio-prato-preco">
+                                            <span>R$<%=c.valor.toFixed(2)%></span>
+                                        </div>
+                                    </div>
+                                    <%}%>
 
-                    <%if(c.tipo == "vegano"){%>
-                    <div style="display: none;" class="cardapio-prato-vegano" >
-                        <img class="cardapio-prato-img" src="img/pizza.jpg" alt="">
-                        <div class="cardapio-prato-nome-desc">
-                            <a href="/refeicao/<%=c.id_cardapio%>">Cardápio</a>
-                            <p><%=c.descricao%></p>
-                        </div>
-                        <div class="cardapio-prato-preco">
-                            <span>R$<%=c.valor.toFixed(2)%></span>
-                        </div>
-                    </div>
-                    <%}%>
+                                        <%if(c.tipo=="vegano" ){%>
+                                            <div class="cardapio-prato-vegano" style="display: none;">
+                                                <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                                                <div class="cardapio-prato-nome-desc">
+                                                    <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
+                                                    <p>
+                                                        <%=c.descricao%>
+                                                    </p>
+                                                </div>
+                                                <div class="cardapio-prato-preco">
+                                                    <span>R$<%=c.valor.toFixed(2)%></span>
+                                                </div>
+                                            </div>
+                                            <%}%>
 
-                    <%})%>
-                </form>   
+                                                <%})%>
+                </form>
             </div>
         </div>
     </div>

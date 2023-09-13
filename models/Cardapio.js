@@ -10,12 +10,12 @@ module.exports = class Cardapio {
 		this.alimentos = [];
 	}
 
-	listar(connection,callback) {
+	listar(connection, callback) {
 		const sql = "select * from cardapio";
-		
+
 		connection.query(sql, function (err, result) {
 			if (err) throw err;
-			return callback(result)
+			return callback(result);
 		});
 	}
 
@@ -51,24 +51,29 @@ module.exports = class Cardapio {
 		});
 	}
 
-	inserirAlimentoNoCardapio(connection, alimento){
-		const sql = "INSERT INTO cardapio_has_alimento (cardapio_id_cardapio,alimento_id_alimento) VALUES(?,?)"
-		connection.query(sql,[this.id, alimento],function(err){
-			if(err)throw err;
-		})
+	inserirAlimentoNoCardapio(connection, alimento) {
+		const sql = "INSERT INTO cardapio_has_alimento (cardapio_id_cardapio,alimento_id_alimento) VALUES(?,?)";
+		connection.query(sql, [this.id, alimento], function (err) {
+			if (err) throw err;
+		});
 	}
-	listaEspecifica(connection,id,callback){
+	listaEspecifica(connection, id, callback) {
 		//mudar o sql
-		const sql = `
-		SELECT * FROM cardapio where id_cardapio = ?  
+		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,
+		a.id_alimento,
+		a.nome AS nome_alimento,
+		a.unidade,
+		a.valor_nutricional
+		FROM cardapio AS c
 		LEFT JOIN
-		  cardapio_has_alimento AS cha ON cardapio.id_cardapio = cha.cardapio_id_cardapio
+			cardapio_has_alimento AS cha ON c.id_cardapio = cha.cardapio_id_cardapio
 		LEFT JOIN
-		  alimento AS a ON cha.alimento_id_alimento = a.id_alimento
+			alimento AS a ON cha.alimento_id_alimento = a.id_alimento
+		WHERE c.id_cardapio = ?;
 	  `;
-		connection.query(sql,[id],function(err,result){
-			if(err) throw err;
-			return callback(result)
-		})
+		connection.query(sql, [id], function (err, result) {
+			if (err) throw err;
+			return callback(result);
+		});
 	}
 };
