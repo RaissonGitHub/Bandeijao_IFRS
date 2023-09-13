@@ -27,6 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(cors());
 
+const session = require("express-session");
+
+app.use(session({ secret: "seu_segredo_de_sessao",resave: false,
+saveUninitialized: true, }));
+
 //Servidor listen
 app.listen(3000, function () {
 	console.log("Servidor no ar - Porta 3000!");
@@ -36,7 +41,40 @@ app.listen(3000, function () {
 
 //login
 app.get("/login", function (req, res) {
-	res.render("login");
+	if(req.session.login){
+		res.render("index");
+
+	}else{
+		res.render("login");
+
+	}
+});
+app.post("/login", function (req, res) {
+    const u = new Usuario();
+    u.cpf = req.body.cpf;
+    u.senha = req.body.senha;
+    
+    u.verificarCredenciais(connection,u.cpf, u.senha, (error, user) => {
+        if (error) {
+            return res.render("login");
+        }
+        
+        req.session.login = user.cpf;
+        res.render("index");
+    });
+});
+//Perfil
+app.get("/perfil", (req, res) => {
+	if (req.session.login) {
+		const u = new Usuario();
+		u.cpf = req.session.login
+		u.listarCredenciais(connection, function (result) {
+			//mudar esse result[0]
+			res.render("perfil", { usuario: result[0]});
+		});
+	} else {
+		res.redirect("/login");
+	}
 });
 
 //Index
@@ -88,7 +126,6 @@ app.post("/usuarios", (req, res) => {
 	} else if (buttonClicked === "Excluir Usuário") {
 	}
 });
-
 
 //curso
 app.get("/curso", (req, res) => {
@@ -151,8 +188,6 @@ app.post("/listapedido", function (req, res) {
 	} else if (buttonClicked === "Excluir Pedido") {
 	}
 });
-
-
 
 //cardapio
 app.get("/cardapio", (req, res) => {
@@ -303,15 +338,6 @@ app.post("/addalimento", (req, res) => {
 	a.valorNutricional = req.body.valornutri;
 	a.cadastrar(connection);
 	res.render("sucesso");
-});
-
-//Perfil
-app.get("/perfil", (req, res) => {
-	const u = new Usuario();
-	u.listar(connection, function (result) {
-		//mudar esse result[0]
-		res.render("perfil", { usuario: result[0] });
-	});
 });
 
 //attrestricoes
