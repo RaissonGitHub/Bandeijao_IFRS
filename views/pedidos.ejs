@@ -13,7 +13,7 @@
         <h1 class="pedido-h1">Pedidos</h1>
         <hr class="pedido-hr" />
         <div class="form-pedidos">
-            <form action="" method="post">
+            <form action="" method="post" style="overflow: auto;">
                 <div class="form-pedidos-content">
                     <div class="form-pedidos-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
@@ -30,24 +30,37 @@
                             <tr>
                                 <th>Seleção</th>
                                 <th>N° Pedido</th>
-                                <th>Pedido</th>
                                 <th>Data emissão</th>
                                 <th>Pagamento</th>
+                                <th>Obs</th>
                             </tr>
-                            <%pedido.forEach((p,index) => { %>
-                            <tr>
-                                <td><input type="checkbox" id="<%=p.id_pedido%>" /></td>
-                                <td><%= p.id_pedido %></td>
-                                <td>Bla bla</td>
-                                <td><%= p.data_emissao %></td>
-                                <td><%= p.pagamento %></td>
-                            </tr>
-                            <%})%>
+                            <%pedido.forEach((p,index)=> { %>
+                                <tr>
+                                    <td><input type="checkbox" name="checkbox" value="<%=p.id_pedido%>" /></td>
+                                    <td>
+                                        <%= p.id_pedido %>
+                                    </td>
+                                    <td>
+                                        <%= p.data_emissao.getDate() %>/
+                                            <%= p.data_emissao.getMonth() + 1 %>/
+                                                <%= p.data_emissao.getFullYear() %>
+                                                    <%= String(p.data_emissao.getHours()).padStart(2, '0' ) %>:
+                                                        <%=String(p.data_emissao.getMinutes()).padStart(2, '0' ) %>
+                                    </td>
+                                    <%#Resultado experado 12 /12 /2023 00 :00%>
+                                        <td>
+                                            <%= p.pagamento %>
+                                        </td>
+                                        <td>
+                                            <%= p.observacao%>
+                                        </td>
+                                </tr>
+                                <%})%>
                         </table>
                     </div>
                 </div>
             </form>
-        </div>        
+        </div>
     </div>
     <footer>
         <%- include('../partials/footer')%>

@@ -23,13 +23,13 @@ module.exports = class Usuario {
 		});
 	}
 
-  listarCredenciais(connection,callback){
-    const sql = "Select * from usuario where cpf = ?"
-    connection.query(sql,[this.cpf],function(err,result){
-      if(err) throw err;
-      return callback(result)
-    })
-  }
+	listarCredenciais(connection, callback) {
+		const sql = "Select * from usuario where cpf = ?";
+		connection.query(sql, [this.cpf], function (err, result) {
+			if (err) throw err;
+			return callback(result);
+		});
+	}
 
 	cadastrar(connection) {
 		const sql =
@@ -43,23 +43,22 @@ module.exports = class Usuario {
 		);
 	}
 
-	verificarCredenciais(connection,cpf, senha, callback) {
-    const query = "SELECT * FROM usuario WHERE cpf = ? AND senha = ?";
-    connection.query(query, [cpf, senha], (error, results) => {
-        if (error) {
-            console.log(error);
-            return callback(error, null);
-        }
-        
-        // Verifica se um usuário com as credenciais fornecidas foi encontrado
-        if (results.length === 1) {
-            return callback(null, results[0]);
-        } else {
-            return callback("Credenciais inválidas", null);
-        }
-    });
-}
+	verificarCredenciais(connection, cpf, senha, callback) {
+		const query = "SELECT * FROM usuario WHERE cpf = ? AND senha = ?";
+		connection.query(query, [cpf, senha], (error, results) => {
+			if (error) {
+				console.log(error);
+				return callback(error, null);
+			}
 
+			// Verifica se um usuário com as credenciais fornecidas foi encontrado
+			if (results.length === 1) {
+				return callback(null, results[0]);
+			} else {
+				return callback("Credenciais inválidas", null);
+			}
+		});
+	}
 
 	atualizar() {}
 	deletar() {}

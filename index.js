@@ -29,8 +29,7 @@ app.use(cors());
 
 const session = require("express-session");
 
-app.use(session({ secret: "seu_segredo_de_sessao",resave: false,
-saveUninitialized: true, }));
+app.use(session({ secret: "seu_segredo_de_sessao", resave: false, saveUninitialized: true }));
 
 //Servidor listen
 app.listen(3000, function () {
@@ -41,36 +40,34 @@ app.listen(3000, function () {
 
 //login
 app.get("/login", function (req, res) {
-	if(req.session.login){
+	if (req.session.login) {
 		res.render("index");
-
-	}else{
+	} else {
 		res.render("login");
-
 	}
 });
 app.post("/login", function (req, res) {
-    const u = new Usuario();
-    u.cpf = req.body.cpf;
-    u.senha = req.body.senha;
-    
-    u.verificarCredenciais(connection,u.cpf, u.senha, (error, user) => {
-        if (error) {
-            return res.render("login");
-        }
-        
-        req.session.login = user.cpf;
-        res.render("index");
-    });
+	const u = new Usuario();
+	u.cpf = req.body.cpf;
+	u.senha = req.body.senha;
+
+	u.verificarCredenciais(connection, u.cpf, u.senha, (error, user) => {
+		if (error) {
+			return res.render("login");
+		}
+
+		req.session.login = user.cpf;
+		res.render("index");
+	});
 });
 //Perfil
 app.get("/perfil", (req, res) => {
 	if (req.session.login) {
 		const u = new Usuario();
-		u.cpf = req.session.login
+		u.cpf = req.session.login;
 		u.listarCredenciais(connection, function (result) {
 			//mudar esse result[0]
-			res.render("perfil", { usuario: result[0]});
+			res.render("perfil", { usuario: result[0] });
 		});
 	} else {
 		res.redirect("/login");
@@ -149,45 +146,6 @@ app.post("/addcurso", (req, res) => {
 	res.render("sucesso");
 });
 
-//Pedidos
-app.get("/pedidos", function (req, res) {
-	const p = new Pedido();
-	p.listar(connection, function (result) {
-		res.render("pedidos", { pedido: result });
-	});
-});
-
-//Pedidos post
-app.post("/pedidos", function (req, res) {
-	const buttonClicked = req.body.button;
-	if (buttonClicked === "Novo Pedido") {
-		const cardapio = new Cardapio();
-		cardapio.listar(connection, function (result) {
-			res.render("cardapio", { cardapios: result });
-		});
-	} else if (buttonClicked === "Atualizar Pedido") {
-	} else if (buttonClicked === "Excluir Pedido") {
-	}
-});
-
-//listapedido
-app.get("/listapedido", function (req, res) {
-	const p = new Pedido();
-	p.listarTodos(connection, function (result) {
-		res.render("listapedidos", { pedido: result });
-	});
-});
-app.post("/listapedido", function (req, res) {
-	const buttonClicked = req.body.button;
-	if (buttonClicked === "Novo Pedido") {
-		const cardapio = new Cardapio();
-		cardapio.listar(connection, function (result) {
-			res.render("cardapio", { cardapios: result });
-		});
-	} else if (buttonClicked === "Atualizar Pedido") {
-	} else if (buttonClicked === "Excluir Pedido") {
-	}
-});
 
 //cardapio
 app.get("/cardapio", (req, res) => {
@@ -307,9 +265,131 @@ app.get("/refeicao/:id", (req, res) => {
 });
 
 //refeicaoconfirm
-app.get("/refeicaoconfirm", (req, res) => {
-	res.render("refeicaoconfirm");
+app.post("/refeicaoconfirm", (req, res) => {
+	const c = new Cardapio();
+	c.listaEspecifica(connection, id, function (result) {
+		c.dia = result[0].dia;
+		c.tipo = result[0].tipo;
+		c.descricao = result[0].descricao;
+		c.valor = result[0].valor;
+		c.alimentos = [];
+		result.forEach((row) => {
+			if (c.alimentos.indexOf(row) == -1) {
+				const a = new Alimento();
+				(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a);
+			}
+		});
+		res.render("refeicaoconfirm", { cardapio: c });
+	});
 });
+
+
+//Pedidos
+app.get("/pedidos", function (req, res) {
+	if (req.session.login) {
+		const p = new Pedido();
+		p.usuario.cpf = req.session.login;
+		p.listar(connection, function (result) {
+			res.render("pedidos", { pedido: result });
+		});
+	} else {
+		res.redirect("/login");
+	}
+});
+
+//Pedidos post
+app.post("/pedidos", function (req, res) {
+	if (req.session.login) {
+		const buttonClicked = req.body.button;
+		if (buttonClicked === "Novo Pedido") {
+			const cardapio = new Cardapio();
+			cardapio.listar(connection, function (result) {
+				res.render("cardapio", { cardapios: result });
+			});
+		} else if (buttonClicked === "Atualizar Pedido") {
+			const p = new Pedido();
+			pedidoId = req.body.checkbox
+			p.usuario.cpf = req.session.login
+			p.listarPedido(connection,pedidoId,function(result){
+				if(result[0].pagamento === "pago"){
+					console.log('Pedidos pagos não podem ser editados')
+				}
+				else{
+					res.render(`pagcartao`)
+				}
+			})
+
+		} else if (buttonClicked === "Excluir Pedido") {
+		}
+	} else {
+		res.redirect("/login");
+	}
+});
+
+//listapedido
+app.get("/listapedido", function (req, res) {
+	if (req.session.login) {
+		const p = new Pedido();
+		p.listarTodos(connection, function (result) {
+			res.render("listapedidos", { pedido: result });
+		});
+	} else {
+		res.redirect("/login");
+	}
+});
+app.post("/listapedido", function (req, res) {
+	if (req.session.login) {
+		const buttonClicked = req.body.button;
+		if (buttonClicked === "Novo Pedido") {
+			const cardapio = new Cardapio();
+			cardapio.listar(connection, function (result) {
+				res.render("cardapio", { cardapios: result });
+			});
+		} else if (buttonClicked === "Atualizar Pedido") {
+		} else if (buttonClicked === "Excluir Pedido") {
+		}
+	} else {
+		res.redirect("/login");
+	}
+});
+
+let pedidoId = "";
+
+//realizarpedido
+app.post("/realizarpedido", function (req, res) {
+	if (req.session.login) {
+		const p = new Pedido();
+		p.pagamento = "pendente";
+		p.observacao = req.body.observacao;
+		p.usuario.cpf = req.session.login;
+		p.usuario.listarCredenciais(connection, function (result) {
+			p.usuario.curso.nome = result[0].curso_id_curso;
+			p.fazerPedido(connection, id, function (novoID) {
+				pedidoId = novoID;
+				res.render("pagcartao", { pedidoId: novoID });
+			});
+		});
+	} else {
+		res.redirect("/login");
+	}
+});
+
+//pagcartao
+app.post("/pagcartao", (req, res) => {
+	if (req.session.login) {
+		if (req.body.cartaonumero && req.body.cartaonome && req.body.cartaovalidade && req.body.cartaocvv) {
+			const p = new Pedido();
+			p.pagarPedido(connection, pedidoId);
+			p.usuario.cpf = req.session.login;
+			p.listar(connection, function (result) {
+				res.render("pedidos", { pedido: result });
+			});
+		}
+	} else {
+		res.redirect("/login");
+	}
+});
+
 
 //alimentos
 app.get("/alimentos", (req, res) => {
@@ -355,12 +435,11 @@ app.get("/attcadastro", (req, res) => {
 	res.render("attcadastro");
 });
 
-//pagcartao
-app.get("/pagcartao", (req, res) => {
-	res.render("pagcartao");
-});
-
 //feedback
 app.get("/feedback", (req, res) => {
-	res.render("feedback");
+	if (req.session.login) {
+		res.render("feedback");
+	} else {
+		res.redirect("/login");
+	}
 });
