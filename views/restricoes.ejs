@@ -19,12 +19,15 @@
             <hr>
         </div>
         <div class="form-addrestricoes">
-            <form action="addrestricao" method="post">
+            <form action="/addrestricao" method="post">
                 <div class="form-addrestricoes-content">
-                    <label class="form-addrestricoes-content-label" for="addRestricao">Adicionar restrição</label>
-                    <input class="form-addrestricoes-content-input" type="list" name="addRestricao" id="addRestricao">
-                    <datalist id="addRestricao">
-                        <option value=""></option>
+                    <label class="form-addrestricoes-content-label" for="addrestricao">Adicionar restrição</label>
+                    <input class="form-addrestricoes-content-input" list="addrestricao" name="addrestricao" >
+                    <datalist id="addrestricao">
+                        <%lista.forEach((l)=>{%>
+                            <option value="<%=l.nome_restricao%>"></option>
+
+                        <%})%>
                     </datalist>
                     <input class="form-addrestricoes-content-enviar" type="submit" value="Enviar">
                 </div>
@@ -33,23 +36,14 @@
         <div class="form-restricoes-inputs">
             <form action="/delrestricao" method="post">
                 <div class="form-restricoes-inputs-content">
-                    <label class="custom-checkbox">
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                        Checkbox Personalizado
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                        Checkbox Personalizado
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                        Checkbox Personalizado
-                    </label>
-                    
-                    
+                    <h2 style="width: 100%;">Minhas restrições</h2>
+                    <%restricoes.forEach((r)=>{%>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" value="<%=r.restricao_alimentar_id_restricao%>">
+                            <span class="checkmark"></span>
+                            <%=r.nome_restricao%>
+                        </label>
+                    <%})%>
                     <div class="restricao-deletar-div">
                         <input class="restricao-deletar" type="submit" value="Deletar">
                     </div>

@@ -11,6 +11,7 @@ const Usuario = require("./models/Usuario");
 const Cardapio = require("./models/Cardapio");
 const Curso = require("./models/Curso");
 const Alimento = require("./models/Alimento");
+const RestricaoAlimentar = require("./models/RestricaoAlimentar");
 
 const connection = mysql.createConnection(mysql_config);
 connection.connect((err) => {
@@ -67,7 +68,7 @@ app.get("/perfil", (req, res) => {
 		u.cpf = req.session.login;
 		u.listarCredenciais(connection, function (result) {
 			//mudar esse result[0]
-			res.render("perfil", { usuario: result[0]},console.log(result[0]));
+			res.render("perfil", { usuario: result[0] }, console.log(result[0]));
 		});
 	} else {
 		res.redirect("/login");
@@ -82,9 +83,9 @@ app.get("/", function (req, res) {
 //Cadastro
 app.get("/cadastro", function (req, res) {
 	const c = new Curso();
-	c.listar(connection,function(result){
-		res.render("cadastro", {cursos:result});
-	})
+	c.listar(connection, function (result) {
+		res.render("cadastro", { cursos: result });
+	});
 });
 
 //Cadastro post
@@ -122,9 +123,9 @@ app.post("/usuarios", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Usuário") {
 		const c = new Curso();
-		c.listar(connection,function(result){
-		res.render("cadastro", {cursos:result});
-		})
+		c.listar(connection, function (result) {
+			res.render("cadastro", { cursos: result });
+		});
 	} else if (buttonClicked === "Atualizar Usuário") {
 	} else if (buttonClicked === "Excluir Usuário") {
 	}
@@ -151,7 +152,6 @@ app.post("/addcurso", (req, res) => {
 	c.cadastrar(connection);
 	res.render("sucesso");
 });
-
 
 //cardapio
 app.get("/cardapio", (req, res) => {
@@ -290,7 +290,6 @@ app.post("/refeicaoconfirm", (req, res) => {
 	});
 });
 
-
 //Pedidos
 app.get("/pedidos", function (req, res) {
 	if (req.session.login) {
@@ -315,17 +314,15 @@ app.post("/pedidos", function (req, res) {
 			});
 		} else if (buttonClicked === "Atualizar Pedido") {
 			const p = new Pedido();
-			pedidoId = req.body.checkbox
-			p.usuario.cpf = req.session.login
-			p.listarPedido(connection,pedidoId,function(result){
-				if(result[0].pagamento === "pago"){
-					console.log('Pedidos pagos não podem ser editados')
+			pedidoId = req.body.checkbox;
+			p.usuario.cpf = req.session.login;
+			p.listarPedido(connection, pedidoId, function (result) {
+				if (result[0].pagamento === "pago") {
+					console.log("Pedidos pagos não podem ser editados");
+				} else {
+					res.render(`pagcartao`);
 				}
-				else{
-					res.render(`pagcartao`)
-				}
-			})
-
+			});
 		} else if (buttonClicked === "Excluir Pedido") {
 		}
 	} else {
@@ -335,11 +332,10 @@ app.post("/pedidos", function (req, res) {
 
 //listapedido
 app.get("/listapedido", function (req, res) {
-	
-		const p = new Pedido();
-		p.listarTodos(connection, function (result) {
-			res.render("listapedidos", { pedido: result });
-		});
+	const p = new Pedido();
+	p.listarTodos(connection, function (result) {
+		res.render("listapedidos", { pedido: result });
+	});
 });
 app.post("/listapedido", function (req, res) {
 	if (req.session.login) {
@@ -394,7 +390,6 @@ app.post("/pagcartao", (req, res) => {
 	}
 });
 
-
 //alimentos
 app.get("/alimentos", (req, res) => {
 	const a = new Alimento();
@@ -424,10 +419,64 @@ app.post("/addalimento", (req, res) => {
 	res.render("sucesso");
 });
 
-// a fazer
+
 //attrestricoes
 app.get("/attrestricoes", (req, res) => {
-	res.render("restricoes");
+	if (req.session.login) {
+		const u = new Usuario();
+		u.restricao.listarEspecifica(connection, req.session.login, function (result) {
+			u.restricoes = result;
+			u.restricao.listar(connection, function (result) {
+				res.render(
+					"restricoes",
+					{ restricoes: u.restricoes, lista: result },
+
+				);
+			});
+		});
+	} else {
+		res.redirect("/login");
+	}
+});
+
+app.post("/addrestricao", function (req, res) {
+	const u = new Usuario();
+	u.cpf = req.session.login
+	u.listarCredenciais(connection,function(result){
+		u.curso.id = result[0].curso_id_curso
+		u.restricao.nome = req.body.addrestricao;
+		u.restricao.listar(connection, function (result) {
+			const encontrou = result.find((item) => item.nome_restricao === u.restricao.nome,u.restricao.id = result.id_restricao );
+			if (encontrou) {
+				u.restricao.id = encontrou.id_restricao
+				u.restricao.vincularRestricao(connection,req.session.login,u.curso.id, u.restricao.id)
+				res.redirect('/attrestricoes')
+			} else {
+				console.log(`${u.restricao.nome} não está na lista de restrições.`);
+				u.restricao.adicionar(connection,function(result){
+					u.restricao.id = result.insertId;
+					u.restricao.vincularRestricao(connection,req.session.login,u.curso.id,u.restricao.id)
+					res.redirect('/attrestricoes') 
+				})
+			} 
+		});
+	})
+});
+
+//listarestricoes
+app.get("/listarestricoes", (req, res) => {
+	const u = new Usuario();
+	u.restricao.listar(connection,function(result){
+		res.render("listarestricoes", { restricao: result });
+	})
+});
+app.post("/alimentos", (req, res) => {
+	const buttonClicked = req.body.button;
+	if (buttonClicked === "Novo Alimento") {
+		res.render("addalimento");
+	} else if (buttonClicked === "Atualizar Alimento") {
+	} else if (buttonClicked === "Excluir Alimento") {
+	}
 });
 
 //attsenha

@@ -1,4 +1,5 @@
 const Curso = require("./Curso");
+const RestricaoAlimentar = require("./RestricaoAlimentar");
 
 module.exports = class Usuario {
 	constructor() {
@@ -11,6 +12,7 @@ module.exports = class Usuario {
 		this.caracAlimenticia = "";
 		this.senha = "";
 		this.curso = new Curso();
+		this.restricao = new RestricaoAlimentar();
 	}
 
 	listar(connection, callback) {
