@@ -14,20 +14,15 @@
                 <div class="form-cadastro-content">
                     <h2 class="form-cadastro-titulo">Cadastre-se</h2>
                     <div class="form-cadastro-inputs">
-                        <input type="text" class="form-control" name="nome" placeholder="Primeiro nome:" required
-                            pattern="[A-Za-zÀ-ÿ]{3,}" />
+                        <input type="text" class="form-control" name="nome" placeholder="Primeiro nome:" required/>
 
-                        <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome:" required
-                            pattern="[A-Za-zÀ-ÿ]{3,}" />
+                        <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome:" required/>
 
                         <input type="number" class="form-control" name="matricula" placeholder="Matricula:" required />
 
-                        <input type="tel" class="form-control" name="telefone" placeholder="Telefone:" required
-                            pattern="\(\d{2}\) \d{5}-\d{4}|\d{11}|\(\d{2}\) \d{9}|\d{2} \d{9}" />
+                        <input type="tel" class="form-control" name="telefone" placeholder="Telefone:" required/>
 
-                        <input type="text" class="form-control" name="cpf" placeholder="CPF:" required
-                         /><!-- pattern="\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11}"-->
-
+                        <input type="text" class="form-control" name="cpf" placeholder="CPF:" required/>
                         <input type="email" class="form-control" name="email" placeholder="Email:" required />
 
                         <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha:" required >
@@ -37,15 +32,9 @@
                     <div class="form-cadastro-select">
                         <select type="text" name="curso" class="select" required>
                             <option value="#" disabled selected>Selecione seu curso:</option>
-                            <option value="1">Técnico em Informática</option>
-                            <option value="2">Técnico em Eletrônica</option>
-                            <option value="3">Técnico em Lazer</option>
-                            <option value="4">Técnico em Turismo</option>
-                            <option value="5">Analise de Sistemas</option>
-                            <option value="6">Letras</option>
-                            <option value="7">PROEJA</option>
-                            <option value="8">Agroecologia</option>
-                            <option value="9">Servidor/Funcionário</option>
+                            <%cursos.forEach((c)=>{%>
+                                <option value="<%=c.id_curso%>"><%=c.nome%></option>
+                            <%})%>
                         </select>
                     </div>
                     <div class="form-cadastro-inputs-radio">

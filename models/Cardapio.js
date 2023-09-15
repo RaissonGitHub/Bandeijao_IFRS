@@ -32,6 +32,7 @@ module.exports = class Cardapio {
 		  c.id_cardapio,
 		  c.dia,
 		  c.tipo,
+		  c.imagem,
 		  c.descricao,
 		  c.valor,
 		  a.id_alimento,
@@ -58,7 +59,6 @@ module.exports = class Cardapio {
 		});
 	}
 	listaEspecifica(connection, id, callback) {
-		//mudar o sql
 		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,
 		a.id_alimento,
 		a.nome AS nome_alimento,

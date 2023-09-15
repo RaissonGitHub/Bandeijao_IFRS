@@ -30,6 +30,7 @@
                         <table id="cardapios-table-content">
                             <tr>
                                 <th>Seleção</th>
+                                <th>Numero do Cardapio</th>
                                 <th>Dia</th>
                                 <th>Tipo</th>
                                 <th>Valor</th>
@@ -39,6 +40,8 @@
                                 <% const cardapio = cardapios[cardapioId]; %>
                                 <tr>
                                     <td><input type="checkbox" name="checkbox" value="<%= cardapio.id_cardapio%>" /></td>
+
+                                    <td><%= cardapio.id_cardapio%></td>
 
                                     <td>
                                         <%= cardapio.dia %>
@@ -62,7 +65,7 @@
                                     <input type="checkbox" name="checkbox" value="<%= cardapio.id_cardapio%>">
                                 </div>
                                 <div class="card-img">
-                                    <img src="img/bife.png" alt="">
+                                    <img src="<%= cardapio.imagem%>" alt="">
                                 </div>
                                 <div class="card-info">
                                     <span>Dia:<%= cardapio.dia %></span>

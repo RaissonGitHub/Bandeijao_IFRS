@@ -4,12 +4,15 @@ class RestricaoAlimentar {
    }
 
 
-   adicionar(){
+   adicionar(connection){
 
    }
 
-   listar(){
-
-
+   listar(connection,callback){
+    const sql = "SELECT * FROM restricao_alimentar"
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        return callback(result)
+    })
    }
 }

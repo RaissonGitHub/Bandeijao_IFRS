@@ -81,7 +81,10 @@ app.get("/", function (req, res) {
 
 //Cadastro
 app.get("/cadastro", function (req, res) {
-	res.render("cadastro");
+	const c = new Curso();
+	c.listar(connection,function(result){
+		res.render("cadastro", {cursos:result});
+	})
 });
 
 //Cadastro post
@@ -118,7 +121,10 @@ app.get("/usuarios", (req, res) => {
 app.post("/usuarios", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Usuário") {
-		res.render("cadastro");
+		const c = new Curso();
+		c.listar(connection,function(result){
+		res.render("cadastro", {cursos:result});
+		})
 	} else if (buttonClicked === "Atualizar Usuário") {
 	} else if (buttonClicked === "Excluir Usuário") {
 	}
@@ -194,6 +200,7 @@ app.get("/listacardapio", (req, res) => {
 				(cardapios[cardapioId].id_cardapio = cardapioId),
 					(cardapios[cardapioId].dia = row.dia),
 					(cardapios[cardapioId].tipo = row.tipo),
+					(cardapios[cardapioId].imagem = row.imagem),
 					(cardapios[cardapioId].descricao = row.descricao),
 					(cardapios[cardapioId].valor = row.valor),
 					(cardapios[cardapioId].alimentos = []);
@@ -328,14 +335,11 @@ app.post("/pedidos", function (req, res) {
 
 //listapedido
 app.get("/listapedido", function (req, res) {
-	if (req.session.login) {
+	
 		const p = new Pedido();
 		p.listarTodos(connection, function (result) {
 			res.render("listapedidos", { pedido: result });
 		});
-	} else {
-		res.redirect("/login");
-	}
 });
 app.post("/listapedido", function (req, res) {
 	if (req.session.login) {

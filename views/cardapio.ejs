@@ -34,7 +34,7 @@
                     <%cardapios.forEach((c,index)=>{%>
                         <%if(c.tipo==="onivoro" ){%>
                             <div class="cardapio-prato-carnivoro">
-                                <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                                <img class="cardapio-prato-img" src="<%=c.imagem%>" alt="">
                                 <div class="cardapio-prato-nome-desc">
                                     <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
                                     <p>
@@ -48,7 +48,7 @@
                             <%}%>
                                 <%if(c.tipo==="vegetariano" ){%>
                                     <div class="cardapio-prato-vegetariano" style="display: none;">
-                                        <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                                        <img class="cardapio-prato-img" src="<%=c.imagem%>" alt="">
                                         <div class="cardapio-prato-nome-desc">
                                             <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
                                             <p>
@@ -63,7 +63,7 @@
 
                                         <%if(c.tipo=="vegano" ){%>
                                             <div class="cardapio-prato-vegano" style="display: none;">
-                                                <img class="cardapio-prato-img" src="/img/pizza.jpg" alt="">
+                                                <img class="cardapio-prato-img" src="<%=c.imagem%>" alt="">
                                                 <div class="cardapio-prato-nome-desc">
                                                     <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
                                                     <p>

@@ -30,6 +30,7 @@
                             <tr>
                                 <th>Seleção</th>
                                 <th>N° Pedido</th>
+                                <th>CPF usuário</th>
                                 <th>Data emissão</th>
                                 <th>Pagamento</th>
                             </tr>
@@ -39,6 +40,7 @@
                                     <td>
                                         <%= p.id_pedido %>
                                     </td>
+                                    <td><%=p.usuario_cpf%></td>
                                     <td>
                                         <%= p.data_emissao.getDate() %>/
                                         <%= p.data_emissao.getMonth() + 1 %>/
