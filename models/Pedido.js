@@ -22,28 +22,27 @@ module.exports = class Pedido {
 			return callback(result);
 		});
 	}
-  listarPedido(connection, id, callback) {
+	listarPedido(connection, id, callback) {
 		const sql = "select * from pedido where id_pedido = ? AND usuario_cpf = ?";
 
-		connection.query(sql, [id,this.usuario.cpf], function (err, result) {
+		connection.query(sql, [id, this.usuario.cpf], function (err, result) {
 			if (err) throw err;
 			return callback(result);
 		});
 	}
-	fazerPedido(connection, id,callback) {
+	fazerPedido(connection, id, callback) {
 		const sql =
 			"insert into pedido (data_emissao,pagamento,usuario_cpf,usuario_curso_id_curso,cardapio_id_cardapio,observacao) VALUES (NOW(),?,?,?,?,?)";
-		connection.query(sql, [this.pagamento, this.usuario.cpf, this.usuario.curso.nome, id, this.observacao], 
-      function (err,result) {
-        if(err) {
-          throw err;
-        } else {
-          const novoID = result.insertId;
-          callback(novoID); // Chama o callback com o novo ID
-        }
+		connection.query(sql, [this.pagamento, this.usuario.cpf, this.usuario.curso.nome, id, this.observacao], function (err, result) {
+			if (err) {
+				throw err;
+			} else {
+				const novoID = result.insertId;
+				callback(novoID); // Chama o callback com o novo ID
+			}
 		});
 	}
-	pagarPedido(connection,id) {
+	pagarPedido(connection, id) {
 		const sql = `UPDATE pedido
     SET pagamento = 'pago'
     WHERE id_pedido = ?;`;

@@ -24,7 +24,10 @@ module.exports = class Usuario {
 	}
 
 	listarCredenciais(connection, callback) {
-		const sql = "Select * from usuario where cpf = ?";
+		const sql = `SELECT usuario.*, curso.nome AS nome_curso
+		FROM usuario
+		INNER JOIN curso ON usuario.curso_id_curso = curso.id_curso
+		where cpf = ?`;
 		connection.query(sql, [this.cpf], function (err, result) {
 			if (err) throw err;
 			return callback(result);

@@ -67,7 +67,7 @@ app.get("/perfil", (req, res) => {
 		u.cpf = req.session.login;
 		u.listarCredenciais(connection, function (result) {
 			//mudar esse result[0]
-			res.render("perfil", { usuario: result[0] });
+			res.render("perfil", { usuario: result[0]},console.log(result[0]));
 		});
 	} else {
 		res.redirect("/login");
@@ -424,6 +424,7 @@ app.post("/addalimento", (req, res) => {
 	res.render("sucesso");
 });
 
+// a fazer
 //attrestricoes
 app.get("/attrestricoes", (req, res) => {
 	res.render("restricoes");
