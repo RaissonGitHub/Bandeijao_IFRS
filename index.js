@@ -11,6 +11,7 @@ const Usuario = require("./models/Usuario");
 const Cardapio = require("./models/Cardapio");
 const Curso = require("./models/Curso");
 const Alimento = require("./models/Alimento");
+const Mensagem = require("./models/Mensagem");
 const RestricaoAlimentar = require("./models/RestricaoAlimentar");
 
 //Configuração do banco
@@ -533,7 +534,6 @@ app.get("/listarestricoes", (req, res) => {
 });
 app.post("/listarestricoes", (req, res) => {
 	const buttonClicked = req.body.button;
-	console.log(buttonClicked);
 	if (buttonClicked === "Nova Restrição") {
 		res.render("addrestricao");
 	} else if (buttonClicked === "Atualizar Restrição") {
@@ -580,3 +580,30 @@ app.get("/feedback", (req, res) => {
 		res.redirect("/login");
 	}
 });
+app.post("/feedback", (req, res) => {
+	const u = new Usuario();
+	u.cpf = req.session.login
+	u.mensagem.assunto = req.body.assunto
+	u.mensagem.mensagem = req.body.mensagem
+	u.listarCredenciais(connection,function(result){
+		u.curso.nome = result[0].curso_id_curso
+		u.mensagem.cadastrar(connection,u.cpf,u.curso.nome)
+		res.render('sucesso',{mensagem:"Mensagem enviada", link:"/listafeedback"})
+	})
+});
+
+//listafeedback
+app.get('/listafeedback', (req,res)=>{
+	const u = new Usuario();
+	u.mensagem.listar(connection,function(result){
+		res.render("listafeedback", {mensgens:result})
+	})
+})
+app.post('/listafeedback', (req,res)=>{
+	const buttonClicked = req.body.button;
+	if (buttonClicked === "Nova Mensagem") {
+		res.redirect("/feedback");
+	} else if (buttonClicked === "Atualizar Mensagem") {
+	} else if (buttonClicked === "Excluir Mensagem") {
+	}
+})

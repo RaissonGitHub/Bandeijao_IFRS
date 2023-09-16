@@ -1,4 +1,5 @@
 const Curso = require("./Curso");
+const Mensagem = require("./Mensagem");
 const RestricaoAlimentar = require("./RestricaoAlimentar");
 
 module.exports = class Usuario {
@@ -12,10 +13,11 @@ module.exports = class Usuario {
 		this.caracAlimenticia = "";
 		this.senha = "";
 		this.curso = new Curso();
+		this.mensagem = new Mensagem()
 		this.restricao = new RestricaoAlimentar();
 	}
 
-	//listar informações do usuarios e o nome de seu curso
+	//listar informações dos usuarios e o nome de seu curso
 	listar(connection, callback) {
 		const sql =
 			"SELECT u.cpf, u.nome, u.sobrenome, u.matricula, u.telefone, u.email, u.caracteristica_alimenticia, c.nome AS nome_curso FROM usuario AS u INNER JOIN curso AS c ON u.curso_id_curso = c.id_curso";
