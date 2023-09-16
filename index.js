@@ -420,8 +420,8 @@ app.post("/addalimento", (req, res) => {
 });
 
 
-//attrestricoes
-app.get("/attrestricoes", (req, res) => {
+//restricao
+app.get("/restricao", (req, res) => {
 	if (req.session.login) {
 		const u = new Usuario();
 		u.restricao.listarEspecifica(connection, req.session.login, function (result) {
@@ -439,7 +439,7 @@ app.get("/attrestricoes", (req, res) => {
 	}
 });
 
-app.post("/addrestricao", function (req, res) {
+app.post("/restricao", function (req, res) {
 	const u = new Usuario();
 	u.cpf = req.session.login
 	u.listarCredenciais(connection,function(result){
@@ -450,13 +450,13 @@ app.post("/addrestricao", function (req, res) {
 			if (encontrou) {
 				u.restricao.id = encontrou.id_restricao
 				u.restricao.vincularRestricao(connection,req.session.login,u.curso.id, u.restricao.id)
-				res.redirect('/attrestricoes')
+				res.redirect('/restricao')
 			} else {
 				console.log(`${u.restricao.nome} não está na lista de restrições.`);
 				u.restricao.adicionar(connection,function(result){
 					u.restricao.id = result.insertId;
 					u.restricao.vincularRestricao(connection,req.session.login,u.curso.id,u.restricao.id)
-					res.redirect('/attrestricoes') 
+					res.redirect('/restricao') 
 				})
 			} 
 		});
@@ -470,14 +470,33 @@ app.get("/listarestricoes", (req, res) => {
 		res.render("listarestricoes", { restricao: result });
 	})
 });
-app.post("/alimentos", (req, res) => {
+app.post("/listarestricoes", (req, res) => {
 	const buttonClicked = req.body.button;
-	if (buttonClicked === "Novo Alimento") {
-		res.render("addalimento");
-	} else if (buttonClicked === "Atualizar Alimento") {
-	} else if (buttonClicked === "Excluir Alimento") {
+	console.log(buttonClicked)
+	if (buttonClicked === "Nova Restrição") {
+		res.render("addrestricao");
+	} else if (buttonClicked === "Atualizar Restrição") {
+	} else if (buttonClicked === "Excluir Restrição") {
 	}
 });
+
+//addrestricao
+app.post('/addrestricao',(req,res)=>{
+	 const r = new RestricaoAlimentar()
+	 r.nome = req.body.nome
+	 r.listar(connection,function(result){
+		console.log(result)
+
+		const encontrou = result.some(item => item.nome_restricao === r.nome);
+		if(encontrou){
+			console.log('Já cadastrado')
+		} else{
+			r.adicionar(connection,function(result){
+				res.render('sucesso')
+			})
+		}
+	 })
+})
 
 //attsenha
 app.get("/attsenha", (req, res) => {

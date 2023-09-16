@@ -29,16 +29,16 @@
                         <table id="pedidos-table-content">
                             <tr>
                                 <th>Seleção</th>
-                                <th>N° Restrição</th>
+                                <th>N° Pedido</th>
                                 <th>CPF usuário</th>
                                 <th>Data emissão</th>
                                 <th>Pagamento</th>
                             </tr>
-                            <%restricao.forEach((r,index)=> { %>
+                            <%pedido.forEach((p,index)=> { %>
                                 <tr>
-                                    <td><input type="checkbox" name="checkbox" value="<%=r.id_restricao%>" /></td>
+                                    <td><input type="checkbox" name="checkbox" value="<%=p.id_pedido%>" /></td>
                                     <td>
-                                        <%= r.id_restricao %>
+                                        <%= p.id_pedido %>
                                     </td>
                                     <td><%=p.usuario_cpf%></td>
                                     <td>

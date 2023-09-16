@@ -10,10 +10,10 @@
     <nav><%- include('../partials/nav') %></nav>
 
     <div class="container">
-        <h1 class="pedido-h1">Pedidos</h1>
+        <h1 class="pedido-h1">Restrições</h1>
         <hr class="pedido-hr" />
         <div class="form-pedidos">
-            <form action="/listapedido" method="post">
+            <form action="/listarestricoes" method="post">
                 <div class="form-pedidos-content">
                     <div class="form-pedidos-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
@@ -21,36 +21,25 @@
                         <button id="filtrar">Filtrar</button>
                     </div>
                     <div class="form-pedidos-buttons">
-                        <input type="submit" id="inserir" class="buttons" name="button" value="Novo Pedido" />
-                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Pedido" />
-                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Pedido" />
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Nova Restrição" />
+                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Restrição" />
+                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Restrição" />
                     </div>
                     <div class="form-pedidos-table">
                         <table id="pedidos-table-content">
                             <tr>
                                 <th>Seleção</th>
-                                <th>N° Pedido</th>
-                                <th>CPF usuário</th>
-                                <th>Data emissão</th>
-                                <th>Pagamento</th>
+                                <th>N° Restrição</th>
+                                <th>Nome</th>
                             </tr>
-                            <%pedido.forEach((p,index)=> { %>
+                            <%restricao.forEach((r,index)=> { %>
                                 <tr>
-                                    <td><input type="checkbox" name="checkbox" value="<%=p.id_pedido%>" /></td>
+                                    <td><input type="checkbox" name="checkbox" value="<%=r.id_restricao%>" /></td>
                                     <td>
-                                        <%= p.id_pedido %>
-                                    </td>
-                                    <td><%=p.usuario_cpf%></td>
-                                    <td>
-                                        <%= p.data_emissao.getDate() %>/
-                                        <%= p.data_emissao.getMonth() + 1 %>/
-                                        <%= p.data_emissao.getFullYear() %>
-                                        <%= String(p.data_emissao.getHours()).padStart(2, '0' ) %>:
-                                        <%=String(p.data_emissao.getMinutes()).padStart(2, '0' ) %>
-                                        <%#Resultado experado 12 /12 /2023 00 :00%>
+                                        <%= r.id_restricao %>
                                     </td>
                                     <td>
-                                        <%= p.pagamento %>
+                                        <%= r.nome_restricao %>
                                     </td>
                                 </tr>
                                 <%})%>
