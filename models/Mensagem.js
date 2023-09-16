@@ -3,4 +3,10 @@ module.exports = class Mensagem{
         this.assunto = "";
         this.mensagem = "";
     }
+    listar(connection,callback){
+
+    }
+    cadastrar(connection){
+        
+    }
 }

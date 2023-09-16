@@ -474,7 +474,7 @@ app.post("/addalimento", (req, res) => {
 	//cadastrar
 	a.cadastrar(connection);
 	//carregar a pagina de sucesso
-	res.render("sucesso", { mensagem: "Alimento cadastrado com sucesso!", link: "/alimento" });
+	res.render("sucesso", { mensagem: "Alimento cadastrado com sucesso!", link: "/alimentos" });
 });
 
 //restricao
