@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header') %></header>
+    <nav><%- include('../partials/nav') %></nav>
+
+    <div class="container">
+        <h1 class="pedido-h1">Mensagens</h1>
+        <hr class="pedido-hr" />
+        <div class="form-pedidos">
+            <form action="/listafeedback" method="post">
+                <div class="form-pedidos-content">
+                    <div class="form-pedidos-filtro">
+                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                        <input type="text" id="filtro" />
+                        <button id="filtrar">Filtrar</button>
+                    </div>
+                    <div class="form-pedidos-buttons">
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Nova Mensagem" />
+                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Mensagem" />
+                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Mensagem" />
+                    </div>
+                    <div class="form-pedidos-table">
+                        <table id="pedidos-table-content">
+                            <tr>
+                                <th>Seleção</th>
+                                <th>N° mensagem</th>
+                                <th>CPF autor</th>
+                                <th>Assunto</th>
+                                <th>Mensagem</th>
+                            </tr>
+                            <%mensgens.forEach((m,index)=> { %>
+                                <tr>
+                                    <td><input type="checkbox" name="checkbox" value="<%=m.id_mensagem%>" /></td>
+                                    <td>
+                                        <%= m.id_mensagem %>
+                                    </td>
+                                    <td>
+                                        <%= m.usuario_cpf %>
+                                    </td>
+                                    <td>
+                                        <%= m.assunto %>
+                                    </td>
+                                    <td>
+                                        <%= m.mensagem %>
+                                    </td>
+                                </tr>
+                                <%})%>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <%- include('../partials/footer')%>
+    </footer>
+</body>
+
+</html>

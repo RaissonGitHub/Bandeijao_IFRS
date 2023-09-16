@@ -13,7 +13,7 @@
         <h1 class="usuario-h1">Usuários</h1>
         <hr class="usuario-hr" />
         <div class="form-usuario">
-            <form action="" method="post">
+            <form action="/usuarios" method="post">
                 <div class="form-usuario-content">
                     <div class="form-usuario-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
@@ -29,25 +29,44 @@
                         <table id="usuario-table-content">
                             <tr>
                                 <th>Seleção</th>
-                                <th>N. Usuário</th>
                                 <th>CPF</th>
+                                <th>Nome</th>
                                 <th>Matrícula</th>
                                 <th>Carac. Alimenticia</th>
                                 <th>Curso</th>
-                                <th>Email</th>
                                 <th>Telefone</th>
+                                <th>Email</th>
                             </tr>
                             
-                            <tr>
-                                <td><input type="checkbox" id="" /></td>
-                                <td>p.id_pedido </td>
-                                <td>Bla bla</td>
-                                <td>p.data_emissao </td>
-                                <td> p.pagamento </td>
-                                <td> p.pagamento </td>
-                                <td> p.pagamento </td>
-                                <td> p.pagamento </td>
-                            </tr>
+                            <% usuario.forEach((u, index)=> { %>
+                                <tr>
+                                    <td><input type="checkbox" id="u.cpf" /></td>
+
+                                    <td>
+                                        <%= u.cpf %>
+                                    </td>
+                                    <td>
+                                        <%= u.nome %>
+                                    </td>
+                                    <td>
+                                        <%= u.matricula %>
+                                    </td>
+                                   
+                                    <td>
+                                        <%= u.caracteristica_alimenticia %>
+                                    </td>
+                                    <td>
+                                        <%=u.nome_curso%>
+                                    </td>
+                                    <td>
+                                        <%= u.telefone %>
+                                    </td>
+                                    <td>
+                                        <%= u.email %>
+                                    </td>
+                                    
+                                </tr>
+                                <% }) %>
                         </table>
                     </div>
                 </div>

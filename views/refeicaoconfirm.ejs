@@ -15,27 +15,31 @@
 
     <div class="container">
         <div class="refeicao-confirm">
+            <form action="/realizarpedido" method="post">
             <div class="refeicao-confirm-content">
                 <div class="refeicao-confirm-nome-tipo">
-                    <h3>Pedido</h3>
-                    <h2>Prato</h2>
-                    <span>Preço: R$ 2,00</span>
-                    <span>Tipo: carnivoro</span>
+                    <h2>Pedido</h2>
+                    <span>Preço: R$ <%=cardapio.valor.toFixed(2)%></span>
+                    <span>Tipo: <%=cardapio.tipo%></span>
                 </div>
                 <div class="refeicao-confirm-ingredientes">
                     <span>Itens:</span>
                     <div class="refeicao-confirm-itens">
                         <ul>
-                            <li>Tomate</li>
-                            <li>Massa</li>
-                            <li>Queijo</li>
+                            <%cardapio.alimentos.forEach((alimento)=>{%>
+                                <li><%=alimento.nome%> - <%=alimento.unidade%>-<%=alimento.valorNutricional%></li>
+							<%})%>
                         </ul>
+                    </div>
+                    <div>
+                        <label for="observacao">Observação:</label> <br>
+                        <textarea name="observacao" id="observacao" cols="30" rows="10"></textarea>
                     </div>
                 </div>
 
                 <div class="refeicao-confirm-buttons">
                     <input class="refeicao-confirm-irpagamento"type="submit" value="Ir para pagamento">
-                    <a class="refeicao-confirm-a" href="#">Cancelar</a>
+                    <a class="refeicao-confirm-a" href="/cardapio">Cancelar</a>
                 </div>
                 </form>
             </div>

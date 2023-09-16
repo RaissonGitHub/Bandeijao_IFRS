@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header') %></header>
+    <nav><%- include('../partials/nav') %></nav>
+
+    <div class="container">
+        <h1 class="cardapios-h1">Cardapios</h1>
+        <hr class="cardapios-hr" />
+        <div class="form-cardapios">
+            <form action="/listacardapio" method="post">
+                <div class="form-cardapios-content">
+                    <div class="form-cardapios-filtro">
+                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                        <input type="text" id="filtro" />
+                        <button id="filtrar">Filtrar</button>
+                    </div>
+                    <div class="form-cardapios-buttons">
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Novo Cardapio" />
+                        <input type="submit" id="addalimento" class="buttons" name="button" value="Adicionar Alimento" />
+                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Cardapio" />
+                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Cardapio" />
+                    </div>
+                    <div class="form-cardapios-table">
+                        <table id="cardapios-table-content">
+                            <tr>
+                                <th>Seleção</th>
+                                <th>Numero do Cardapio</th>
+                                <th>Dia</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                            </tr>
+
+                            <%for (const cardapioId in cardapios) { %>
+                                <% const cardapio = cardapios[cardapioId]; %>
+                                <tr>
+                                    <td><input type="checkbox" name="checkbox" value="<%= cardapio.id_cardapio%>" /></td>
+
+                                    <td><%= cardapio.id_cardapio%></td>
+
+                                    <td>
+                                        <%= cardapio.dia %>
+                                    </td>
+                                    <td>
+                                        <%= cardapio.tipo %>
+                                    </td>
+                                    <td>
+                                        <%= cardapio.valor %>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </table>
+                    </div>
+                    <div class="cardapios-card-list">
+                        <%for (const cardapioId in cardapios) { %>
+                            <% const cardapio = cardapios[cardapioId]; %>
+                        <div class="cardapios-card">    
+                            <div class="cardapios-card-content">
+                                <div class="div-checkbox">
+                                    <input type="checkbox" name="checkbox" value="<%= cardapio.id_cardapio%>">
+                                </div>
+                                <div class="card-img">
+                                    <img src="<%= cardapio.imagem%>" alt="">
+                                </div>
+                                <div class="card-info">
+                                    <span>Dia:<%= cardapio.dia %></span>
+                                    <span>Tipo:<%= cardapio.tipo %></span>
+                                    <span>Valor:<%= cardapio.valor %></span>
+                                </div>
+                                <div class="card-itens">
+                                    <span>Itens:</span>
+                                    <ul>
+                                        <%cardapio.alimentos.forEach((alimento) => {%>
+                                        <li><%= alimento.nome%></li>
+                                        <%})%>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <%}%>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <%- include('../partials/footer')%>
+    </footer>
+</body>
+
+</html>

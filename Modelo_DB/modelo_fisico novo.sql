@@ -23,7 +23,7 @@ USE `bandeijao` ;
 CREATE TABLE IF NOT EXISTS `bandeijao`.`curso` (
   `id_curso` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NOT NULL,
-  `tempo` DATE NOT NULL,
+  `tempo` VARCHAR(60) NOT NULL,
   `modalidade` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_curso`))
 ENGINE = InnoDB;

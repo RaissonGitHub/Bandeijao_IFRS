@@ -13,7 +13,7 @@
         <h1 class="pedido-h1">Pedidos</h1>
         <hr class="pedido-hr" />
         <div class="form-pedidos">
-            <form action="" method="post" style="overflow: auto;">
+            <form action="/listapedido" method="post">
                 <div class="form-pedidos-content">
                     <div class="form-pedidos-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
@@ -30,9 +30,9 @@
                             <tr>
                                 <th>Seleção</th>
                                 <th>N° Pedido</th>
+                                <th>CPF usuário</th>
                                 <th>Data emissão</th>
                                 <th>Pagamento</th>
-                                <th>Obs</th>
                             </tr>
                             <%pedido.forEach((p,index)=> { %>
                                 <tr>
@@ -40,20 +40,18 @@
                                     <td>
                                         <%= p.id_pedido %>
                                     </td>
+                                    <td><%=p.usuario_cpf%></td>
                                     <td>
                                         <%= p.data_emissao.getDate() %>/
-                                            <%= p.data_emissao.getMonth() + 1 %>/
-                                                <%= p.data_emissao.getFullYear() %>
-                                                    <%= String(p.data_emissao.getHours()).padStart(2, '0' ) %>:
-                                                        <%=String(p.data_emissao.getMinutes()).padStart(2, '0' ) %>
+                                        <%= p.data_emissao.getMonth() + 1 %>/
+                                        <%= p.data_emissao.getFullYear() %>
+                                        <%= String(p.data_emissao.getHours()).padStart(2, '0' ) %>:
+                                        <%=String(p.data_emissao.getMinutes()).padStart(2, '0' ) %>
+                                        <%#Resultado experado 12 /12 /2023 00 :00%>
                                     </td>
-                                    <%#Resultado experado 12 /12 /2023 00 :00%>
-                                        <td>
-                                            <%= p.pagamento %>
-                                        </td>
-                                        <td>
-                                            <%= p.observacao%>
-                                        </td>
+                                    <td>
+                                        <%= p.pagamento %>
+                                    </td>
                                 </tr>
                                 <%})%>
                         </table>
