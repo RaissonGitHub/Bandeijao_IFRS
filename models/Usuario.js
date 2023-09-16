@@ -15,6 +15,7 @@ module.exports = class Usuario {
 		this.restricao = new RestricaoAlimentar();
 	}
 
+	//listar informações do usuarios e o nome de seu curso
 	listar(connection, callback) {
 		const sql =
 			"SELECT u.cpf, u.nome, u.sobrenome, u.matricula, u.telefone, u.email, u.caracteristica_alimenticia, c.nome AS nome_curso FROM usuario AS u INNER JOIN curso AS c ON u.curso_id_curso = c.id_curso";
@@ -25,6 +26,7 @@ module.exports = class Usuario {
 		});
 	}
 
+	//listar informações de um usuario especifico pelo cpf
 	listarCredenciais(connection, callback) {
 		const sql = `SELECT usuario.*, curso.nome AS nome_curso
 		FROM usuario
@@ -36,6 +38,7 @@ module.exports = class Usuario {
 		});
 	}
 
+	//cadastrar um usuario
 	cadastrar(connection) {
 		const sql =
 			"INSERT INTO usuario (cpf,nome,sobrenome,matricula,telefone,email,caracteristica_alimenticia,curso_id_curso,senha) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -48,6 +51,7 @@ module.exports = class Usuario {
 		);
 	}
 
+	//verificar se o cpf e a senha batem com os dados do banco
 	verificarCredenciais(connection, cpf, senha, callback) {
 		const query = "SELECT * FROM usuario WHERE cpf = ? AND senha = ?";
 		connection.query(query, [cpf, senha], (error, results) => {

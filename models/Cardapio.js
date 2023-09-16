@@ -10,6 +10,7 @@ module.exports = class Cardapio {
 		this.alimentos = [];
 	}
 
+	//listar todos os cardapios do banco
 	listar(connection, callback) {
 		const sql = "select * from cardapio";
 
@@ -19,6 +20,7 @@ module.exports = class Cardapio {
 		});
 	}
 
+	//inserir cardapios no banco
 	inserir(connection) {
 		const sql = "INSERT INTO cardapio (dia,imagem,tipo,descricao,valor) VALUES(?,?,?,?,?)";
 		connection.query(sql, [this.dia, this.imagem, this.tipo, this.descricao, this.valor], function (err, result) {
@@ -26,7 +28,8 @@ module.exports = class Cardapio {
 		});
 	}
 
-	lista2(connection, callback) {
+	//listar cardapios e seus alimentos associados
+	listarCardapioseAlimentos(connection, callback) {
 		const sql = `
 		SELECT 
 		  c.id_cardapio,
@@ -52,12 +55,14 @@ module.exports = class Cardapio {
 		});
 	}
 
+	//vincular alimentos a um cardapio
 	inserirAlimentoNoCardapio(connection, alimento) {
 		const sql = "INSERT INTO cardapio_has_alimento (cardapio_id_cardapio,alimento_id_alimento) VALUES(?,?)";
 		connection.query(sql, [this.id, alimento], function (err) {
 			if (err) throw err;
 		});
 	}
+	//listar um cardapio especifico e seus alimentos associados
 	listaEspecifica(connection, id, callback) {
 		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,
 		a.id_alimento,

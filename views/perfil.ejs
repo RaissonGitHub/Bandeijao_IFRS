@@ -29,24 +29,9 @@
 			<div class="restricoes-ali">
 				<div class="restricoes-ali-content">
 					<span class="span-restricoes">Restrições Alimentares:</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
-					<span class="span-dados">Ovo;</span>
+					<%restricoes.forEach((r)=>{%>
+						<span class="span-dados"><%=r.nome_restricao%>;</span>
+					<%})%>
 				</div>
 			</div>
 			<a href="/restricao" class="perfil-att-a-button">Atualizar Restrições</a>
