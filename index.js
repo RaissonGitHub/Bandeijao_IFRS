@@ -67,7 +67,6 @@ app.get("/perfil", (req, res) => {
 		const u = new Usuario();
 		u.cpf = req.session.login;
 		u.listarCredenciais(connection, function (result) {
-			//mudar esse result[0]
 			res.render("perfil", { usuario: result[0] }, console.log(result[0]));
 		});
 	} else {
@@ -105,7 +104,7 @@ app.post("/cadastro", function (req, res) {
 
 	if (buttonClicked === "Enviar") {
 		u.cadastrar(connection);
-		res.render("sucesso");
+		res.render("sucesso",{mensagem:"Cadastro concluido com sucesso!",link:"/perfil"});
 	} else if (buttonClicked === "Cancelar") {
 		res.sendFile(__dirname + "/views/cadastro.html");
 	}
@@ -150,7 +149,7 @@ app.post("/addcurso", (req, res) => {
 	c.tempo = req.body.tempo;
 	c.modalidade = req.body.modalidade;
 	c.cadastrar(connection);
-	res.render("sucesso");
+	res.render("sucesso",{mensagem:"Cadastro de curso com sucesso!",link:"/curso"});
 });
 
 //cardapio
@@ -231,7 +230,7 @@ app.post("/addcardapio", (req, res) => {
 	c.tipo = req.body.tipo;
 	c.valor = req.body.valor;
 	c.inserir(connection);
-	res.render("sucesso");
+	res.render("sucesso",{mensagem:"Cadastro de cardapio concluido com sucesso!",link:"/listacardapio"});
 });
 
 //vincalimento
@@ -244,7 +243,7 @@ app.post("/vincalimentos", (req, res) => {
 		for (let a of c.idalimento) {
 			c.inserirAlimentoNoCardapio(connection, a);
 		}
-		res.render("sucesso");
+		res.render("sucesso",{mensagem:"Alimento vinculado com sucesso!",link:"/listacardapio"});
 	} else if (buttonClicked === "Desvincular Alimento") {
 	}
 });
@@ -416,7 +415,7 @@ app.post("/addalimento", (req, res) => {
 	a.unidade = req.body.unidade;
 	a.valorNutricional = req.body.valornutri;
 	a.cadastrar(connection);
-	res.render("sucesso");
+	res.render("sucesso",{mensagem:"Alimento cadastrado com sucesso!",link:"/alimento"});
 });
 
 
@@ -492,7 +491,7 @@ app.post('/addrestricao',(req,res)=>{
 			console.log('Já cadastrado')
 		} else{
 			r.adicionar(connection,function(result){
-				res.render('sucesso')
+				res.render('sucesso',{mensagem:"Restrição adcionada com sucesso!",link:"/listarestricoes"})
 			})
 		}
 	 })

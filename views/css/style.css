@@ -1488,12 +1488,11 @@ a.form-attsenha-button{
 
 }
 
-.card-conclusao-content h2,
-.card-conclusao-content h3 {
+.card-conclusao-content h2 {
     margin: 10px 0px 10px 0px;
 }
 
-.cform-conclusao-content {
+.form-conclusao-content {
     width: 100%;
     display: flex;
     justify-content: center;
