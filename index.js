@@ -148,6 +148,15 @@ app.post("/usuarios", (req, res) => {
 	}
 });
 
+app.post('/filtrarUsuario',(req,res)=>{
+	const u = new Usuario()
+	u.nome = '%'+req.body.filtro+'%'
+	u.filtrarUsuario(connection,function(result){
+		res.render("usuarios", { usuario: result });
+	})
+
+})
+
 //curso
 app.get("/curso", (req, res) => {
 	const c = new Curso();
@@ -407,6 +416,15 @@ app.post("/listapedido", function (req, res) {
 	} else if (buttonClicked === "Excluir Pedido") {
 	}
 });
+
+app.post('/filtrarListaPedidos',(req,res)=>{
+	const p = new Pedido()
+	p.id = '%'+req.body.filtro+'%'
+	p.filtrarPedido(connection,function(result){
+		res.render("listapedidos", { pedido: result });
+	})
+
+})
 
 let pedidoId = ""; //variavel global para armazenar o id de pedidos
 

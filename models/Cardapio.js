@@ -8,7 +8,8 @@ module.exports = class Cardapio {
 		this.descricao = "";
 		this.valor = 0;
 		this.alimentos = [];
-		this.id = 0
+		this.id = 0 
+		this.alimento = new Alimento();
 	}
 
 	//listar todos os cardapios do banco
@@ -32,19 +33,10 @@ module.exports = class Cardapio {
 	//listar cardapios e seus alimentos associados
 	listarCardapioseAlimentos(connection, callback) {
 		const sql = `
-		SELECT 
-		  c.id_cardapio,
-		  c.dia,
-		  c.tipo,
-		  c.imagem,
-		  c.descricao,
-		  c.valor,
-		  a.id_alimento,
-		  a.nome AS nome_alimento,
-		  a.unidade,
-		  a.valor_nutricional
+		SELECT c.id_cardapio, c.dia, c.tipo, c.imagem, c.descricao, c.valor,
+		  a.id_alimento, a.nome AS nome_alimento, a.unidade, a.valor_nutricional
 		FROM	
-		  cardapio AS c
+		  cardapio AS c	
 		LEFT JOIN
 		  cardapio_has_alimento AS cha ON c.id_cardapio = cha.cardapio_id_cardapio
 		LEFT JOIN
