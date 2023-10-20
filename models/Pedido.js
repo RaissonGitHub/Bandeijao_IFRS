@@ -33,6 +33,13 @@ module.exports = class Pedido {
 			return callback(result);
 		});
 	}
+	filtrarPedido(connection,callback){
+		const sql = 'SELECT * from pedido where id_pedido like ?'
+		connection.query(sql,[this.id],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
 	//fazer pedido
 	fazerPedido(connection, id, callback) {
 		const sql =

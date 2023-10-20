@@ -13,13 +13,13 @@
         <h1 class="usuario-h1">Usuários</h1>
         <hr class="usuario-hr" />
         <div class="form-usuario">
-            <form action="/usuarios" method="post">
-                <div class="form-usuario-content">
-                    <div class="form-usuario-filtro">
-                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
-                        <input type="text" id="filtro" />
-                        <button id="filtrar">Filtrar</button>
-                    </div>
+            <div class="form-usuario-content">
+                <div class="form-usuario-filtro">
+                    <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                    <input type="text" id="filtro" />
+                    <button id="filtrar">Filtrar</button>
+                </div>
+                <form action="/usuarios" method="post">
                     <div class="form-usuario-buttons">
                         <input type="submit" id="inserir" class="buttons" name="button" value="Novo Usuário" />
                         <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Usuário" />

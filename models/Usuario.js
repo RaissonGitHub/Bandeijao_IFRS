@@ -71,6 +71,14 @@ module.exports = class Usuario {
 		});
 	}
 
+	filtrarUsuario(connection,callback){
+		const sql = 'SELECT * from usuario where nome like ?'
+		connection.query(sql,[this.nome],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
+
 	atualizar() {}
 	deletar() {}
 };

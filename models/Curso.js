@@ -3,6 +3,7 @@ module.exports = class Curso {
 		this.nome = "";
 		this.tempo = "";
 		this.modalidade = "";
+		this.id = 0
 	}
 	//cadastrar curso
 	cadastrar(connection) {

@@ -35,4 +35,11 @@ module.exports = class RestricaoAlimentar {
             if(err) throw err;
         });
 	}
+	filtrarRestricao(connection,callback){
+		const sql = 'SELECT * from restricao_alimentar where nome_restricao like ?'
+		connection.query(sql,[this.nome],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
 };

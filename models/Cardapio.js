@@ -8,6 +8,7 @@ module.exports = class Cardapio {
 		this.descricao = "";
 		this.valor = 0;
 		this.alimentos = [];
+		this.id = 0
 	}
 
 	//listar todos os cardapios do banco

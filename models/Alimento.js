@@ -24,5 +24,13 @@ module.exports = class Alimento {
          );
          
        }
+
+       filtrarAlimento(connection,callback){
+		const sql = 'SELECT * from alimento where nome like ?'
+		connection.query(sql,[this.nome],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
 }
 

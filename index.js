@@ -265,9 +265,9 @@ app.post("/vincalimentos", (req, res) => {
 	const buttonClicked = req.body.button;
 	const c = new Cardapio();
 	c.id = id; //pega o id do cardapio que foi marcado em /listacardapio
-	c.idalimento = req.body.checkbox; //alimento selecionado com checkbox
+	const ali = req.body.checkbox; //alimento selecionado com checkbox
 	if (buttonClicked === "Adicionar Alimento") {
-		for (let a of c.idalimento) {
+		for (let a of ali) {
 			//para cada alimento selecionado
 			c.inserirAlimentoNoCardapio(connection, a); //vincular ao cardapio
 		}
@@ -377,6 +377,15 @@ app.post("/pedidos", function (req, res) {
 	}
 });
 
+app.post('/filtrarPedidos',(req,res)=>{
+	const p = new Pedido()
+	p.id = '%'+req.body.filtro+'%'
+	p.filtrarPedido(connection,function(result){
+		res.render("pedidos", { pedido: result });
+	})
+
+})
+
 //listapedido
 app.get("/listapedido", function (req, res) {
 	const p = new Pedido();
@@ -462,6 +471,15 @@ app.post("/alimentos", (req, res) => {
 	}
 });
 
+app.post('/filtrarAlimentos',(req,res)=>{
+	const a = new Alimento()
+	a.nome = '%'+req.body.filtro+'%'
+	a.filtrarAlimento(connection,function(result){
+		res.render("alimentos", { alimento: result });
+	})
+
+})
+
 //addalimento
 app.get("/addalimento", (req, res) => {
 	res.render("addalimento");
@@ -540,6 +558,16 @@ app.post("/listarestricoes", (req, res) => {
 	} else if (buttonClicked === "Excluir Restrição") {
 	}
 });
+
+app.post('/filtrarRestricao',(req,res)=>{
+	const r = new RestricaoAlimentar()
+	r.nome = '%'+req.body.filtro+'%'
+	r.filtrarRestricao(connection,function(result){
+		res.render("listarestricoes", { restricao: result });
+	})
+
+})
+
 
 //addrestricao
 app.post("/addrestricao", (req, res) => {
