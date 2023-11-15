@@ -3,6 +3,11 @@
         <a href="/"><img src="/img/logo.png" alt="Bandeijão IFRS"></a>
     </div>
     <div class="login-ancora">
-        <a href="#">Login</a>
+        <%if (logado) {%>
+            <a href="/logout">Logout</a>
+        <%}else {%>
+            <a href="/login">Login</a>
+            <% }%>
+        
     </div>
 </div>

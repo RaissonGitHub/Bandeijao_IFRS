@@ -56,7 +56,7 @@ module.exports = class Usuario {
 	//verificar se o cpf e a senha batem com os dados do banco
 	verificarCredenciais(connection, cpf, senha, callback) {
 		const query = "SELECT * FROM usuario WHERE cpf = ? AND senha = ?";
-		connection.query(query, [cpf, senha], (error, results) => {
+		connection.query(query, [cpf, senha], (error, results,perfil) => {
 			if (error) {
 				console.log(error);
 				return callback(error, null);
@@ -64,7 +64,9 @@ module.exports = class Usuario {
 
 			// Verifica se um usuário com as credenciais fornecidas foi encontrado
 			if (results.length === 1) {
-				return callback(null, results[0]);
+				
+				results[0].perfil == 'user'? perfil  = false: perfil  =true;
+				return callback(null, results[0],perfil );
 			} else {
 				return callback("Credenciais inválidas", null);
 			}

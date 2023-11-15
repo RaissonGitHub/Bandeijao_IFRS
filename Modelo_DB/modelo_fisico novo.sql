@@ -35,6 +35,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `bandeijao`.`usuario` (
   `cpf` VARCHAR(11) NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
+  `perfil` ENUM('adm','user') default 'user',
   `sobrenome` VARCHAR(100) NOT NULL,
   `matricula` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(11) NOT NULL,
@@ -84,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `bandeijao`.`pedido` (
   `data_emissao` DATETIME NOT NULL,
   `pagamento` ENUM('pago', 'pendente') NOT NULL,
   `usuario_cpf` VARCHAR(11) NOT NULL,
+  `ticket` ENUM('usado','desusado') default 'desusado',
   `usuario_curso_id_curso` INT NOT NULL,
   `cardapio_id_cardapio` INT NOT NULL,
   `observacao` VARCHAR(255) NULL,
