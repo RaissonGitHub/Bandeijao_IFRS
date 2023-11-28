@@ -39,20 +39,20 @@ app.listen(3000, function () {
 	console.log("Servidor no ar - Porta 3000!");
 });
 
-var logado = false
-var adm
+var logado = false;
+var adm;
 //req.session.login? logado = true: logado=false
 
 //Rotas
 //login
 app.get("/login", function (req, res) {
 	//Se estiver logado
-	
+
 	if (req.session.login) {
-		 logado = true
-		res.render("index",{logado});
+		logado = true;
+		res.render("index", { logado });
 	} else {
-		logado = false
+		logado = false;
 		res.render("login");
 	}
 });
@@ -63,31 +63,29 @@ app.post("/login", function (req, res) {
 	u.senha = req.body.senha;
 
 	//verifica se os dados batem com os do banco
-	u.verificarCredenciais(connection, u.cpf, u.senha, (error, user,perfil) => {
+	u.verificarCredenciais(connection, u.cpf, u.senha, (error, user, perfil) => {
 		if (error) {
 			return res.render("login");
 		}
 		//logado com sucesso
 		req.session.login = user.cpf; //disponivel durante a sessao
-		req.session.login? logado = true: logado=false
-		adm = perfil
-		res.render("index",{logado,adm});
-
+		req.session.login ? (logado = true) : (logado = false);
+		adm = perfil;
+		res.render("index", { logado, adm });
 	});
 });
 
-app.get('/logout', function(req, res) {
-    // Destrua a sessão para fazer logout
-    req.session.destroy(function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            logado=false
-			res.render("index",{logado,adm});
-        }
-    });
+app.get("/logout", function (req, res) {
+	// Destrua a sessão para fazer logout
+	req.session.destroy(function (err) {
+		if (err) {
+			console.log(err);
+		} else {
+			logado = false;
+			res.render("index", { logado, adm });
+		}
+	});
 });
-
 
 //Perfil
 app.get("/perfil", (req, res) => {
@@ -100,7 +98,7 @@ app.get("/perfil", (req, res) => {
 			const credenciais = result[0];
 			//listagem das restricoes do usuario
 			u.restricao.listarEspecifica(connection, u.cpf, function (result) {
-				res.render("perfil", { usuario: credenciais, restricoes: result,logado,adm });
+				res.render("perfil", { usuario: credenciais, restricoes: result, logado, adm });
 			});
 		});
 	} else {
@@ -111,8 +109,7 @@ app.get("/perfil", (req, res) => {
 
 //Index
 app.get("/", function (req, res) {
-	
-		res.render("index",{logado,adm});
+	res.render("index", { logado, adm });
 });
 
 //Cadastro
@@ -120,7 +117,7 @@ app.get("/cadastro", function (req, res) {
 	const c = new Curso();
 	//listagem dos cursos para serem selecionados no formulario de cadastro de usuario
 	c.listar(connection, function (result) {
-		res.render("cadastro", { cursos: result,logado,adm});
+		res.render("cadastro", { cursos: result, logado, adm });
 	});
 });
 
@@ -144,7 +141,7 @@ app.post("/cadastro", function (req, res) {
 		//cadastrar os dados do formulario
 		u.cadastrar(connection);
 		//carregar pagina de sucesso
-		res.render("sucesso", { logado,adm,mensagem: "Cadastro concluido com sucesso!", link: "/perfil" });
+		res.render("sucesso", { logado, adm, mensagem: "Cadastro concluido com sucesso!", link: "/perfil" });
 	} else if (buttonClicked === "Cancelar") {
 		res.redirect("/");
 	}
@@ -155,7 +152,7 @@ app.get("/usuarios", (req, res) => {
 	const u = new Usuario();
 	//listagem de todos os usuarios
 	u.listar(connection, function (result) {
-		res.render("usuarios", { usuario: result,logado,adm });
+		res.render("usuarios", { usuario: result, logado, adm });
 	});
 });
 
@@ -165,46 +162,79 @@ app.post("/usuarios", (req, res) => {
 		const c = new Curso();
 		//listagem dos cursos para serem selecionados no formulario de cadastro de usuario
 		c.listar(connection, function (result) {
-			res.render("cadastro", { cursos: result,logado,adm });
+			res.render("cadastro", { cursos: result, logado, adm });
 		});
 	} else if (buttonClicked === "Atualizar Usuário") {
 	} else if (buttonClicked === "Excluir Usuário") {
 	}
 });
 
-app.post('/filtrarUsuario',(req,res)=>{
-	const u = new Usuario()
-	u.nome = '%'+req.body.filtro+'%'
-	u.filtrarUsuario(connection,function(result){
-		res.render("usuarios", { usuario: result,logado,adm});
-	})
-
-})
+app.post("/filtrarUsuario", (req, res) => {
+	const u = new Usuario();
+	u.nome = "%" + req.body.filtro + "%";
+	u.filtrarUsuario(connection, function (result) {
+		res.render("usuarios", { usuario: result, logado, adm });
+	});
+});
 
 //curso
 app.get("/curso", (req, res) => {
 	const c = new Curso();
 	//listagem de todos os cursos cadastrados
 	c.listar(connection, function (result) {
-		res.render("cursos", { cursos: result,logado,adm});
+		res.render("cursos", { cursos: result, logado, adm });
 	});
 });
 
+let selecao
+
 app.post("/curso", (req, res) => {
-	res.render("addcurso",{logado,adm});
+	let acao = req.body.button;
+	selecao = req.body.selecao
+
+	if (acao == "Novo Curso") {
+		const c = new Curso();
+		res.render("addcurso", { logado, adm, acao: "Cadastro", envio: "Cadastrar",curso:c });
+	} else {
+		if (acao == "Atualizar Curso") {
+			const c = new Curso();
+			c.id = selecao
+			c.listarCurso(connection,function(result){
+				res.render("addcurso", { logado, adm,acao: "Atualização", envio: "Atualizar", curso:result[0] });
+
+			})
+		} else {
+		}
+	}
 });
 
 //addcurso
 app.post("/addcurso", (req, res) => {
-	const c = new Curso();
-	//obtenção dos dados
-	c.nome = req.body.nome;
-	c.tempo = req.body.tempo;
-	c.modalidade = req.body.modalidade;
-	//cadastrar os dados
-	c.cadastrar(connection);
-	//carregar pagina de sucesso
-	res.render("sucesso", { logado,adm,mensagem: "Cadastro de curso com sucesso!", link: "/curso" });
+	let envio = req.body.button;
+	if (envio == "Enviar") {
+		const c = new Curso();
+		//obtenção dos dados
+		c.nome = req.body.nome;
+		c.tempo = req.body.tempo;
+		c.modalidade = req.body.modalidade;
+		//cadastrar os dados
+		c.cadastrar(connection);
+		//carregar pagina de sucesso
+		res.render("sucesso", { logado, adm, mensagem: "Cadastro de curso com sucesso!", link: "/curso" });
+	}
+	else{
+		if(envio == "Atualizar"){
+			const c = new Curso();
+		//obtenção dos dados
+		c.nome = req.body.nome;
+		c.id =selecao
+		c.tempo = req.body.tempo;
+		c.modalidade = req.body.modalidade;
+		c.atualizar(connection)
+		res.render("sucesso", { logado, adm, mensagem: "Atualização de curso efetuada com sucesso!", link: "/curso" });
+
+		}
+	}
 });
 
 //cardapio
@@ -212,7 +242,7 @@ app.get("/cardapio", (req, res) => {
 	const cardapio = new Cardapio();
 	//listar os cardapios cadastrados
 	cardapio.listar(connection, function (result) {
-		res.render("cardapio", { cardapios: result,logado,adm });
+		res.render("cardapio", { cardapios: result, logado, adm });
 	});
 });
 
@@ -223,7 +253,7 @@ app.post("/listacardapio", (req, res) => {
 	id = c.id; //variavel global para saber qual caixa foi marcada
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Cardapio") {
-		res.render("addcardapio",{logado,adm});
+		res.render("addcardapio", { logado, adm });
 	} else if (buttonClicked === "Atualizar Cardapio") {
 	} else if (buttonClicked === "Adicionar Alimento") {
 		//se um cardapio for marcado
@@ -231,7 +261,7 @@ app.post("/listacardapio", (req, res) => {
 			const a = new Alimento();
 			//listar todos os alimentos disponiveis
 			a.listar(connection, function (result) {
-				res.render("vincalimento", { c: c, alimento: result,logado,adm});
+				res.render("vincalimento", { c: c, alimento: result, logado, adm });
 			});
 		}
 		//se nao foi
@@ -271,13 +301,13 @@ app.get("/listacardapio", (req, res) => {
 			}
 		});
 
-		res.render("listacardapio", { cardapios: cardapios,logado,adm});
+		res.render("listacardapio", { cardapios: cardapios, logado, adm });
 	});
 });
 
 //addcardapio
 app.get("/addcardapio", (req, res) => {
-	res.render("addcardapio",{logado,adm});
+	res.render("addcardapio", { logado, adm });
 });
 app.post("/addcardapio", (req, res) => {
 	const c = new Cardapio();
@@ -290,7 +320,7 @@ app.post("/addcardapio", (req, res) => {
 	//cadastrar os dados
 	c.inserir(connection);
 	//carregar pagina de sucesso
-	res.render("sucesso", {logado,adm, mensagem: "Cadastro de cardapio concluido com sucesso!", link: "/listacardapio" });
+	res.render("sucesso", { logado, adm, mensagem: "Cadastro de cardapio concluido com sucesso!", link: "/listacardapio" });
 });
 
 //vincalimento (vincular alimentos a um cardapio)
@@ -305,7 +335,7 @@ app.post("/vincalimentos", (req, res) => {
 			c.inserirAlimentoNoCardapio(connection, a); //vincular ao cardapio
 		}
 		//renderizar pagina de sucesso
-		res.render("sucesso", {logado,adm, mensagem: "Alimento vinculado com sucesso!", link: "/listacardapio" });
+		res.render("sucesso", { logado, adm, mensagem: "Alimento vinculado com sucesso!", link: "/listacardapio" });
 	} else if (buttonClicked === "Desvincular Alimento") {
 	}
 });
@@ -332,7 +362,7 @@ app.get("/refeicao/:id", (req, res) => {
 			}
 		});
 		//carregue a pagina de refeicao com os dados do cardapio selecionado
-		res.render("refeicao", { cardapio: c,logado,adm});
+		res.render("refeicao", { cardapio: c, logado, adm });
 	});
 });
 
@@ -354,7 +384,7 @@ app.post("/refeicaoconfirm", (req, res) => {
 				(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
 			}
 		});
-		res.render("refeicaoconfirm", { cardapio: c,logado,adm });
+		res.render("refeicaoconfirm", { cardapio: c, logado, adm });
 	});
 });
 
@@ -366,7 +396,7 @@ app.get("/pedidos", function (req, res) {
 		p.usuario.cpf = req.session.login; //obter o cpf do usuario pelo login
 		//listar os pedidos do usuario pelo cpf
 		p.listar(connection, function (result) {
-			res.render("pedidos", { pedido: result,logado,adm});
+			res.render("pedidos", { pedido: result, logado, adm });
 		});
 	} else {
 		//nao logado
@@ -383,7 +413,7 @@ app.post("/pedidos", function (req, res) {
 			const cardapio = new Cardapio();
 			//listar os dados dos cardapios disponiveis
 			cardapio.listar(connection, function (result) {
-				res.render("cardapio", { cardapios: result,logado,adm});
+				res.render("cardapio", { cardapios: result, logado, adm });
 			});
 		} else if (buttonClicked === "Atualizar Pedido") {
 			//aqui se o usuario nao pagou ele pode efetuar o pagamento
@@ -399,7 +429,7 @@ app.post("/pedidos", function (req, res) {
 				} else {
 					//se estiver pendente
 					//mandar para pagcartao onde podera efetuar o pagamento
-					res.render(`pagcartao`,{logado});
+					res.render(`pagcartao`, { logado });
 				}
 			});
 		} else if (buttonClicked === "Excluir Pedido") {
@@ -410,21 +440,20 @@ app.post("/pedidos", function (req, res) {
 	}
 });
 
-app.post('/filtrarPedidos',(req,res)=>{
-	const p = new Pedido()
-	p.id = '%'+req.body.filtro+'%'
-	p.filtrarPedido(connection,function(result){
-		res.render("pedidos", { pedido: result,logado,adm });
-	})
-
-})
+app.post("/filtrarPedidos", (req, res) => {
+	const p = new Pedido();
+	p.id = "%" + req.body.filtro + "%";
+	p.filtrarPedido(connection, function (result) {
+		res.render("pedidos", { pedido: result, logado, adm });
+	});
+});
 
 //listapedido
 app.get("/listapedido", function (req, res) {
 	const p = new Pedido();
 	//listar todos os pedidos registrados
 	p.listarTodos(connection, function (result) {
-		res.render("listapedidos", { pedido: result,logado,adm });
+		res.render("listapedidos", { pedido: result, logado, adm });
 	});
 });
 app.post("/listapedido", function (req, res) {
@@ -434,27 +463,27 @@ app.post("/listapedido", function (req, res) {
 		const cardapio = new Cardapio();
 		//carregar os cardapios disponiveis
 		cardapio.listar(connection, function (result) {
-			res.render("cardapio", { cardapios: result,logado,adm });
+			res.render("cardapio", { cardapios: result, logado, adm });
 		});
 	} else if (buttonClicked === "Atualizar Pedido") {
 	} else if (buttonClicked === "Excluir Pedido") {
 	}
 });
 
-app.post('/filtrarListaPedidos',(req,res)=>{
-	const p = new Pedido()
-	p.id = '%'+req.body.filtro+'%'
-	p.filtrarPedido(connection,function(result){
-		res.render("listapedidos", { pedido: result ,logado,adm});
-	})
-
-})
+app.post("/filtrarListaPedidos", (req, res) => {
+	const p = new Pedido();
+	p.id = "%" + req.body.filtro + "%";
+	p.filtrarPedido(connection, function (result) {
+		res.render("listapedidos", { pedido: result, logado, adm });
+	});
+});
 
 let pedidoId = ""; //variavel global para armazenar o id de pedidos
 
 //realizarpedido
 app.post("/realizarpedido", function (req, res) {
-	if (req.session.login) { //se logado
+	if (req.session.login) {
+		//se logado
 		const p = new Pedido();
 		//pagamento definido como pendente
 		p.pagamento = "pendente";
@@ -468,17 +497,19 @@ app.post("/realizarpedido", function (req, res) {
 			p.fazerPedido(connection, id, function (novoID) {
 				//armazenar o id do pedido recem cadastrado
 				pedidoId = novoID;
-				res.render("pagcartao", { pedidoId: novoID,logado,adm});
+				res.render("pagcartao", { pedidoId: novoID, logado, adm });
 			});
 		});
-	} else { //nao logado
+	} else {
+		//nao logado
 		res.redirect("/login");
 	}
 });
 
 //pagcartao pagina para pagar o pedido (colocar como "pago")
 app.post("/pagcartao", (req, res) => {
-	if (req.session.login) { //se logado
+	if (req.session.login) {
+		//se logado
 		//se os campos não estiver vazios (validação a ser desenvolvida)
 		if (req.body.cartaonumero && req.body.cartaonome && req.body.cartaovalidade && req.body.cartaocvv) {
 			const p = new Pedido();
@@ -488,10 +519,11 @@ app.post("/pagcartao", (req, res) => {
 			//redirecionado para a pagina de pedidos
 			//listar antes de carregar
 			p.listar(connection, function (result) {
-				res.render("pedidos", { pedido: result,logado,adm} );
+				res.render("pedidos", { pedido: result, logado, adm });
 			});
 		}
-	} else {//nao logado
+	} else {
+		//nao logado
 		res.redirect("/login");
 	}
 });
@@ -501,30 +533,29 @@ app.get("/alimentos", (req, res) => {
 	const a = new Alimento();
 	//listar todos os alimentos
 	a.listar(connection, function (result) {
-		res.render("alimentos", { alimento: result ,logado,adm});
+		res.render("alimentos", { alimento: result, logado, adm });
 	});
 });
 app.post("/alimentos", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Alimento") {
-		res.render("addalimento",{logado,adm});
+		res.render("addalimento", { logado, adm });
 	} else if (buttonClicked === "Atualizar Alimento") {
 	} else if (buttonClicked === "Excluir Alimento") {
 	}
 });
 
-app.post('/filtrarAlimentos',(req,res)=>{
-	const a = new Alimento()
-	a.nome = '%'+req.body.filtro+'%'
-	a.filtrarAlimento(connection,function(result){
-		res.render("alimentos", { alimento: result,logado,adm });
-	})
-
-})
+app.post("/filtrarAlimentos", (req, res) => {
+	const a = new Alimento();
+	a.nome = "%" + req.body.filtro + "%";
+	a.filtrarAlimento(connection, function (result) {
+		res.render("alimentos", { alimento: result, logado, adm });
+	});
+});
 
 //addalimento
 app.get("/addalimento", (req, res) => {
-	res.render("addalimento",{logado,adm});
+	res.render("addalimento", { logado, adm });
 });
 app.post("/addalimento", (req, res) => {
 	const a = new Alimento();
@@ -535,22 +566,24 @@ app.post("/addalimento", (req, res) => {
 	//cadastrar
 	a.cadastrar(connection);
 	//carregar a pagina de sucesso
-	res.render("sucesso", { logado,adm,mensagem: "Alimento cadastrado com sucesso!", link: "/alimentos" });
+	res.render("sucesso", { logado, adm, mensagem: "Alimento cadastrado com sucesso!", link: "/alimentos" });
 });
 
 //restricao
 app.get("/restricao", (req, res) => {
-	if (req.session.login) {//se logado
+	if (req.session.login) {
+		//se logado
 		const u = new Usuario();
 		//listar as restrições do usuario
 		u.restricao.listarEspecifica(connection, req.session.login, function (result) {
-			u.restricoes = result;//armazenar as restrições
+			u.restricoes = result; //armazenar as restrições
 			//listar todas as restrições disponiveis
 			u.restricao.listar(connection, function (result) {
-				res.render("restricoes", { restricoes: u.restricoes, lista: result,logado,adm});
+				res.render("restricoes", { restricoes: u.restricoes, lista: result, logado, adm });
 			});
 		});
-	} else { //nao logado
+	} else {
+		//nao logado
 		res.redirect("/login");
 	}
 });
@@ -565,12 +598,14 @@ app.post("/restricao", function (req, res) {
 		//pesquisar se a restrição digitada esta no banco
 		u.restricao.listar(connection, function (result) {
 			const encontrou = result.find((item) => item.nome_restricao === u.restricao.nome, (u.restricao.id = result.id_restricao)); //variavel que procura se a restrição está no banco e tambem retorna seu id
-			if (encontrou) {//se encontrou no banco
+			if (encontrou) {
+				//se encontrou no banco
 				u.restricao.id = encontrou.id_restricao;
 				//vincule o alimento do banco ao usuario
 				u.restricao.vincularRestricao(connection, req.session.login, u.curso.id, u.restricao.id);
 				res.redirect("/restricao");
-			} else {//se nao encontrou no banco
+			} else {
+				//se nao encontrou no banco
 				//adicione a restrição no banco
 				u.restricao.adicionar(connection, function (result) {
 					//pegue o id da restrição recem registrada
@@ -589,27 +624,25 @@ app.get("/listarestricoes", (req, res) => {
 	const u = new Usuario();
 	//listar todas as restricoes do banco
 	u.restricao.listar(connection, function (result) {
-		res.render("listarestricoes", { restricao: result ,logado,adm});
+		res.render("listarestricoes", { restricao: result, logado, adm });
 	});
 });
 app.post("/listarestricoes", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Nova Restrição") {
-		res.render("addrestricao",{logado,adm});
+		res.render("addrestricao", { logado, adm });
 	} else if (buttonClicked === "Atualizar Restrição") {
 	} else if (buttonClicked === "Excluir Restrição") {
 	}
 });
 
-app.post('/filtrarRestricao',(req,res)=>{
-	const r = new RestricaoAlimentar()
-	r.nome = '%'+req.body.filtro+'%'
-	r.filtrarRestricao(connection,function(result){
-		res.render("listarestricoes", { restricao: result ,logado,adm});
-	})
-
-})
-
+app.post("/filtrarRestricao", (req, res) => {
+	const r = new RestricaoAlimentar();
+	r.nome = "%" + req.body.filtro + "%";
+	r.filtrarRestricao(connection, function (result) {
+		res.render("listarestricoes", { restricao: result, logado, adm });
+	});
+});
 
 //addrestricao
 app.post("/addrestricao", (req, res) => {
@@ -619,12 +652,14 @@ app.post("/addrestricao", (req, res) => {
 	//verificar se a restrição está no banco
 	r.listar(connection, function (result) {
 		const encontrou = result.some((item) => item.nome_restricao === r.nome); //variavel que verifica a presença da restrição no banco
-		if (encontrou) {//se encontrou
+		if (encontrou) {
+			//se encontrou
 			console.log("Já cadastrado"); //nao cadastre
-		} else {//se nao encontrou
+		} else {
+			//se nao encontrou
 			//adicione a restrição
 			r.adicionar(connection, function (result) {
-				res.render("sucesso", { mensagem: "Restrição adcionada com sucesso!", link: "/listarestricoes",logado,adm });
+				res.render("sucesso", { mensagem: "Restrição adcionada com sucesso!", link: "/listarestricoes", logado, adm });
 			});
 		}
 	});
@@ -634,7 +669,7 @@ app.post("/addrestricao", (req, res) => {
 
 //attsenha
 app.get("/attsenha", (req, res) => {
-	res.render("attsenha",{logado,adm});
+	res.render("attsenha", { logado, adm });
 });
 
 //attcadastro
@@ -642,46 +677,45 @@ app.get("/attcadastro", (req, res) => {
 	const u = new Usuario();
 	const c = new Curso();
 	u.cpf = req.session.login;
-	c.listar(connection,function(result1){
-		u.listarCredenciais(connection,function(result2){
-			res.render("attcadastro",{cursos:result1,usuario:result2[0],logado,adm});
-		})
-	})
-	
+	c.listar(connection, function (result1) {
+		u.listarCredenciais(connection, function (result2) {
+			res.render("attcadastro", { cursos: result1, usuario: result2[0], logado, adm });
+		});
+	});
 });
 
 //feedback
 app.get("/feedback", (req, res) => {
 	if (req.session.login) {
-		res.render("feedback",{logado,adm});
+		res.render("feedback", { logado, adm });
 	} else {
 		res.redirect("/login");
 	}
 });
 app.post("/feedback", (req, res) => {
 	const u = new Usuario();
-	u.cpf = req.session.login
-	u.mensagem.assunto = req.body.assunto
-	u.mensagem.mensagem = req.body.mensagem
-	u.listarCredenciais(connection,function(result){
-		u.curso.nome = result[0].curso_id_curso
-		u.mensagem.cadastrar(connection,u.cpf,u.curso.nome)
-		res.render('sucesso',{mensagem:"Mensagem enviada", link:"/listafeedback",logado,adm})
-	})
+	u.cpf = req.session.login;
+	u.mensagem.assunto = req.body.assunto;
+	u.mensagem.mensagem = req.body.mensagem;
+	u.listarCredenciais(connection, function (result) {
+		u.curso.nome = result[0].curso_id_curso;
+		u.mensagem.cadastrar(connection, u.cpf, u.curso.nome);
+		res.render("sucesso", { mensagem: "Mensagem enviada", link: "/listafeedback", logado, adm });
+	});
 });
 
 //listafeedback
-app.get('/listafeedback', (req,res)=>{
+app.get("/listafeedback", (req, res) => {
 	const u = new Usuario();
-	u.mensagem.listar(connection,function(result){
-		res.render("listafeedback", {mensgens:result,logado,adm})
-	})
-})
-app.post('/listafeedback', (req,res)=>{
+	u.mensagem.listar(connection, function (result) {
+		res.render("listafeedback", { mensgens: result, logado, adm });
+	});
+});
+app.post("/listafeedback", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Nova Mensagem") {
 		res.redirect("/feedback");
 	} else if (buttonClicked === "Atualizar Mensagem") {
 	} else if (buttonClicked === "Excluir Mensagem") {
 	}
-})
+});

@@ -20,4 +20,17 @@ module.exports = class Curso {
 			return callback(result);
 		});
 	}
+	listarCurso(connection,callback){
+		const sql = "SELECT * FROM curso where id_curso = ?";
+		connection.query(sql, [this.id], function (err, result) {
+			if (err) throw err;
+			return callback(result);
+		});
+	}
+	atualizar(connection,callback){
+		const sql = "update curso set nome =?, tempo = ?, modalidade=? where id_curso = ? "
+		connection.query(sql, [this.nome,this.tempo,this.modalidade,this.id], function (err) {
+			if (err) throw err;
+			});
+	}
 };

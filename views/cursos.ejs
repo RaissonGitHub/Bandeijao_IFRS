@@ -36,7 +36,7 @@
 
                             <% cursos.forEach((c, index)=> { %>
                                 <tr>
-                                    <td><input type="checkbox" id="c.id_curso" /></td>
+                                    <td><input name="selecao" type="checkbox" value="<%=c.id_curso%>" /></td>
 
                                     <td>
                                         <%= c.nome %>
