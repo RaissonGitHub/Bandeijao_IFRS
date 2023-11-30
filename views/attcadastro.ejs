@@ -10,7 +10,7 @@
     <nav><%- include('../partials/nav')%></nav>
     <div class="container">
         <div class="form-cadastro">
-            <form action="/formulario" method="post">
+            <form action="/attcadastro" method="post">
                 <div class="form-cadastro-content">
                     <h2 class="form-cadastro-titulo">Atualizar Cadastro</h2>
                     <div class="form-cadastro-inputs">
@@ -45,15 +45,15 @@
                     <div class="form-cadastro-inputs-radio">
                         <p>Você se identifica como:</p>
                         <div>
-                            <input type="radio" id="onivoro" name="escolha" required />
+                            <input type="radio" id="onivoro" value="onivoro" name="escolha" required />
                             <label for="onivoro" class="legenda">Onívoro</label>
                         </div>
                         <div>
-                            <input type="radio" id="veget" name="escolha" />
+                            <input type="radio" id="veget" value="vegetariano" name="escolha" />
                             <label for="veget" class="legenda">Vegetariano</label>
                         </div>
                         <div>
-                            <input type="radio" id="vegan" name="escolha" />
+                            <input type="radio" id="vegan" value="vegano" name="escolha" />
                             <label for="vegan" class="legenda">Vegano</label>
                         </div>
                     </div>

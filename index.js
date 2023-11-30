@@ -44,6 +44,7 @@ var adm;
 //req.session.login? logado = true: logado=false
 
 //Rotas
+
 //login
 app.get("/login", function (req, res) {
 	//Se estiver logado
@@ -71,6 +72,7 @@ app.post("/login", function (req, res) {
 		req.session.login = user.cpf; //disponivel durante a sessao
 		req.session.login ? (logado = true) : (logado = false);
 		adm = perfil;
+
 		res.render("index", { logado, adm });
 	});
 });
@@ -135,7 +137,8 @@ app.post("/cadastro", function (req, res) {
 	u.email = req.body.email;
 	u.caracAlimenticia = req.body.escolha;
 	u.senha = req.body.senha;
-	u.curso.nome = req.body.curso;
+	u.curso.id = req.body.curso;
+	console.log(u);
 
 	if (buttonClicked === "Enviar") {
 		//cadastrar os dados do formulario
@@ -149,11 +152,15 @@ app.post("/cadastro", function (req, res) {
 
 //usuarios
 app.get("/usuarios", (req, res) => {
-	const u = new Usuario();
-	//listagem de todos os usuarios
-	u.listar(connection, function (result) {
-		res.render("usuarios", { usuario: result, logado, adm });
-	});
+	if (req.session.login && adm) {
+		const u = new Usuario();
+		//listagem de todos os usuarios
+		u.listar(connection, function (result) {
+			res.render("usuarios", { usuario: result, logado, adm });
+		});
+	} else {
+		res.redirect("/");
+	}
 });
 
 app.post("/usuarios", (req, res) => {
@@ -165,7 +172,23 @@ app.post("/usuarios", (req, res) => {
 			res.render("cadastro", { cursos: result, logado, adm });
 		});
 	} else if (buttonClicked === "Atualizar Usuário") {
+		let opcao = req.body.cpf;
+		const u = new Usuario();
+		const c = new Curso();
+		u.cpf = opcao;
+		c.listar(connection, function (result1) {
+			u.listarCredenciais(connection, function (result2) {
+				res.render("attcadastro", { cursos: result1, usuario: result2[0], logado, adm });
+			});
+		});
 	} else if (buttonClicked === "Excluir Usuário") {
+		let opcao = req.body.cpf;
+		const u = new Usuario();
+		u.cpf = opcao;
+		u.deletar(connection);
+		u.listar(connection, function (result) {
+			res.render("usuarios", { usuario: result, logado, adm });
+		});
 	}
 });
 
@@ -179,31 +202,40 @@ app.post("/filtrarUsuario", (req, res) => {
 
 //curso
 app.get("/curso", (req, res) => {
-	const c = new Curso();
-	//listagem de todos os cursos cadastrados
-	c.listar(connection, function (result) {
-		res.render("cursos", { cursos: result, logado, adm });
-	});
+	if (req.session.login && adm) {
+		const c = new Curso();
+		//listagem de todos os cursos cadastrados
+		c.listar(connection, function (result) {
+			res.render("cursos", { cursos: result, logado, adm });
+		});
+	} else {
+		res.redirect("/");
+	}
 });
 
-let selecao
+let selecao;
 
 app.post("/curso", (req, res) => {
 	let acao = req.body.button;
-	selecao = req.body.selecao
+	selecao = req.body.selecao;
 
 	if (acao == "Novo Curso") {
 		const c = new Curso();
-		res.render("addcurso", { logado, adm, acao: "Cadastro", envio: "Cadastrar",curso:c });
+		res.render("addcurso", { logado, adm, acao: "Cadastro", envio: "Cadastrar", curso: c });
 	} else {
 		if (acao == "Atualizar Curso") {
 			const c = new Curso();
-			c.id = selecao
-			c.listarCurso(connection,function(result){
-				res.render("addcurso", { logado, adm,acao: "Atualização", envio: "Atualizar", curso:result[0] });
-
-			})
+			c.id = selecao;
+			c.listarCurso(connection, function (result) {
+				res.render("addcurso", { logado, adm, acao: "Atualização", envio: "Atualizar", curso: result[0] });
+			});
 		} else {
+			const c = new Curso();
+			c.id = selecao;
+			c.excluir(connection);
+			c.listar(connection, function (result) {
+				res.render("cursos", { cursos: result, logado, adm });
+			});
 		}
 	}
 });
@@ -211,7 +243,7 @@ app.post("/curso", (req, res) => {
 //addcurso
 app.post("/addcurso", (req, res) => {
 	let envio = req.body.button;
-	if (envio == "Enviar") {
+	if (envio == "Cadastrar") {
 		const c = new Curso();
 		//obtenção dos dados
 		c.nome = req.body.nome;
@@ -221,18 +253,16 @@ app.post("/addcurso", (req, res) => {
 		c.cadastrar(connection);
 		//carregar pagina de sucesso
 		res.render("sucesso", { logado, adm, mensagem: "Cadastro de curso com sucesso!", link: "/curso" });
-	}
-	else{
-		if(envio == "Atualizar"){
+	} else {
+		if (envio == "Atualizar") {
 			const c = new Curso();
-		//obtenção dos dados
-		c.nome = req.body.nome;
-		c.id =selecao
-		c.tempo = req.body.tempo;
-		c.modalidade = req.body.modalidade;
-		c.atualizar(connection)
-		res.render("sucesso", { logado, adm, mensagem: "Atualização de curso efetuada com sucesso!", link: "/curso" });
-
+			//obtenção dos dados
+			c.nome = req.body.nome;
+			c.id = selecao;
+			c.tempo = req.body.tempo;
+			c.modalidade = req.body.modalidade;
+			c.atualizar(connection);
+			res.render("sucesso", { logado, adm, mensagem: "Atualização de curso efetuada com sucesso!", link: "/curso" });
 		}
 	}
 });
@@ -248,14 +278,22 @@ app.get("/cardapio", (req, res) => {
 
 //listacardapio
 app.post("/listacardapio", (req, res) => {
-	const c = new Cardapio();
-	c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
-	id = c.id; //variavel global para saber qual caixa foi marcada
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Cardapio") {
-		res.render("addcardapio", { logado, adm });
+		const c = new Cardapio();
+		res.render("addcardapio", { cardapio: c, acao: "Cadastrar", logado, adm });
 	} else if (buttonClicked === "Atualizar Cardapio") {
+		const c = new Cardapio();
+		c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
+		id = c.id; //variavel global para saber qual caixa foi marcada
+		c.listaEspecifica(connection, function (result) {
+			console.log(result[0]);
+			res.render("addcardapio", { cardapio: result[0],acao: "Atualizar", logado, adm });
+		});
 	} else if (buttonClicked === "Adicionar Alimento") {
+		const c = new Cardapio();
+		c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
+		id = c.id; //variavel global para saber qual caixa foi marcada
 		//se um cardapio for marcado
 		if (c.id) {
 			const a = new Alimento();
@@ -266,61 +304,122 @@ app.post("/listacardapio", (req, res) => {
 		}
 		//se nao foi
 		else {
+			const c = new Cardapio();
+			c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
+			id = c.id; //variavel global para saber qual caixa foi marcada
 			console.log("selecione um cardapio");
 		}
 	} else if (buttonClicked === "Excluir Cardapio") {
+		const c = new Cardapio();
+		c.id = req.body.checkbox;
+		c.excluir(connection)
+
+		c.listarCardapioseAlimentos(connection, function (result) {
+			const cardapios = {};
+
+			// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
+			result.forEach((row) => {
+				const cardapioId = row.id_cardapio;
+				if (!cardapios[cardapioId]) {
+					cardapios[cardapioId] = new Cardapio();
+					(cardapios[cardapioId].id_cardapio = cardapioId),
+						(cardapios[cardapioId].dia = row.dia),
+						(cardapios[cardapioId].tipo = row.tipo),
+						(cardapios[cardapioId].imagem = row.imagem),
+						(cardapios[cardapioId].descricao = row.descricao),
+						(cardapios[cardapioId].valor = row.valor),
+						(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
+				}
+				//se id_alimento não é nulo adicionar alimento
+				if (row.id_alimento) {
+					const a = new Alimento();
+					(a.nome = row.nome_alimento),
+						(a.unidade = row.unidade),
+						(a.valorNutricional = row.valor_nutricional),
+						cardapios[cardapioId].alimentos.push(a);
+				}
+			});
+
+			res.render("listacardapio", { cardapios: cardapios, logado, adm });
+		});
+	
 	}
 });
 
 app.get("/listacardapio", (req, res) => {
-	const c = new Cardapio();
+	if (req.session.login) {
+		const c = new Cardapio();
 
-	c.listarCardapioseAlimentos(connection, function (result) {
-		const cardapios = {};
+		c.listarCardapioseAlimentos(connection, function (result) {
+			const cardapios = {};
 
-		// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
-		result.forEach((row) => {
-			const cardapioId = row.id_cardapio;
-			if (!cardapios[cardapioId]) {
-				cardapios[cardapioId] = new Cardapio();
-				(cardapios[cardapioId].id_cardapio = cardapioId),
-					(cardapios[cardapioId].dia = row.dia),
-					(cardapios[cardapioId].tipo = row.tipo),
-					(cardapios[cardapioId].imagem = row.imagem),
-					(cardapios[cardapioId].descricao = row.descricao),
-					(cardapios[cardapioId].valor = row.valor),
-					(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
-			}
-			//se id_alimento não é nulo adicionar alimento
-			if (row.id_alimento) {
-				const a = new Alimento();
-				(a.nome = row.nome_alimento),
-					(a.unidade = row.unidade),
-					(a.valorNutricional = row.valor_nutricional),
-					cardapios[cardapioId].alimentos.push(a);
-			}
+			// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
+			result.forEach((row) => {
+				const cardapioId = row.id_cardapio;
+				if (!cardapios[cardapioId]) {
+					cardapios[cardapioId] = new Cardapio();
+					(cardapios[cardapioId].id_cardapio = cardapioId),
+						(cardapios[cardapioId].dia = row.dia),
+						(cardapios[cardapioId].tipo = row.tipo),
+						(cardapios[cardapioId].imagem = row.imagem),
+						(cardapios[cardapioId].descricao = row.descricao),
+						(cardapios[cardapioId].valor = row.valor),
+						(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
+				}
+				//se id_alimento não é nulo adicionar alimento
+				if (row.id_alimento) {
+					const a = new Alimento();
+					(a.nome = row.nome_alimento),
+						(a.unidade = row.unidade),
+						(a.valorNutricional = row.valor_nutricional),
+						cardapios[cardapioId].alimentos.push(a);
+				}
+			});
+
+			res.render("listacardapio", { cardapios: cardapios, logado, adm });
 		});
-
-		res.render("listacardapio", { cardapios: cardapios, logado, adm });
-	});
+	}
 });
 
 //addcardapio
 app.get("/addcardapio", (req, res) => {
-	res.render("addcardapio", { logado, adm });
+	if (req.session.login && adm) {
+		res.render("addcardapio", { logado, adm });
+	} else {
+		res.redirect("/");
+	}
 });
 app.post("/addcardapio", (req, res) => {
-	const c = new Cardapio();
-	//obter os dados
-	c.dia = req.body.dia;
-	c.descricao = req.body.descricao;
-	c.imagem = req.body.imagem;
-	c.tipo = req.body.tipo;
-	c.valor = req.body.valor;
-	//cadastrar os dados
-	c.inserir(connection);
-	//carregar pagina de sucesso
-	res.render("sucesso", { logado, adm, mensagem: "Cadastro de cardapio concluido com sucesso!", link: "/listacardapio" });
+	const a = req.body.button;
+	if (a == "Cadastrar") {
+		const c = new Cardapio();
+		//obter os dados
+		c.dia = req.body.dia;
+		c.descricao = req.body.descricao;
+		c.imagem = req.body.imagem;
+		c.tipo = req.body.tipo;
+		c.valor = req.body.valor;
+		//cadastrar os dados
+		c.inserir(connection);
+		//carregar pagina de sucesso
+		res.render("sucesso", { logado, adm, mensagem: "Cadastro de cardapio concluido com sucesso!", link: "/listacardapio" });
+	}
+	else{
+		if(a == 'Atualizar'){
+			const c = new Cardapio();
+		//obter os dados
+		c.id = id
+		c.dia = req.body.dia;
+		c.descricao = req.body.descricao;
+		c.imagem = req.body.imagem;
+		c.tipo = req.body.tipo;
+		c.valor = req.body.valor;
+		console.log(c)
+		c.atualizar(connection)
+		res.render("sucesso", { logado, adm, mensagem: "Atualização de cardapio concluida com sucesso!", link: "/listacardapio" });
+		}
+		
+	}
 });
 
 //vincalimento (vincular alimentos a um cardapio)
@@ -345,9 +444,9 @@ let id = ""; //variavel usada para pegar o id dos cardapios
 //refeicao
 app.get("/refeicao/:id", (req, res) => {
 	const c = new Cardapio();
-	id = req.params.id; //pega o id do cardapio definido como parametro
+	c.id = req.params.id; //pega o id do cardapio definido como parametro
 	//listagem desse cardapio a partir do id
-	c.listaEspecifica(connection, id, function (result) {
+	c.listaEspecifica(connection, function (result) {
 		//obtenção dos dados
 		c.dia = result[0].dia;
 		c.tipo = result[0].tipo;
@@ -369,8 +468,9 @@ app.get("/refeicao/:id", (req, res) => {
 //refeicaoconfirm
 app.post("/refeicaoconfirm", (req, res) => {
 	const c = new Cardapio();
+	c.id = id;
 	//listagem desse cardapio a partir do id de /refeicao
-	c.listaEspecifica(connection, id, function (result) {
+	c.listaEspecifica(connection, function (result) {
 		//obtenção dos dados
 		c.dia = result[0].dia;
 		c.tipo = result[0].tipo;
@@ -395,7 +495,9 @@ app.get("/pedidos", function (req, res) {
 		const p = new Pedido();
 		p.usuario.cpf = req.session.login; //obter o cpf do usuario pelo login
 		//listar os pedidos do usuario pelo cpf
+
 		p.listar(connection, function (result) {
+			console.log(result);
 			res.render("pedidos", { pedido: result, logado, adm });
 		});
 	} else {
@@ -450,11 +552,13 @@ app.post("/filtrarPedidos", (req, res) => {
 
 //listapedido
 app.get("/listapedido", function (req, res) {
-	const p = new Pedido();
-	//listar todos os pedidos registrados
-	p.listarTodos(connection, function (result) {
-		res.render("listapedidos", { pedido: result, logado, adm });
-	});
+	if (req.session.login && adm) {
+		const p = new Pedido();
+		//listar todos os pedidos registrados
+		p.listarTodos(connection, function (result) {
+			res.render("listapedidos", { pedido: result, logado, adm });
+		});
+	}
 });
 app.post("/listapedido", function (req, res) {
 	const buttonClicked = req.body.button;
@@ -530,18 +634,39 @@ app.post("/pagcartao", (req, res) => {
 
 //alimentos
 app.get("/alimentos", (req, res) => {
-	const a = new Alimento();
-	//listar todos os alimentos
-	a.listar(connection, function (result) {
-		res.render("alimentos", { alimento: result, logado, adm });
-	});
+	if (req.session.login && adm) {
+		const a = new Alimento();
+		//listar todos os alimentos
+		a.listar(connection, function (result) {
+			res.render("alimentos", { alimento: result, logado, adm });
+		});
+	}
 });
 app.post("/alimentos", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Alimento") {
-		res.render("addalimento", { logado, adm });
+		const a = new Alimento()
+		res.render("addalimento", { alimento:a,acao:"Cadastrar",logado, adm });
 	} else if (buttonClicked === "Atualizar Alimento") {
+		const a = new Alimento();
+		let opcao = req.body.opcao
+		a.id = opcao
+		id=opcao
+		a.listaEspecifica(connection,function(result){
+			a.nome = result[0].nome;
+			a.unidade = result[0].unidade;
+			a.valorNutricional = result[0].valor_nutricional
+			res.render("addalimento", { alimento:a,acao:"Atualizar",logado, adm });
+
+		})
 	} else if (buttonClicked === "Excluir Alimento") {
+		const a = new Alimento();
+		let opcao = req.body.opcao
+		a.id = opcao
+		a.excluir(connection)
+		a.listar(connection, function (result) {
+			res.render("alimentos", { alimento: result, logado, adm });
+		});
 	}
 });
 
@@ -554,19 +679,31 @@ app.post("/filtrarAlimentos", (req, res) => {
 });
 
 //addalimento
-app.get("/addalimento", (req, res) => {
-	res.render("addalimento", { logado, adm });
-});
+
 app.post("/addalimento", (req, res) => {
-	const a = new Alimento();
-	//obtençao dos dados
-	a.nome = req.body.nome;
-	a.unidade = req.body.unidade;
-	a.valorNutricional = req.body.valornutri;
-	//cadastrar
-	a.cadastrar(connection);
-	//carregar a pagina de sucesso
-	res.render("sucesso", { logado, adm, mensagem: "Alimento cadastrado com sucesso!", link: "/alimentos" });
+	const acao = req.body.button
+	if(acao == "Cadastrar"){
+		const a = new Alimento();
+		//obtençao dos dados
+		a.nome = req.body.nome;
+		a.unidade = req.body.unidade;
+		a.valorNutricional = req.body.valornutri;
+		//cadastrar
+		a.cadastrar(connection);
+		//carregar a pagina de sucesso
+		res.render("sucesso", { logado, adm, mensagem: "Alimento cadastrado com sucesso!", link: "/alimentos" });
+	}
+	else{
+		const a = new Alimento();
+		a.id = id
+		a.nome = req.body.nome;
+		a.unidade = req.body.unidade;
+		a.valorNutricional = req.body.valornutri;
+		a.atualizar(connection)
+		res.render("sucesso", { logado, adm, mensagem: "Alimento atualizado com sucesso!", link: "/alimentos" });
+
+	}
+	
 });
 
 //restricao
@@ -621,11 +758,13 @@ app.post("/restricao", function (req, res) {
 
 //listarestricoes
 app.get("/listarestricoes", (req, res) => {
-	const u = new Usuario();
-	//listar todas as restricoes do banco
-	u.restricao.listar(connection, function (result) {
-		res.render("listarestricoes", { restricao: result, logado, adm });
-	});
+	if (req.session.login && adm) {
+		const u = new Usuario();
+		//listar todas as restricoes do banco
+		u.restricao.listar(connection, function (result) {
+			res.render("listarestricoes", { restricao: result, logado, adm });
+		});
+	}
 });
 app.post("/listarestricoes", (req, res) => {
 	const buttonClicked = req.body.button;
@@ -669,19 +808,38 @@ app.post("/addrestricao", (req, res) => {
 
 //attsenha
 app.get("/attsenha", (req, res) => {
-	res.render("attsenha", { logado, adm });
+	if (req.session.login) {
+		res.render("attsenha", { logado, adm });
+	}
 });
 
 //attcadastro
 app.get("/attcadastro", (req, res) => {
-	const u = new Usuario();
-	const c = new Curso();
-	u.cpf = req.session.login;
-	c.listar(connection, function (result1) {
-		u.listarCredenciais(connection, function (result2) {
-			res.render("attcadastro", { cursos: result1, usuario: result2[0], logado, adm });
+	if (req.session.login) {
+		const u = new Usuario();
+		const c = new Curso();
+		u.cpf = req.session.login;
+		c.listar(connection, function (result1) {
+			u.listarCredenciais(connection, function (result2) {
+				res.render("attcadastro", { cursos: result1, usuario: result2[0], logado, adm });
+			});
 		});
-	});
+	}
+});
+
+app.post("/attcadastro", (req, res) => {
+	if (req.session.login) {
+		const u = new Usuario();
+		u.nome = req.body.nome;
+		u.sobrenome = req.body.sobrenome;
+		u.telefone = req.body.telefone;
+		u.email = req.body.email;
+		u.curso.id = req.body.curso;
+		u.caracAlimenticia = req.body.escolha;
+		u.cpf = req.body.cpf;
+		u.atualizar(connection);
+		res.render("sucesso", { mensagem: "Cadastro atualizado com sucesso!", link: "/perfil", logado, adm });
+	}
 });
 
 //feedback
@@ -706,10 +864,12 @@ app.post("/feedback", (req, res) => {
 
 //listafeedback
 app.get("/listafeedback", (req, res) => {
-	const u = new Usuario();
-	u.mensagem.listar(connection, function (result) {
-		res.render("listafeedback", { mensgens: result, logado, adm });
-	});
+	if (req.session.login && adm) {
+		const u = new Usuario();
+		u.mensagem.listar(connection, function (result) {
+			res.render("listafeedback", { mensgens: result, logado, adm });
+		});
+	}
 });
 app.post("/listafeedback", (req, res) => {
 	const buttonClicked = req.body.button;
@@ -718,4 +878,10 @@ app.post("/listafeedback", (req, res) => {
 	} else if (buttonClicked === "Atualizar Mensagem") {
 	} else if (buttonClicked === "Excluir Mensagem") {
 	}
+});
+
+//ticket
+
+app.get("/ticket", function (req, res) {
+	res.render("ticket", { logado, adm });
 });

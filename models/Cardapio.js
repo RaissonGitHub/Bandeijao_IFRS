@@ -56,8 +56,8 @@ module.exports = class Cardapio {
 		});
 	}
 	//listar um cardapio especifico e seus alimentos associados
-	listaEspecifica(connection, id, callback) {
-		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,
+	listaEspecifica(connection,  callback) {
+		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,c.imagem,
 		a.id_alimento,
 		a.nome AS nome_alimento,
 		a.unidade,
@@ -69,9 +69,21 @@ module.exports = class Cardapio {
 			alimento AS a ON cha.alimento_id_alimento = a.id_alimento
 		WHERE c.id_cardapio = ?;
 	  `;
-		connection.query(sql, [id], function (err, result) {
+		connection.query(sql, [this.id], function (err, result) {
 			if (err) throw err;
 			return callback(result);
 		});
+	}
+	atualizar(connection){
+		const sql = `update cardapio set dia = ?,imagem = ?,tipo=?,descricao=?,valor=? where id_cardapio =?`
+		connection.query(sql,[this.dia,this.imagem,this.tipo,this.descricao,this.valor,this.id],function(err){
+			if(err) throw err;
+		})
+	}
+	excluir(connection){
+		const sql = 'Delete from cardapio where id_cardapio=?'
+		connection.query(sql,[this.id],function(err){
+			if(err) throw err;
+		})
 	}
 };

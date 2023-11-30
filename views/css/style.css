@@ -1518,6 +1518,92 @@ a.form-attsenha-button{
 
 /*sucesso fim*/
 
+/*ticket inicio*/
+#quadrado{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.corpo{
+    width: 40%;
+    background-color: #2f9e41;
+    display: flex;
+    height: 70px;
+    justify-content: center;
+}
+.bola1{
+    position: absolute;
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    left: 6px;
+    top:5px;
+    border-radius: 100%;
+}
+.bola2{
+    position: absolute;
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    left: 6px;
+    top: 65px;
+    border-radius: 100%;
+}
+.bola3{
+    position: absolute;
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    left: 265px;
+    top: 5px;
+    border-radius: 100%;
+}
+.bola4{
+    position: absolute;
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    left: 265px;
+    top: 65px;
+    border-radius: 100%;
+}
+.contorno{
+    border: solid 3px black;
+    width: 85%;
+    display: flex;
+    border-radius: 10px;
+
+}
+.tituloticket{
+    width: 70%;
+    text-align: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.contornoesq{
+    border-right: solid 3px black;
+    width: 15%;
+    text-align: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.contornodir{
+    border-left: solid 3px black;
+    align-items: center;
+    width: 15%;
+    text-align: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+/*ticket fim*/
+
 /*curso inicio*/
 
 .curso-h1 {

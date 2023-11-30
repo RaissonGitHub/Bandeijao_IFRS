@@ -46,7 +46,7 @@ module.exports = class Usuario {
 			"INSERT INTO usuario (cpf,nome,sobrenome,matricula,telefone,email,caracteristica_alimenticia,curso_id_curso,senha) VALUES(?,?,?,?,?,?,?,?,?)";
 		connection.query(
 			sql,
-			[this.cpf, this.nome, this.sobrenome, this.matricula, this.telefone, this.email, this.caracAlimenticia, this.curso.nome, this.senha],
+			[this.cpf, this.nome, this.sobrenome, this.matricula, this.telefone, this.email, this.caracAlimenticia, this.curso.id, this.senha],
 			function (err, result) {
 				if (err) throw err;
 			}
@@ -81,6 +81,17 @@ module.exports = class Usuario {
 		})
 	}
 
-	atualizar() {}
-	deletar() {}
+	atualizar(connection) {
+
+		const sql = `update usuario set nome=?, sobrenome=?, telefone=?,email=?,caracteristica_alimenticia=?,curso_id_curso=? where cpf = ?`
+		connection.query(sql,[this.nome,this.sobrenome,this.telefone,this.email,this.caracAlimenticia,this.curso.id,this.cpf],function(err){
+			if(err) throw err;
+		})
+	}
+	deletar(connection) {
+		const sql = `Delete from usuario where cpf = ?`
+		connection.query(sql,[this.cpf],function (err){
+			if(err) throw err;
+		})
+	}
 };

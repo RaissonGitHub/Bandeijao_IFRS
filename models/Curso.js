@@ -27,10 +27,16 @@ module.exports = class Curso {
 			return callback(result);
 		});
 	}
-	atualizar(connection,callback){
+	atualizar(connection){
 		const sql = "update curso set nome =?, tempo = ?, modalidade=? where id_curso = ? "
 		connection.query(sql, [this.nome,this.tempo,this.modalidade,this.id], function (err) {
 			if (err) throw err;
 			});
+	}
+	excluir(connection){
+		const sql = `delete from curso where id_curso = ?`
+		connection.query(sql,this.id,function(err){
+			if(err) throw err;
+		})
 	}
 };
