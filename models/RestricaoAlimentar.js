@@ -1,6 +1,7 @@
 module.exports = class RestricaoAlimentar {
 	constructor() {
 		this.nome = "";
+		this.id =0
 	}
 	//listar todas as restrições do banco
 	listar(connection, callback) {
@@ -40,6 +41,25 @@ module.exports = class RestricaoAlimentar {
 		connection.query(sql,[this.nome],function(err,result){
 			if(err) throw err;
 			return callback(result);
+		})
+	}
+	listaPorId(connection,callback){
+		const sql = `Select * from restricao_alimentar where id_restricao = ?`
+		connection.query(sql,[this.id],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
+	excluir(connection){
+		const sql = `delete from restricao_alimentar where id_restricao = ?`
+		connection.query(sql,[this.id],function(err){
+			if(err) throw err;
+		})
+	}
+	atualizar(connection){
+		const sql = `update restricao_alimentar set nome_restricao = ? where id_restricao = ?`
+		connection.query(sql,[this.nome,this.id],function(err){
+			if(err) throw err;
 		})
 	}
 };

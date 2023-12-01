@@ -755,7 +755,23 @@ app.post("/restricao", function (req, res) {
 		});
 	});
 });
+//delrestricao
+app.post('/delrestricao', (req,res)=>{
+	const r = new RestricaoAlimentar();
+	const opcao = req.body.opcao
+	r.id = opcao
+	r.excluir(connection)
+	const u = new Usuario();
+		//listar as restrições do usuario
+		u.restricao.listarEspecifica(connection, req.session.login, function (result) {
+			u.restricoes = result; //armazenar as restrições
+			//listar todas as restrições disponiveis
+			u.restricao.listar(connection, function (result) {
+				res.render("restricoes", { restricoes: u.restricoes, lista: result, logado, adm });
+			});
+		});
 
+})
 //listarestricoes
 app.get("/listarestricoes", (req, res) => {
 	if (req.session.login && adm) {
@@ -769,8 +785,16 @@ app.get("/listarestricoes", (req, res) => {
 app.post("/listarestricoes", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Nova Restrição") {
-		res.render("addrestricao", { logado, adm });
+		const r = new RestricaoAlimentar()
+		res.render("addrestricao", { acao:"Cadastrar",restricao:r,logado, adm });
 	} else if (buttonClicked === "Atualizar Restrição") {
+		const opcao = req.body.checkbox
+		const r = new RestricaoAlimentar();
+		r.id = opcao
+		r.listaPorId(connection,function(result){
+			r.nome = result[0].nome_restricao
+			res.render("addrestricao", { acao:"Atualizar",restricao:r,logado, adm });
+		})
 	} else if (buttonClicked === "Excluir Restrição") {
 	}
 });
@@ -785,6 +809,8 @@ app.post("/filtrarRestricao", (req, res) => {
 
 //addrestricao
 app.post("/addrestricao", (req, res) => {
+	const acao = req.body.button
+	if(acao =="Cadastrar"){
 	const r = new RestricaoAlimentar();
 	//obtenção dos dados
 	r.nome = req.body.nome;
@@ -802,6 +828,25 @@ app.post("/addrestricao", (req, res) => {
 			});
 		}
 	});
+}
+else{
+	const r = new RestricaoAlimentar();
+	//obtenção dos dados
+	r.nome = req.body.nome;
+	r.listar(connection, function (result) {
+		const encontrou = result.some((item) => item.nome_restricao === r.nome); //variavel que verifica a presença da restrição no banco
+		if (encontrou) {
+			//se encontrou
+			console.log("Já cadastrado"); //nao cadastre
+		} else {
+			//se nao encontrou
+			//adicione a restrição
+			r.atualizar(connection) 
+				res.render("sucesso", { mensagem: "Restrição atualizada com sucesso!", link: "/listarestricoes", logado, adm });
+			
+		}
+	});
+}
 });
 
 // a fazer

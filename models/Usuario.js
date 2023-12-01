@@ -16,7 +16,7 @@ module.exports = class Usuario {
 		this.mensagem = new Mensagem()
 		this.restricao = new RestricaoAlimentar();
 	}
-
+	
 	//listar informações dos usuarios e o nome de seu curso
 	listar(connection, callback) {
 		const sql =

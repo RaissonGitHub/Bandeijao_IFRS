@@ -135,7 +135,7 @@
     CONSTRAINT `fk_usuario_has_restricao_alimentar_restricao_alimentar1`
       FOREIGN KEY (`restricao_alimentar_id_restricao`)
       REFERENCES `bandeijao`.`restricao_alimentar` (`id_restricao`)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION)
   ENGINE = InnoDB;
 
