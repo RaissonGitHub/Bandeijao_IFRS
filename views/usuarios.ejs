@@ -38,6 +38,7 @@
                                 <th>Curso</th>
                                 <th>Telefone</th>
                                 <th>Email</th>
+                                <th>Perfil</th>
                             </tr>
                             
                             <% usuario.forEach((u, index)=> { %>
@@ -65,6 +66,9 @@
                                     </td>
                                     <td>
                                         <%= u.email %>
+                                    </td>
+                                    <td>
+                                        <%=u.perfil%>
                                     </td>
                                     
                                 </tr>

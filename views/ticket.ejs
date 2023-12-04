@@ -10,7 +10,61 @@
     <nav><%- include('../partials/nav') %></nav>
 
     <div class="container">
-    <div id="quadrado">
+        <h1 class="pedido-h1">Pedidos</h1>
+        <hr class="pedido-hr" />
+        <div class="form-pedidos">
+            <div class="form-pedidos-content">
+                <form action="filtrarPedidos" method="post">
+                    <div class="form-pedidos-filtro">
+                        <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
+                        <input type="text" name="filtro" id="filtro" />
+                        <button type="submit" id="filtrar">Filtrar</button>
+                    </div>
+                </form>
+                <form action="pedidos" method="post" style="overflow: auto;">
+
+                    <div class="form-pedidos-buttons">
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Visualizar Ticket" />
+                    </div>
+                    <div class="form-pedidos-table">
+                        <table id="pedidos-table-content">
+                            <tr>
+                                <th>Seleção</th>
+                                <th>N° Pedido</th>
+                                <th>Data emissão</th>
+                                <th>Obs</th>
+                                <th>Ticket</th>
+                            </tr>
+                            <%pedido.forEach((p,index)=> { %>
+                                <tr>
+                                    <td><input type="checkbox" name="checkbox" value="<%=p.id_pedido%>" /></td>
+                                    <td>
+                                        <%= p.id_pedido %>
+                                    </td>
+                                    <td>
+                                        <%= p.data_emissao.getDate() %>/
+                                            <%= p.data_emissao.getMonth() + 1 %>/
+                                                <%= p.data_emissao.getFullYear() %>
+                                                    <%= String(p.data_emissao.getHours()).padStart(2, '0' ) %>:
+                                                        <%=String(p.data_emissao.getMinutes()).padStart(2, '0' ) %>
+                                    </td>
+                                    <%#Resultado experado 12 /12 /2023 00 :00%>
+                                        <td>
+                                            <%= p.pagamento %>
+                                        </td>
+                                        
+                                        <td><%=p.ticket%></td>
+                                </tr>
+                                <%})%>
+                        </table>
+                    </div>
+            </div>
+            </form>
+        </div>
+    
+
+   
+    <div id="quadrado" style="display:none;">
         
         <div class="bola1"></div>
         <div class="bola2"></div>

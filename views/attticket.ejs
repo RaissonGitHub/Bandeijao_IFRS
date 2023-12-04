@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+</head>
+
+<body>
+    <header><%- include('../partials/header')%></header>
+    <nav><%- include('../partials/nav')%></nav>
+    <div class="container">
+        <div class="form-addcurso">
+            <form action="/attticket" method="post">
+                <div class="form-addcurso-content">
+                    <h2 class="form-addcurso-titulo">Atualizar situação do ticket</h2>
+                    <div class="form-addcurso-inputs">
+                        <label for="nome">Número do ticket:</label>
+                        <input type="number" class="form-control-addcurso" name="numero" id="numero" value="<%=pedido.id%>"required />
+						<span>Situação:</span>
+						<br>
+						<div>
+							<label for="usado">Usado</label>
+						
+							<input type="radio" name="opcao" id="usado" value="usado" <%if(pedido.ticket == "usado"){%>checked<%}%>>						
+							<label for="usado">Desusado</label>
+							<input type="radio" name="opcao" id="desusado" value="desusado" <%if(pedido.ticket == "desusado"){%>checked<%}%>>						
+						</div>
+						
+
+                    </div>
+
+
+                    <div class="form-addcurso-buttons">
+                        <input type="submit" class="button" name="button" value="<%=acao%>" />
+                        <a href="/" class="button">Voltar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer><%- include('../partials/footer')%></footer>
+</body>
+
+</html>

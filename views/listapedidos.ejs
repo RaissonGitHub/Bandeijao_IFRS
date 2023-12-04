@@ -34,6 +34,7 @@
                                 <th>N° Pedido</th>
                                 <th>CPF usuário</th>
                                 <th>Data emissão</th>
+                                <th>OBS</th>
                                 <th>Pagamento</th>
                                 <th>ticket</th>
                             </tr>
@@ -51,6 +52,9 @@
                                         <%= String(p.data_emissao.getHours()).padStart(2, '0' ) %>:
                                         <%=String(p.data_emissao.getMinutes()).padStart(2, '0' ) %>
                                         <%#Resultado experado 12 /12 /2023 00 :00%>
+                                    </td>
+                                    <td>
+                                        <%=p.observacao%>
                                     </td>
                                     <td>
                                         <%= p.pagamento %>

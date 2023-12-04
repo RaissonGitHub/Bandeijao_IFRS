@@ -360,7 +360,7 @@ button[name="drop"]:hover {
 
 .form-pedidos-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -1624,7 +1624,7 @@ a.form-attsenha-button{
 
 .form-curso-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -1740,7 +1740,7 @@ a.form-attsenha-button{
 
 .form-usuario-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
 }

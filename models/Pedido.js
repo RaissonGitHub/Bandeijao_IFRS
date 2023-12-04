@@ -1,9 +1,11 @@
 const Usuario = require("./Usuario");
 module.exports = class Pedido {
 	constructor() {
+		this.id = 0
 		this.dataEmissao = "";
 		this.pagamento = "";
 		this.observacao = "";
+		this.ticket = ""
 		this.usuario = new Usuario();
 	}
 	//listar todos os pedidos do banco
@@ -33,6 +35,13 @@ module.exports = class Pedido {
 			return callback(result);
 		});
 	}
+	listarPorId(connection,callback){
+		const sql = `select * from pedido where id_pedido =?`
+		connection.query(sql,[this.id],function(err,result){
+			if(err) throw err;
+			return callback(result)
+		})
+	}
 	filtrarPedido(connection,callback){
 		const sql = 'SELECT * from pedido where id_pedido like ?'
 		connection.query(sql,[this.id],function(err,result){
@@ -61,5 +70,17 @@ module.exports = class Pedido {
 		connection.query(sql, [id], function (err) {
 			if (err) throw err;
 		});
+	}
+	atualizarTicket(connection){
+		const sql = `update pedido set ticket =? where id_pedido = ?`
+		connection.query(sql,[this.ticket,this.id],function(err){
+			if(err) throw err;
+		})
+	}
+	excluir(connection){
+		const sql = `delete from pedido where id_pedido=?`
+		connection.query(sql,[this.id],function(err){
+			if(err) throw err;
+		})
 	}
 };

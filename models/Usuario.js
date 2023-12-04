@@ -12,6 +12,7 @@ module.exports = class Usuario {
 		this.email = "";
 		this.caracAlimenticia = "";
 		this.senha = "";
+		this.perfil = ""
 		this.curso = new Curso();
 		this.mensagem = new Mensagem()
 		this.restricao = new RestricaoAlimentar();
@@ -20,7 +21,7 @@ module.exports = class Usuario {
 	//listar informações dos usuarios e o nome de seu curso
 	listar(connection, callback) {
 		const sql =
-			"SELECT u.cpf, u.nome, u.sobrenome, u.matricula, u.telefone, u.email, u.caracteristica_alimenticia, c.nome AS nome_curso FROM usuario AS u INNER JOIN curso AS c ON u.curso_id_curso = c.id_curso";
+			"SELECT u.cpf, u.perfil, u.nome, u.sobrenome, u.matricula, u.telefone, u.email, u.caracteristica_alimenticia, c.nome AS nome_curso FROM usuario AS u INNER JOIN curso AS c ON u.curso_id_curso = c.id_curso";
 
 		connection.query(sql, [this.cpf], function (err, result) {
 			if (err) throw err;
@@ -81,10 +82,17 @@ module.exports = class Usuario {
 		})
 	}
 
+	atualizarSenha(connection){
+		const sql = `update usuario set senha = ? where cpf=?`
+		connection.query(sql,[this.senha,this.cpf],function(err){
+			if(err) throw err;
+		})
+	}
+
 	atualizar(connection) {
 
-		const sql = `update usuario set nome=?, sobrenome=?, telefone=?,email=?,caracteristica_alimenticia=?,curso_id_curso=? where cpf = ?`
-		connection.query(sql,[this.nome,this.sobrenome,this.telefone,this.email,this.caracAlimenticia,this.curso.id,this.cpf],function(err){
+		const sql = `update usuario set nome=?, sobrenome=?, telefone=?,email=?,caracteristica_alimenticia=?,curso_id_curso=?,perfil=? where cpf = ?`
+		connection.query(sql,[this.nome,this.sobrenome,this.telefone,this.email,this.caracAlimenticia,this.curso.id,this.perfil,this.cpf],function(err){
 			if(err) throw err;
 		})
 	}

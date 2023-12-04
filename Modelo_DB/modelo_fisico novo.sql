@@ -48,7 +48,7 @@
     CONSTRAINT `fk_usuario_curso`
       FOREIGN KEY (`curso_id_curso`)
       REFERENCES `bandeijao`.`curso` (`id_curso`)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION)
   ENGINE = InnoDB;
 
@@ -69,7 +69,7 @@
   CREATE TABLE IF NOT EXISTS `bandeijao`.`cardapio` (
     `id_cardapio` INT NOT NULL AUTO_INCREMENT,
     `dia` ENUM('segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira') NOT NULL,
-    `imagem` VARCHAR(255) NULL,
+    `imagem` TEXT NULL,
     `tipo` ENUM('onivoro', 'vegetariano', 'vegano') NOT NULL,
     `descricao` VARCHAR(100) NOT NULL,
     `valor` INT NOT NULL,

@@ -45,22 +45,32 @@
                     <div class="form-cadastro-inputs-radio">
                         <p>Você se identifica como:</p>
                         <div>
-                            <input type="radio" id="onivoro" value="onivoro" name="escolha" required />
+                            <input type="radio" id="onivoro" value="onivoro" name="escolha" required <%if(usuario.caracteristica_alimenticia == "onivoro"){%>checked<%}%> />
                             <label for="onivoro" class="legenda">Onívoro</label>
                         </div>
                         <div>
-                            <input type="radio" id="veget" value="vegetariano" name="escolha" />
+                            <input type="radio" id="veget" value="vegetariano" name="escolha" <%if(usuario.caracteristica_alimenticia == "vegetariano"){%>checked<%}%> />
                             <label for="veget" class="legenda">Vegetariano</label>
                         </div>
                         <div>
-                            <input type="radio" id="vegan" value="vegano" name="escolha" />
+                            <input type="radio" id="vegan" value="vegano" name="escolha"<%if(usuario.caracteristica_alimenticia == "vegano"){%>checked<%}%>  />
                             <label for="vegan" class="legenda">Vegano</label>
                         </div>
                     </div>
+                    <%if(adm){%>
+                    <div class="admcheck">
+                        <span>Perfil do usuário:</span>  
+                        <br>                                              
+                        <label for="isadm">Adm</label>
+                        <input type="radio" name="isadm" id="isadm" value="adm" <%if(usuario.perfil == "adm"){%>checked<%}%>>                      
+                        <label for="isuser">User</label>
+                        <input type="radio" name="isadm" id="isuser" value="user" <%if(usuario.perfil == "user"){%>checked<%}%>>                      
+                    </div>
+                    <%}%>
                     
                     <div class="form-cadastro-buttons">
                         <input type="submit" class="button" name="button" value="Enviar" />
-                        <a href="/pagcadastro" class="button">Voltar</a>
+                        <a href="<%=link%>" class="button">Voltar</a>
                     </div>
                 </div>
             </form>

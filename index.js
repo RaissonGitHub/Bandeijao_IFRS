@@ -178,7 +178,7 @@ app.post("/usuarios", (req, res) => {
 		u.cpf = opcao;
 		c.listar(connection, function (result1) {
 			u.listarCredenciais(connection, function (result2) {
-				res.render("attcadastro", { cursos: result1, usuario: result2[0], logado, adm });
+				res.render("attcadastro", { cursos: result1, usuario: result2[0], link:"/usuarios",logado, adm });
 			});
 		});
 	} else if (buttonClicked === "Excluir Usuário") {
@@ -445,8 +445,10 @@ let id = ""; //variavel usada para pegar o id dos cardapios
 app.get("/refeicao/:id", (req, res) => {
 	const c = new Cardapio();
 	c.id = req.params.id; //pega o id do cardapio definido como parametro
+	id = c.id
 	//listagem desse cardapio a partir do id
 	c.listaEspecifica(connection, function (result) {
+		console.log(c)
 		//obtenção dos dados
 		c.dia = result[0].dia;
 		c.tipo = result[0].tipo;
@@ -497,7 +499,6 @@ app.get("/pedidos", function (req, res) {
 		//listar os pedidos do usuario pelo cpf
 
 		p.listar(connection, function (result) {
-			console.log(result);
 			res.render("pedidos", { pedido: result, logado, adm });
 		});
 	} else {
@@ -531,10 +532,21 @@ app.post("/pedidos", function (req, res) {
 				} else {
 					//se estiver pendente
 					//mandar para pagcartao onde podera efetuar o pagamento
-					res.render(`pagcartao`, { logado });
+					res.render(`pagcartao`, { logado,adm });
 				}
 			});
 		} else if (buttonClicked === "Excluir Pedido") {
+			const p = new Pedido();
+			const pedidoId = req.body.checkbox; //saber qual pedido foi marcado
+			p.id = pedidoId
+			p.excluir(connection)
+			p.usuario.cpf = req.session.login; //obter o cpf do usuario pelo login
+			//listar os pedidos do usuario pelo cpf
+	
+			p.listar(connection, function (result) {
+				res.render("pedidos", { pedido: result, logado, adm });
+			});
+
 		}
 	} else {
 		//nao logado
@@ -570,7 +582,21 @@ app.post("/listapedido", function (req, res) {
 			res.render("cardapio", { cardapios: result, logado, adm });
 		});
 	} else if (buttonClicked === "Atualizar Pedido") {
+		const opcao = req.body.checkbox
+		const p = new Pedido();
+		p.id = opcao;
+		p.listarPorId(connection,function(result){
+			p.ticket = result[0].ticket
+			res.render('attticket',{logado,adm,pedido:p,acao:"Atualizar"})
+		})
 	} else if (buttonClicked === "Excluir Pedido") {
+		const opcao = req.body.checkbox
+		const p = new Pedido()
+		p.id = opcao;
+		p.excluir(connection)
+		p.listarTodos(connection, function (result) {
+			res.render("listapedidos", { pedido: result, logado, adm });
+		});
 	}
 });
 
@@ -791,11 +817,21 @@ app.post("/listarestricoes", (req, res) => {
 		const opcao = req.body.checkbox
 		const r = new RestricaoAlimentar();
 		r.id = opcao
+		id = opcao
 		r.listaPorId(connection,function(result){
 			r.nome = result[0].nome_restricao
 			res.render("addrestricao", { acao:"Atualizar",restricao:r,logado, adm });
 		})
 	} else if (buttonClicked === "Excluir Restrição") {
+		const opcao = req.body.checkbox
+		const r = new RestricaoAlimentar();
+		r.id = opcao
+		r.excluir(connection)
+		const u = new Usuario();
+		//listar todas as restricoes do banco
+		r.listar(connection, function (result) {
+			res.render("listarestricoes", { restricao: result, logado, adm });
+		});
 	}
 });
 
@@ -833,6 +869,7 @@ else{
 	const r = new RestricaoAlimentar();
 	//obtenção dos dados
 	r.nome = req.body.nome;
+	r.id = id
 	r.listar(connection, function (result) {
 		const encontrou = result.some((item) => item.nome_restricao === r.nome); //variavel que verifica a presença da restrição no banco
 		if (encontrou) {
@@ -849,14 +886,6 @@ else{
 }
 });
 
-// a fazer
-
-//attsenha
-app.get("/attsenha", (req, res) => {
-	if (req.session.login) {
-		res.render("attsenha", { logado, adm });
-	}
-});
 
 //attcadastro
 app.get("/attcadastro", (req, res) => {
@@ -866,7 +895,7 @@ app.get("/attcadastro", (req, res) => {
 		u.cpf = req.session.login;
 		c.listar(connection, function (result1) {
 			u.listarCredenciais(connection, function (result2) {
-				res.render("attcadastro", { cursos: result1, usuario: result2[0], logado, adm });
+				res.render("attcadastro", { cursos: result1, usuario: result2[0],logado, link:"/perfil", adm });
 			});
 		});
 	}
@@ -882,6 +911,7 @@ app.post("/attcadastro", (req, res) => {
 		u.curso.id = req.body.curso;
 		u.caracAlimenticia = req.body.escolha;
 		u.cpf = req.body.cpf;
+		u.perfil = req.body.isadm;
 		u.atualizar(connection);
 		res.render("sucesso", { mensagem: "Cadastro atualizado com sucesso!", link: "/perfil", logado, adm });
 	}
@@ -890,12 +920,15 @@ app.post("/attcadastro", (req, res) => {
 //feedback
 app.get("/feedback", (req, res) => {
 	if (req.session.login) {
-		res.render("feedback", { logado, adm });
+		const m = new Mensagem()
+		res.render("feedback", { m:m, acao: "Enviar",logado, adm });
 	} else {
 		res.redirect("/login");
 	}
 });
 app.post("/feedback", (req, res) => {
+	const acao = req.body.acao
+	if(acao =="Enviar"){
 	const u = new Usuario();
 	u.cpf = req.session.login;
 	u.mensagem.assunto = req.body.assunto;
@@ -903,8 +936,18 @@ app.post("/feedback", (req, res) => {
 	u.listarCredenciais(connection, function (result) {
 		u.curso.nome = result[0].curso_id_curso;
 		u.mensagem.cadastrar(connection, u.cpf, u.curso.nome);
-		res.render("sucesso", { mensagem: "Mensagem enviada", link: "/listafeedback", logado, adm });
+		res.render("sucesso", { mensagem: "Mensagem enviada", link: "/feedback", logado, adm });
 	});
+}
+else{
+	const m = new Mensagem();
+	m.assunto = req.body.assunto;
+	m.mensagem = req.body.mensagem;
+	m.id = id
+	m.atualizar(connection)
+	res.render("sucesso", { mensagem: "Mensagem atualizada", link: "/listafeedback", logado, adm });
+	
+}
 });
 
 //listafeedback
@@ -921,12 +964,76 @@ app.post("/listafeedback", (req, res) => {
 	if (buttonClicked === "Nova Mensagem") {
 		res.redirect("/feedback");
 	} else if (buttonClicked === "Atualizar Mensagem") {
+		
+
+		const m = new Mensagem();
+		const opcao = req.body.checkbox
+		m.id = opcao
+		id = opcao
+		m.listarPorId(connection,function(result){
+			console.log(m)
+			m.assunto = result[0].assunto;
+			m.mensagem = result[0].mensagem;
+			res.render("feedback", { m:m, acao: "Atualizar",logado, adm });
+		})
+
 	} else if (buttonClicked === "Excluir Mensagem") {
+		const m = new Mensagem();
+		const opcao = req.body.checkbox
+		m.id = opcao
+		m.excluir(connection)
+		m.listar(connection, function (result) {
+			res.render("listafeedback", { mensgens: result, logado, adm });
+		});
+	
 	}
 });
 
 //ticket
 
 app.get("/ticket", function (req, res) {
-	res.render("ticket", { logado, adm });
+	if (req.session.login) {
+		const p = new Pedido();
+		p.usuario.cpf = req.session.login; //obter o cpf do usuario pelo login
+		//listar os pedidos do usuario pelo cpf
+
+		p.listar(connection, function (result) {
+			res.render("ticket", { pedido: result, logado, adm });
+		});
+	}
+	else{
+		res.redirect("/login")
+	}
 });
+
+
+app.post("/attticket",(req,res)=>{
+	const p = new Pedido();
+	p.id = req.body.numero;
+	p.ticket = req.body.opcao
+	p.atualizarTicket(connection)
+	res.render("sucesso", { mensagem: "Ticket atualizado", link: "/listapedido", logado, adm });
+
+})
+
+// a fazer
+
+//attsenha
+app.get("/attsenha", (req, res) => {
+	if (req.session.login) {
+		res.render("attsenha", { logado, adm });
+	}
+});
+app.post('/attsenha',(req,res)=>{
+	const u = new Usuario()
+	u.cpf = req.session.login
+	u.senha = req.body.newsenha
+	u.atualizarSenha(connection)
+	u.listarCredenciais(connection, function (result) {
+		const credenciais = result[0];
+		//listagem das restricoes do usuario
+		u.restricao.listarEspecifica(connection, u.cpf, function (result) {
+			res.render("perfil", { usuario: credenciais, restricoes: result, logado, adm });
+		});
+	});
+})
