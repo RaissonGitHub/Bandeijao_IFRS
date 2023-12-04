@@ -24,6 +24,14 @@
                         <input type="submit" id="inserir" class="buttons" name="button" value="Adicionar Alimento" />
                         <input type="submit" id="excluir" class="buttons" name="button" value="Desvincular Alimento" />
                     </div>
+                    <div class="javinc">
+                        <span>Alimentos já vinculados:</span>
+                        <ul style="list-style: none;">
+                            <% cali.forEach((ca, index)=> { %>
+                                <li><%= ca.nome_alimento %></li>
+                            <%})%>
+                        </ul>
+                    </div>
                     <div class="form-curso-table">
                         <table id="curso-table-content">
                             <tr>

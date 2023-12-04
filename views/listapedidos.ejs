@@ -33,6 +33,7 @@
                                 <th>Seleção</th>
                                 <th>N° Pedido</th>
                                 <th>CPF usuário</th>
+                                <th>Id Cardápio</th>
                                 <th>Data emissão</th>
                                 <th>OBS</th>
                                 <th>Pagamento</th>
@@ -45,6 +46,7 @@
                                         <%= p.id_pedido %>
                                     </td>
                                     <td><%=p.usuario_cpf%></td>
+                                    <td><%=p.cardapio_id_cardapio%></td>
                                     <td>
                                         <%= p.data_emissao.getDate() %>/
                                         <%= p.data_emissao.getMonth() + 1 %>/

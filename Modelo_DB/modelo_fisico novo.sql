@@ -49,7 +49,7 @@
       FOREIGN KEY (`curso_id_curso`)
       REFERENCES `bandeijao`.`curso` (`id_curso`)
       ON DELETE CASCADE
-      ON UPDATE NO ACTION)
+      ON UPDATE CASCADE)
   ENGINE = InnoDB;
 
 
@@ -95,13 +95,13 @@
     CONSTRAINT `fk_pedido_usuario1`
       FOREIGN KEY (`usuario_cpf` , `usuario_curso_id_curso`)
       REFERENCES `bandeijao`.`usuario` (`cpf` , `curso_id_curso`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
     CONSTRAINT `fk_pedido_cardapio1`
       FOREIGN KEY (`cardapio_id_cardapio`)
       REFERENCES `bandeijao`.`cardapio` (`id_cardapio`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE)
   ENGINE = InnoDB;
 
 
@@ -130,13 +130,13 @@
     CONSTRAINT `fk_usuario_has_restricao_alimentar_usuario1`
       FOREIGN KEY (`usuario_cpf` , `usuario_curso_id_curso`)
       REFERENCES `bandeijao`.`usuario` (`cpf` , `curso_id_curso`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
     CONSTRAINT `fk_usuario_has_restricao_alimentar_restricao_alimentar1`
       FOREIGN KEY (`restricao_alimentar_id_restricao`)
       REFERENCES `bandeijao`.`restricao_alimentar` (`id_restricao`)
       ON DELETE CASCADE
-      ON UPDATE NO ACTION)
+      ON UPDATE CASCADE)
   ENGINE = InnoDB;
 
 
@@ -152,13 +152,13 @@
     CONSTRAINT `fk_cardapio_has_alimento_cardapio1`
       FOREIGN KEY (`cardapio_id_cardapio`)
       REFERENCES `bandeijao`.`cardapio` (`id_cardapio`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
     CONSTRAINT `fk_cardapio_has_alimento_alimento1`
       FOREIGN KEY (`alimento_id_alimento`)
       REFERENCES `bandeijao`.`alimento` (`id_alimento`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE)
   ENGINE = InnoDB;
 
 

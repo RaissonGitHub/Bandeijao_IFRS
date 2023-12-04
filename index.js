@@ -290,7 +290,7 @@ app.post("/listacardapio", (req, res) => {
 			console.log(result[0]);
 			res.render("addcardapio", { cardapio: result[0],acao: "Atualizar", logado, adm });
 		});
-	} else if (buttonClicked === "Adicionar Alimento") {
+	} else if (buttonClicked === "Mudar alimentos") {
 		const c = new Cardapio();
 		c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
 		id = c.id; //variavel global para saber qual caixa foi marcada
@@ -299,7 +299,11 @@ app.post("/listacardapio", (req, res) => {
 			const a = new Alimento();
 			//listar todos os alimentos disponiveis
 			a.listar(connection, function (result) {
-				res.render("vincalimento", { c: c, alimento: result, logado, adm });
+				c.listaEspecifica(connection,function(result1){
+					console.log(result1)
+					res.render("vincalimento", { c: c, alimento: result, cali:result1,logado, adm });
+
+				})
 			});
 		}
 		//se nao foi
@@ -436,6 +440,13 @@ app.post("/vincalimentos", (req, res) => {
 		//renderizar pagina de sucesso
 		res.render("sucesso", { logado, adm, mensagem: "Alimento vinculado com sucesso!", link: "/listacardapio" });
 	} else if (buttonClicked === "Desvincular Alimento") {
+		for (let a of ali) {
+			console.log(a)
+			//para cada alimento selecionado
+			c.desvincularAlimentoNoCarpio(connection, a); //vincular ao cardapio
+			res.render("sucesso", { logado, adm, mensagem: "Alimento desvinculado com sucesso!", link: "/listacardapio" });
+
+		}
 	}
 });
 
@@ -499,6 +510,7 @@ app.get("/pedidos", function (req, res) {
 		//listar os pedidos do usuario pelo cpf
 
 		p.listar(connection, function (result) {
+			console.log(result[0])
 			res.render("pedidos", { pedido: result, logado, adm });
 		});
 	} else {
@@ -997,7 +1009,7 @@ app.get("/ticket", function (req, res) {
 		p.usuario.cpf = req.session.login; //obter o cpf do usuario pelo login
 		//listar os pedidos do usuario pelo cpf
 
-		p.listar(connection, function (result) {
+		p.listarTicket(connection, function (result) {
 			res.render("ticket", { pedido: result, logado, adm });
 		});
 	}
@@ -1005,7 +1017,16 @@ app.get("/ticket", function (req, res) {
 		res.redirect("/login")
 	}
 });
-
+app.post('/ticket',(req,res)=>{
+	const p = new Pedido();
+	p.usuario.cpf = req.session.login;
+	const selecao = req.body.checkbox
+	p.id = selecao
+	p.listarPedido(connection,p.id,function(result){
+		console.log(result[0])
+		res.render('viewticket',{pedido:result[0]})
+	})
+})
 
 app.post("/attticket",(req,res)=>{
 	const p = new Pedido();
@@ -1036,4 +1057,8 @@ app.post('/attsenha',(req,res)=>{
 			res.render("perfil", { usuario: credenciais, restricoes: result, logado, adm });
 		});
 	});
+})
+
+app.get('/a',function(req,res){
+	res.render('viewticket')
 })

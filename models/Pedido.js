@@ -26,6 +26,13 @@ module.exports = class Pedido {
 			return callback(result);
 		});
 	}
+	listarTicket(connection,callback){
+		const sql = `SELECT * from pedido where ticket = "desusado" and pagamento = "pago"`
+		connection.query(sql,function(err,result){
+			if(err) throw err;
+			return callback(result)
+		})
+	}
 	//lisar um pedido especifico com usuario especifico
 	listarPedido(connection, id, callback) {
 		const sql = "select * from pedido where id_pedido = ? AND usuario_cpf = ?";

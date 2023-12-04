@@ -55,6 +55,12 @@ module.exports = class Cardapio {
 			if (err) throw err;
 		});
 	}
+	desvincularAlimentoNoCarpio(connection,alimento){
+		const sql = `Delete from cardapio_has_alimento where cardapio_id_cardapio = ? and alimento_id_alimento=?`
+		connection.query(sql,[this.id,alimento],function(err){
+			if(err) throw err;
+		})
+	}
 	//listar um cardapio especifico e seus alimentos associados
 	listaEspecifica(connection,  callback) {
 		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,c.imagem,

@@ -1,3 +1,9 @@
+@media print {
+    .no-print {
+      display: none;
+    }
+  }
+
 /*Estilo global inicio*/
 * {
     margin: 0;
@@ -1519,89 +1525,39 @@ a.form-attsenha-button{
 /*sucesso fim*/
 
 /*ticket inicio*/
-#quadrado{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    
-}
 
-.corpo{
-    width: 40%;
-    background-color: #2f9e41;
-    display: flex;
-    height: 70px;
-    justify-content: center;
-}
-.bola1{
-    position: absolute;
-    background-color: white;
-    width: 15px;
-    height: 15px;
-    left: 6px;
-    top:5px;
-    border-radius: 100%;
-}
-.bola2{
-    position: absolute;
-    background-color: white;
-    width: 15px;
-    height: 15px;
-    left: 6px;
-    top: 65px;
-    border-radius: 100%;
-}
-.bola3{
-    position: absolute;
-    background-color: white;
-    width: 15px;
-    height: 15px;
-    left: 265px;
-    top: 5px;
-    border-radius: 100%;
-}
-.bola4{
-    position: absolute;
-    background-color: white;
-    width: 15px;
-    height: 15px;
-    left: 265px;
-    top: 65px;
-    border-radius: 100%;
-}
-.contorno{
-    border: solid 3px black;
-    width: 85%;
-    display: flex;
+  
+  .ticket {
+    background-color: #fff;
+    width: 300px;
+    padding: 20px;
     border-radius: 10px;
-
-}
-.tituloticket{
-    width: 70%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ticket-header {
     text-align: center;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-.contornoesq{
-    border-right: solid 3px black;
-    width: 15%;
-    text-align: center;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-.contornodir{
-    border-left: solid 3px black;
-    align-items: center;
-    width: 15%;
-    text-align: center;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-}
+    margin-bottom: 20px;
+  }
+  
+  .ticket-header h1 {
+    margin: 0;
+    color: #17882c;
+  }
+  
+  .ticket-info p {
+    margin: 5px 0;
+  }
+  
+  .ticket-footer {
+    border-top: 1px dashed #ccc;
+    margin-top: 20px;
+    padding-top: 10px;
+    font-style: italic;
+    font-size: 12px;
+    color: #888;
+  }
+  
 /*ticket fim*/
 
 /*curso inicio*/
