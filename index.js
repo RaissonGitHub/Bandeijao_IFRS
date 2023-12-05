@@ -440,9 +440,9 @@ app.post("/listacardapio", (req, res) => {
 			c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
 			id = c.id; //variavel global para saber qual caixa foi marcada
 			//se um cardapio for marcado
-			const a = new Alimento();
+			
 			//listar todos os alimentos disponiveis
-			a.listar(connection, function (result) {
+			c.alimento.listar(connection, function (result) {
 				c.listaEspecifica(connection, function (result1) {
 					res.render("vincalimento", { aviso: "", c: c, alimento: result, cali: result1, logado, adm });
 				});
@@ -585,7 +585,7 @@ app.post("/addcardapio", (req, res) => {
 			c.tipo = req.body.tipo;
 			c.valor = req.body.valor;
 			c.atualizar(connection);
-			res.render("sucesso", { logado, adm, mensagem: "Atualização de cardapio concluida com sucesso!", link: "/listacardapio" });
+			res.render("sucesso", { aviso:"",logado, adm, mensagem: "Atualização de cardapio concluida com sucesso!", link: "/listacardapio" });
 		}
 	}
 });
@@ -632,8 +632,9 @@ app.post("/vincalimentos", (req, res) => {
 			for (let a of ali) {
 				//para cada alimento selecionado
 				c.desvincularAlimentoNoCarpio(connection, a); //vincular ao cardapio
-				res.render("sucesso", { aviso: "", logado, adm, mensagem: "Alimento desvinculado com sucesso!", link: "/listacardapio" });
 			}
+			//renderizar pagina de sucesso
+			res.render("sucesso", { aviso: "", logado, adm, mensagem: "Alimento desvinculado com sucesso!", link: "/listacardapio" });
 		}
 	}
 });
@@ -644,14 +645,13 @@ let id = ""; //variavel usada para pegar o id dos cardapios
 app.get("/refeicao/:id", (req, res) => {
 	const c = new Cardapio();
 	c.id = req.params.id; //pega o id do cardapio definido como parametro
-	id = c.id;
+	id = c.id
 	//listagem desse cardapio a partir do id
 	c.listaEspecifica(connection, function (result) {
 		//obtenção dos dados
 		c.dia = result[0].dia;
 		c.tipo = result[0].tipo;
 		c.descricao = result[0].descricao;
-		c.imagem = result[0].imagem;
 		c.valor = result[0].valor;
 		c.alimentos = []; //array para guardas os alimentos do cardapio
 		result.forEach((row) => {
@@ -661,9 +661,8 @@ app.get("/refeicao/:id", (req, res) => {
 				(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
 			}
 		});
-
 		//carregue a pagina de refeicao com os dados do cardapio selecionado
-		res.render("refeicao", { aviso: "", cardapio: c, logado, adm });
+		res.render("refeicao", { aviso:"",cardapio: c, logado, adm });
 	});
 });
 
@@ -721,7 +720,6 @@ app.post("/pedidos", function (req, res) {
 			});
 		} else if (buttonClicked === "Atualizar Pedido") {
 			pedidoId = req.body.checkbox; //saber qual pedido foi marcado
-
 			if (!pedidoId) {
 				const p = new Pedido();
 				p.usuario.cpf = req.session.login; //obter o cpf do usuario pelo login

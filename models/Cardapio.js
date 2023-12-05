@@ -63,17 +63,11 @@ module.exports = class Cardapio {
 	}
 	//listar um cardapio especifico e seus alimentos associados
 	listaEspecifica(connection,  callback) {
-		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.descricao, c.valor,c.imagem,
-		a.id_alimento,
-		a.nome AS nome_alimento,
-		a.unidade,
-		a.valor_nutricional
-		FROM cardapio AS c
-		LEFT JOIN
-			cardapio_has_alimento AS cha ON c.id_cardapio = cha.cardapio_id_cardapio
-		LEFT JOIN
-			alimento AS a ON cha.alimento_id_alimento = a.id_alimento
-		WHERE c.id_cardapio = ?;
+		const sql = `SELECT cardapio.*, alimento.*
+		FROM cardapio
+		LEFT JOIN cardapio_has_alimento ON cardapio.id_cardapio = cardapio_has_alimento.cardapio_id_cardapio
+		LEFT JOIN alimento ON cardapio_has_alimento.alimento_id_alimento = alimento.id_alimento
+		WHERE cardapio.id_cardapio = ?;
 	  `;
 		connection.query(sql, [this.id], function (err, result) {
 			if (err) throw err;

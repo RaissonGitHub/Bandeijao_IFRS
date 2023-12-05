@@ -42,7 +42,7 @@
                             <%for (const cardapioId in cardapios) { %>
                                 <% const cardapio = cardapios[cardapioId]; %>
                                 <tr>
-                                    <td><input type="checkbox" name="checkbox" value="<%= cardapio.id_cardapio%>" /></td>
+                                    <td><input type="radio" name="checkbox" value="<%= cardapio.id_cardapio%>" /></td>
 
                                     <td><%= cardapio.id_cardapio%></td>
 
@@ -65,7 +65,7 @@
                         <div class="cardapios-card">    
                             <div class="cardapios-card-content">
                                 <div class="div-checkbox">
-                                    <input type="checkbox" name="checkbox" value="<%= cardapio.id_cardapio%>">
+                                    <input type="radio" name="checkbox" value="<%= cardapio.id_cardapio%>">
                                 </div>
                                 <div class="card-img">
                                     <img src="<%= cardapio.imagem%>" alt="">
