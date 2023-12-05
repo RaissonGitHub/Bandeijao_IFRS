@@ -13,13 +13,16 @@
         <h1 class="curso-h1">Cursos</h1>
         <hr class="curso-hr" />
         <div class="form-curso">
-            <form action="/curso" method="post">
-                <div class="form-curso-content">
+            <div class="form-curso-content">
+                <form action="filtrarCursos" method="post">
+
                     <div class="form-curso-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
-                        <input type="text" id="filtro" />
+                        <input type="text" name = "filtro"id="filtro" />
                         <button id="filtrar">Filtrar</button>
                     </div>
+                </form>
+                <form action="/curso" method="post">
                     <div class="form-curso-buttons">
                         <input type="submit" id="inserir" class="buttons" name="button" value="Novo Curso" />
                         <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Curso" />

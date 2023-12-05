@@ -39,4 +39,11 @@ module.exports = class Curso {
 			if(err) throw err;
 		})
 	}
+	filtrarCurso(connection,callback){
+		const sql = "select * from curso where nome like ? "
+		connection.query(sql,this.nome,function(err,result){
+			if(err) throw err;
+			return callback(result)
+		})
+	}
 };

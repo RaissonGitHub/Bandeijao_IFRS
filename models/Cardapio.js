@@ -92,4 +92,19 @@ module.exports = class Cardapio {
 			if(err) throw err;
 		})
 	}
+	filtrarCardapio(connection,callback){
+		const sql = `SELECT c.id_cardapio, c.dia, c.tipo, c.imagem, c.descricao, c.valor,
+				  a.id_alimento, a.nome AS nome_alimento, a.unidade, a.valor_nutricional
+				FROM	
+				  cardapio AS c	
+				LEFT JOIN
+				  cardapio_has_alimento AS cha ON c.id_cardapio = cha.cardapio_id_cardapio
+				LEFT JOIN
+				  alimento AS a ON cha.alimento_id_alimento = a.id_alimento
+				  where id_cardapio like ?;`
+		connection.query(sql,this.id,function(err,result){
+			if(err) throw err;
+			return callback(result)
+		})
+	}
 };

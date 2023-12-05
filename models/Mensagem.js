@@ -4,6 +4,13 @@ module.exports = class Mensagem{
         this.assunto = "";
         this.mensagem = "";
     }
+    filtrarMensagem(connection,callback){
+        const sql = 'SELECT * FROM mensagem where id_mensagem like ?'
+        connection.query(sql,this.id,function(err,result){
+            if (err) throw err;
+            return callback(result)
+        })
+    }
     listar(connection,callback){
         const sql = 'SELECT * FROM mensagem'
         connection.query(sql,function(err,result){

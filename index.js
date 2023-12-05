@@ -73,7 +73,6 @@ app.post("/login", function (req, res) {
 		req.session.login = user.cpf; //disponivel durante a sessao
 		req.session.login ? (logado = true) : (logado = false);
 		adm = perfil;
-
 		res.render("index", { logado, adm, aviso: "" });
 	});
 });
@@ -235,7 +234,13 @@ app.get("/curso", (req, res) => {
 		res.redirect("/");
 	}
 });
-
+app.post('/filtrarCursos',(req,res)=>{
+	const c = new Curso();
+	c.nome = "%" + req.body.filtro + "%";
+	c.filtrarCurso(connection, function (result) {
+		res.render("cursos", { aviso: "", cursos: result, logado, adm });
+	});
+})
 let selecao;
 
 app.post("/curso", (req, res) => {
@@ -317,6 +322,40 @@ app.get("/cardapio", (req, res) => {
 });
 
 //listacardapio
+app.get("/listacardapio", (req, res) => {
+	if (req.session.login) {
+		const c = new Cardapio();
+
+		c.listarCardapioseAlimentos(connection, function (result) {
+			const cardapios = {};
+
+			// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
+			result.forEach((row) => {
+				const cardapioId = row.id_cardapio;
+				if (!cardapios[cardapioId]) {
+					cardapios[cardapioId] = new Cardapio();
+					(cardapios[cardapioId].id_cardapio = cardapioId),
+						(cardapios[cardapioId].dia = row.dia),
+						(cardapios[cardapioId].tipo = row.tipo),
+						(cardapios[cardapioId].imagem = row.imagem),
+						(cardapios[cardapioId].descricao = row.descricao),
+						(cardapios[cardapioId].valor = row.valor),
+						(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
+				}
+				//se id_alimento não é nulo adicionar alimento
+				if (row.id_alimento) {
+					const a = new Alimento();
+					(a.nome = row.nome_alimento),
+						(a.unidade = row.unidade),
+						(a.valorNutricional = row.valor_nutricional),
+						cardapios[cardapioId].alimentos.push(a);
+				}
+			});
+
+			res.render("listacardapio", { aviso: "", cardapios: cardapios, logado, adm });
+		});
+	}
+});
 app.post("/listacardapio", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Novo Cardapio") {
@@ -478,41 +517,40 @@ app.post("/listacardapio", (req, res) => {
 		}
 	}
 });
+app.post('/filtrarCardapios',(req,res)=>{
+	const c = new Cardapio()
+	c.id = "%"+req.body.filtro+"%"
+	c.filtrarCardapio(connection,function(result){
+	const cardapios = {};
 
-app.get("/listacardapio", (req, res) => {
-	if (req.session.login) {
-		const c = new Cardapio();
+	// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
+	result.forEach((row) => {
+		const cardapioId = row.id_cardapio;
+		if (!cardapios[cardapioId]) {
+			cardapios[cardapioId] = new Cardapio();
+			(cardapios[cardapioId].id_cardapio = cardapioId),
+				(cardapios[cardapioId].dia = row.dia),
+				(cardapios[cardapioId].tipo = row.tipo),
+				(cardapios[cardapioId].imagem = row.imagem),
+				(cardapios[cardapioId].descricao = row.descricao),
+				(cardapios[cardapioId].valor = row.valor),
+				(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
+		}
+		//se id_alimento não é nulo adicionar alimento
+		if (row.id_alimento) {
+			const a = new Alimento();
+			(a.nome = row.nome_alimento),
+				(a.unidade = row.unidade),
+				(a.valorNutricional = row.valor_nutricional),
+				cardapios[cardapioId].alimentos.push(a);
+		}
+	});
+	res.render("listacardapio", { aviso: "", cardapios: cardapios, logado, adm });
+	})
 
-		c.listarCardapioseAlimentos(connection, function (result) {
-			const cardapios = {};
+})
 
-			// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
-			result.forEach((row) => {
-				const cardapioId = row.id_cardapio;
-				if (!cardapios[cardapioId]) {
-					cardapios[cardapioId] = new Cardapio();
-					(cardapios[cardapioId].id_cardapio = cardapioId),
-						(cardapios[cardapioId].dia = row.dia),
-						(cardapios[cardapioId].tipo = row.tipo),
-						(cardapios[cardapioId].imagem = row.imagem),
-						(cardapios[cardapioId].descricao = row.descricao),
-						(cardapios[cardapioId].valor = row.valor),
-						(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
-				}
-				//se id_alimento não é nulo adicionar alimento
-				if (row.id_alimento) {
-					const a = new Alimento();
-					(a.nome = row.nome_alimento),
-						(a.unidade = row.unidade),
-						(a.valorNutricional = row.valor_nutricional),
-						cardapios[cardapioId].alimentos.push(a);
-				}
-			});
 
-			res.render("listacardapio", { aviso: "", cardapios: cardapios, logado, adm });
-		});
-	}
-});
 
 //addcardapio
 app.get("/addcardapio", (req, res) => {
@@ -1186,6 +1224,14 @@ app.get("/listafeedback", (req, res) => {
 		});
 	}
 });
+app.post('/filtrarMensagem',function(req,res){
+	const m = new Mensagem()
+	m.id = "%"+req.body.filtro+"%"
+	m.filtrarMensagem(connection,function(result){
+		res.render("listafeedback", { aviso: "", mensgens: result, logado, adm });
+	})
+
+})
 app.post("/listafeedback", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Nova Mensagem") {
@@ -1256,6 +1302,15 @@ app.post("/ticket", (req, res) => {
 			res.render("ticket", { aviso: "", pedido: result, logado, adm, aviso: "Selecione um pedido" });
 		});
 	}
+});
+app.post("/filtrarticket", (req, res) => {
+	const p = new Pedido()
+	p.usuario.cpf = req.session.login
+	p.id = "%" + req.body.filtro + "%";
+	
+	p.filtrarTicket(connection, function (result) {
+		res.render("ticket", { aviso: "", pedido: result, logado, adm });
+	});
 });
 
 app.post("/attticket", (req, res) => {

@@ -13,13 +13,16 @@
         <h1 class="cardapios-h1">Cardapios</h1>
         <hr class="cardapios-hr" />
         <div class="form-cardapios">
-            <form action="/listacardapio" method="post" style="overflow: auto;">
-                <div class="form-cardapios-content">
+            <div class="form-cardapios-content">
+                <form action="filtrarCardapios" method="post">
+
                     <div class="form-cardapios-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
-                        <input type="text" id="filtro" />
+                        <input type="text" name="filtro" id="filtro" />
                         <button id="filtrar">Filtrar</button>
                     </div>
+                </form>
+                <form action="/listacardapio" method="post" style="overflow: auto;">
                     <div class="form-cardapios-buttons">
                         <input type="submit" id="inserir" class="buttons" name="button" value="Novo Cardapio" />
                         <input type="submit" id="addalimento" class="buttons" name="button" value="Mudar alimentos" />

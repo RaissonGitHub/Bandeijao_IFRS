@@ -56,6 +56,13 @@ module.exports = class Pedido {
 			return callback(result);
 		})
 	}
+	filtrarTicket(connection,callback){
+		const sql = 'SELECT * from pedido where id_pedido like ? and ticket = "desusado" and pagamento = "pago" and usuario_cpf = ?'
+		connection.query(sql,[this.id,this.usuario.cpf],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
 	//fazer pedido
 	fazerPedido(connection, id, callback) {
 		const sql =
