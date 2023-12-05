@@ -31,7 +31,8 @@ module.exports = class RestricaoAlimentar {
 	}
 	//vincular restricoes a um usuario especifico
 	vincularRestricao(connection, id,curso,id_restricao) {
-		const sql = "INSERT INTO usuario_has_restricao_alimentar (usuario_cpf,usuario_curso_id_curso,restricao_alimentar_id_restricao) VALUES(?,?,?)";
+		const sql = "INSERT IGNORE INTO usuario_has_restricao_alimentar (usuario_cpf,usuario_curso_id_curso,restricao_alimentar_id_restricao) VALUES(?,?,?)";
+		
 		connection.query(sql,[id,curso,id_restricao],function(err){
             if(err) throw err;
         });

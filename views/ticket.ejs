@@ -8,8 +8,9 @@
 <body>
     <header><%- include('../partials/header') %></header>
     <nav><%- include('../partials/nav') %></nav>
-
+    
     <div class="container">
+
         <h1 class="pedido-h1">Pedidos</h1>
         <hr class="pedido-hr" />
         <div class="form-pedidos">
@@ -52,8 +53,10 @@
                                         <td>
                                             <%= p.pagamento %>
                                         </td>
-                                        
-                                        <td><%=p.ticket%></td>
+
+                                        <td>
+                                            <%=p.ticket%>
+                                        </td>
                                 </tr>
                                 <%})%>
                         </table>
@@ -61,14 +64,15 @@
             </div>
             </form>
         </div>
-    
 
-   
-   
-</div>
-<footer>
-    <%- include('../partials/footer')%>
-</footer>
+
+
+
+    </div>
+    <footer>
+        <%- include('../partials/footer')%>
+    </footer>
+    
 </body>
 
 </html>

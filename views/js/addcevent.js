@@ -44,3 +44,4 @@ veganob.addEventListener("click", function () {
         veg.style.display = "flex";
     }
 });
+

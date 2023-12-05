@@ -27,8 +27,8 @@ module.exports = class Pedido {
 		});
 	}
 	listarTicket(connection,callback){
-		const sql = `SELECT * from pedido where ticket = "desusado" and pagamento = "pago"`
-		connection.query(sql,function(err,result){
+		const sql = `SELECT * from pedido where ticket = "desusado" and pagamento = "pago" and usuario_cpf = ?`
+		connection.query(sql,[this.usuario.cpf],function(err,result){
 			if(err) throw err;
 			return callback(result)
 		})
