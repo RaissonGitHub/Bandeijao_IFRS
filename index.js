@@ -1125,7 +1125,8 @@ app.post("/addrestricao", (req, res) => {
 			const encontrou = result.some((item) => item.nome_restricao === r.nome); //variavel que verifica a presença da restrição no banco
 			if (encontrou) {
 				//se encontrou
-				console.log("Já cadastrado"); //nao cadastre
+				r.listar(connection, function (result) {
+					res.render("addrestricao", { aviso: "Restrição já cadastrada", restricao: result, logado, adm , acao:"Cadastrar"})}); //nao cadastre
 			} else {
 				//se nao encontrou
 				//adicione a restrição
@@ -1143,7 +1144,8 @@ app.post("/addrestricao", (req, res) => {
 			const encontrou = result.some((item) => item.nome_restricao === r.nome); //variavel que verifica a presença da restrição no banco
 			if (encontrou) {
 				//se encontrou
-				console.log("Já cadastrado"); //nao cadastre
+				r.listar(connection, function (result) {
+					res.render("listarestricoes", { aviso: "Restrição já cadastrada", restricao: result, logado, adm })}); //nao altere
 			} else {
 				//se nao encontrou
 				//adicione a restrição
