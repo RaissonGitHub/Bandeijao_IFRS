@@ -138,6 +138,7 @@ app.post("/cadastro", function (req, res) {
 		u.caracAlimenticia = req.body.escolha;
 		u.senha = req.body.senha;
 		u.curso.id = req.body.curso;
+		u.perfil = "user"
 
 		if (buttonClicked === "Enviar") {
 			//cadastrar os dados do formulario
@@ -650,6 +651,7 @@ app.get("/refeicao/:id", (req, res) => {
 	c.listaEspecifica(connection, function (result) {
 		//obtenção dos dados
 		c.dia = result[0].dia;
+		c.imagem = result[0].imagem
 		c.tipo = result[0].tipo;
 		c.descricao = result[0].descricao;
 		c.valor = result[0].valor;
@@ -658,7 +660,8 @@ app.get("/refeicao/:id", (req, res) => {
 			if (c.alimentos.indexOf(row) == -1) {
 				//se o alimento não estiver no array
 				const a = new Alimento();
-				(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
+
+				(a.nome = row.nome), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
 			}
 		});
 		//carregue a pagina de refeicao com os dados do cardapio selecionado
@@ -1039,7 +1042,7 @@ app.post("/delrestricao", (req, res) => {
 	const r = new RestricaoAlimentar();
 	const opcao = req.body.opcao;
 	r.id = opcao;
-	r.excluir(connection);
+	r.desvincularRestricao(connection,req.session.login,r.id);
 	const u = new Usuario();
 	//listar as restrições do usuario
 	u.restricao.listarEspecifica(connection, req.session.login, function (result) {

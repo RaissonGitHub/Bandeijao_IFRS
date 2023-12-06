@@ -37,6 +37,12 @@ module.exports = class RestricaoAlimentar {
             if(err) throw err;
         });
 	}
+	desvincularRestricao(connection,id,id_restricao){
+		const sql = `Delete from usuario_has_restricao_alimentar where usuario_cpf = ? and restricao_alimentar_id_restricao=?`
+		connection.query(sql,[id,id_restricao],function(err){
+			if(err) throw err;
+		})
+	}
 	filtrarRestricao(connection,callback){
 		const sql = 'SELECT * from restricao_alimentar where nome_restricao like ?'
 		connection.query(sql,[this.nome],function(err,result){
