@@ -398,7 +398,7 @@ app.post("/listacardapio", (req, res) => {
 		} else {
 			const c = new Cardapio();
 			c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
-			id = c.id; //variavel global para saber qual caixa foi marcada
+			IdAtual = c.id; //variavel global para saber qual caixa foi marcada
 			c.listaEspecifica(connection, function (result) {
 				res.render("addcardapio", { aviso: "", cardapio: result[0], acao: "Atualizar", logado, adm });
 			});
@@ -439,7 +439,7 @@ app.post("/listacardapio", (req, res) => {
 		} else {
 			const c = new Cardapio();
 			c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
-			id = c.id; //variavel global para saber qual caixa foi marcada
+			IdAtual = c.id; //variavel global para saber qual caixa foi marcada
 			//se um cardapio for marcado
 			
 			//listar todos os alimentos disponiveis
@@ -579,7 +579,7 @@ app.post("/addcardapio", (req, res) => {
 		if (a == "Atualizar") {
 			const c = new Cardapio();
 			//obter os dados
-			c.id = id;
+			c.id = IdAtual;
 			c.dia = req.body.dia;
 			c.descricao = req.body.descricao;
 			c.imagem = req.body.imagem;
@@ -595,12 +595,12 @@ app.post("/addcardapio", (req, res) => {
 app.post("/vincalimentos", (req, res) => {
 	const buttonClicked = req.body.button;
 	const c = new Cardapio();
-	c.id = id; //pega o id do cardapio que foi marcado em /listacardapio
+	c.id = IdAtual; //pega o id do cardapio que foi marcado em /listacardapio
 	const ali = req.body.checkbox; //alimento selecionado com checkbox
 	if (buttonClicked === "Adicionar Alimento") {
 		if (!ali) {
 			const c = new Cardapio();
-			c.id = id 
+			c.id = IdAtual 
 			
 			const a = new Alimento();
 			//listar todos os alimentos disponiveis
@@ -620,7 +620,7 @@ app.post("/vincalimentos", (req, res) => {
 	} else if (buttonClicked === "Desvincular Alimento") {
 		if (!ali) {
 			const c = new Cardapio();
-			c.id = id 
+			c.id = IdAtual 
 			
 			const a = new Alimento();
 			//listar todos os alimentos disponiveis
@@ -640,27 +640,28 @@ app.post("/vincalimentos", (req, res) => {
 	}
 });
 
-let id = ""; //variavel usada para pegar o id dos cardapios
+let IdAtual = ""; //variavel usada para pegar o id dos cardapios
 
 //refeicao
 app.get("/refeicao/:id", (req, res) => {
 	const c = new Cardapio();
 	c.id = req.params.id; //pega o id do cardapio definido como parametro
-	id = c.id
+	IdAtual = c.id
+
 	//listagem desse cardapio a partir do id
 	c.listaEspecifica(connection, function (result) {
 		//obtenção dos dados
 		c.dia = result[0].dia;
-		c.imagem = result[0].imagem
 		c.tipo = result[0].tipo;
 		c.descricao = result[0].descricao;
 		c.valor = result[0].valor;
 		c.alimentos = []; //array para guardas os alimentos do cardapio
+		c.imagem =result[0].imagem
 		result.forEach((row) => {
 			if (c.alimentos.indexOf(row) == -1) {
 				//se o alimento não estiver no array
 				const a = new Alimento();
-
+				
 				(a.nome = row.nome), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
 			}
 		});
@@ -672,7 +673,7 @@ app.get("/refeicao/:id", (req, res) => {
 //refeicaoconfirm
 app.post("/refeicaoconfirm", (req, res) => {
 	const c = new Cardapio();
-	c.id = id;
+	c.id = IdAtual;
 	//listagem desse cardapio a partir do id de /refeicao
 	c.listaEspecifica(connection, function (result) {
 		//obtenção dos dados
@@ -680,6 +681,7 @@ app.post("/refeicaoconfirm", (req, res) => {
 		c.tipo = result[0].tipo;
 		c.descricao = result[0].descricao;
 		c.valor = result[0].valor;
+		c.imagem = result[0].imagem
 		c.alimentos = []; //array para guardas os alimentos do cardapio
 		result.forEach((row) => {
 			if (c.alimentos.indexOf(row) == -1) {
@@ -868,7 +870,7 @@ app.post("/realizarpedido", function (req, res) {
 		p.usuario.listarCredenciais(connection, function (result) {
 			p.usuario.curso.nome = result[0].curso_id_curso;
 			//fazer pedido
-			p.fazerPedido(connection, id, function (novoID) {
+			p.fazerPedido(connection, IdAtual, function (novoID) {
 				//armazenar o id do pedido recem cadastrado
 				pedidoId = novoID;
 				res.render("pagcartao", { aviso: "", pedidoId: novoID, logado, adm });
@@ -928,7 +930,7 @@ app.post("/alimentos", (req, res) => {
 		} else {
 			const a = new Alimento();
 			a.id = opcao;
-			id = opcao;
+			IdAtual = opcao;
 			a.listaEspecifica(connection, function (result) {
 				a.nome = result[0].nome;
 				a.unidade = result[0].unidade;
@@ -962,6 +964,18 @@ app.post("/filtrarAlimentos", (req, res) => {
 		res.render("alimentos", { aviso: "", alimento: result, logado, adm });
 	});
 });
+app.post("/filtrarAlimentosVinc", (req, res) => {
+	const a = new Alimento();
+	const c = new Cardapio();
+	c.id = IdAtual 
+	a.nome = "%" + req.body.filtro + "%";
+	a.filtrarAlimento(connection, function (result) {
+		c.listaEspecifica(connection, function (result1) {
+			res.render("vincalimento", { aviso: "", c: c, alimento: result, cali: result1, logado, adm });
+		});
+		
+	});
+});
 
 //addalimento
 
@@ -979,7 +993,7 @@ app.post("/addalimento", (req, res) => {
 		res.render("sucesso", { aviso: "", logado, adm, mensagem: "Alimento cadastrado com sucesso!", link: "/alimentos" });
 	} else {
 		const a = new Alimento();
-		a.id = id;
+		a.id = IdAtual;
 		a.nome = req.body.nome;
 		a.unidade = req.body.unidade;
 		a.valorNutricional = req.body.valornutri;
@@ -1079,7 +1093,7 @@ app.post("/listarestricoes", (req, res) => {
 		} else {
 			const r = new RestricaoAlimentar();
 			r.id = opcao;
-			id = opcao;
+			IdAtual = opcao;
 			r.listaPorId(connection, function (result) {
 				r.nome = result[0].nome_restricao;
 				res.render("addrestricao", { aviso: "", acao: "Atualizar", restricao: r, logado, adm });
@@ -1140,7 +1154,7 @@ app.post("/addrestricao", (req, res) => {
 		const r = new RestricaoAlimentar();
 		//obtenção dos dados
 		r.nome = req.body.nome;
-		r.id = id;
+		r.id = IdAtual;
 		r.listar(connection, function (result) {
 			const encontrou = result.some((item) => item.nome_restricao === r.nome); //variavel que verifica a presença da restrição no banco
 			if (encontrou) {
@@ -1212,7 +1226,7 @@ app.post("/feedback", (req, res) => {
 		const m = new Mensagem();
 		m.assunto = req.body.assunto;
 		m.mensagem = req.body.mensagem;
-		m.id = id;
+		m.id = IdAtual;
 		m.atualizar(connection);
 		res.render("sucesso", { aviso: "", mensagem: "Mensagem atualizada", link: "/listafeedback", logado, adm });
 	}
@@ -1249,7 +1263,7 @@ app.post("/listafeedback", (req, res) => {
 		} else {
 			const m = new Mensagem();
 			m.id = opcao;
-			id = opcao;
+			IdAtual = opcao;
 			m.listarPorId(connection, function (result) {
 				m.assunto = result[0].assunto;
 				m.mensagem = result[0].mensagem;
