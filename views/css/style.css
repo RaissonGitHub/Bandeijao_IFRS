@@ -812,9 +812,13 @@ a.form-attsenha-button{
 }
 .cardapio-content{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .opcao-escolhida{
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -828,49 +832,60 @@ a.form-attsenha-button{
     height: 2px;
     background-color: #000000;
 }
-.cardapio-pratos{
-    width: 100%;
-
-}
-.cardapio-prato-carnivoro,.cardapio-prato-vegetariano,.cardapio-prato-vegano{
-    width: 100%;
+.cardapio-pratos {
+    width: 90%;
+    gap: 7px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    height: 100%;
 }
-.cardapio-prato-img{
-    width: 300px;
-    padding: 35px;
-    
-}
-.cardapio-prato-nome-desc{
-    width: 200px;
+.cardapio-prato-carnivoro, .cardapio-prato-vegetariano, .cardapio-prato-vegano {
+    /* width: 100%; */
     display: flex;
-    height: 100%;
-    text-align: justify;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    width: 200px;
+    justify-content: center;
+    /* height: 200px; */
+}
+.cardapio-prato-img {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 130px;
+}
+.cardapio-prato-nome-desc {
+    width: 100%;
+    display: flex;
+    height: 45%;
+    /* text-align: justify; */
     flex-direction: column;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
-.cardapio-prato-nome-desc a{
+.cardapio-prato-nome-desc a {
     text-decoration: underline;
-    padding: 25px 25px 25px 0;
+    padding: 25px  0;
     font-size: 1.7em;
     font-weight: bold;
     color: #000000;
+    width: 100%;
 }
-.cardapio-prato-preco{
-    width: 130px;
-    height: 100%;
+.cardapio-prato-preco {
+    width: 100%;
+    height: 16%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    /* text-align: right; */
+    justify-content: flex-end;
+    flex-direction: row;
 }
 .cardapio-prato-preco span{
-    font-size: 1.4em;
-    padding: 25px;
+    font-size: 1em;
+    padding: 15px;
 }
 .cardapio-tipos button{
     cursor: pointer;
