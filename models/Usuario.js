@@ -91,8 +91,8 @@ module.exports = class Usuario {
 
 	atualizar(connection) {
 
-		const sql = `update usuario set nome=?, sobrenome=?, telefone=?,email=?,caracteristica_alimenticia=?,curso_id_curso=?,perfil=? where cpf = ?`
-		connection.query(sql,[this.nome,this.sobrenome,this.telefone,this.email,this.caracAlimenticia,this.curso.id,this.perfil,this.cpf],function(err){
+		const sql = `update usuario set nome=?, sobrenome=?, telefone=?,email=?,caracteristica_alimenticia=?,curso_id_curso=?,perfil=?,matricula =? where cpf = ?`
+		connection.query(sql,[this.nome,this.sobrenome,this.telefone,this.email,this.caracAlimenticia,this.curso.id,this.perfil,this.matricula,this.cpf],function(err){
 			if(err) throw err;
 		})
 	}

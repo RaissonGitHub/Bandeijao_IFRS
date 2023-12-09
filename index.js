@@ -1189,6 +1189,7 @@ app.post("/attcadastro", (req, res) => {
 	if (req.session.login) {
 		const u = new Usuario();
 		u.nome = req.body.nome;
+		u.matricula = req.body.matricula;
 		u.sobrenome = req.body.sobrenome;
 		u.telefone = req.body.telefone;
 		u.email = req.body.email;
