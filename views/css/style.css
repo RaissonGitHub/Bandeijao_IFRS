@@ -1872,25 +1872,60 @@ a.form-attsenha-button{
         width: 100%;
         
     }
-    .logo-bandeijao{
-        width: 80%;
+    .header-content {
+        background-image: linear-gradient(to right, #17882c 0, #238335 100%);
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .cellbutton{
+        height: 100%;
+        display: flex;
+        width: 20%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .logo-bandeijao {
+        height: 100%;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+         margin-left: 0; 
+    }
+    .logo-bandeijao img {
+        width: 170px;
+        height: 90%;
     }
     .login-ancora{
         width: 20%;
     }
-    .nav-content{
-        height: 80px;
+    .nav-content {
     }
-    .nav-content ul{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        grid-template-rows: repeat(2,1fr);
+    .nav-content ul {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .nav-content li {
+        list-style: none;
+        width: 50%;
+        display: flex;
+        line-height: 2.5em;
+    }
+    .hr-nav{
+        width:100%
     }
 
     .container{
         width: 100%;
         justify-content: center;
     }
+
 
     /*Home incio*/
     .menu-drop {
