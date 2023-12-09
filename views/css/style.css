@@ -2268,6 +2268,14 @@ a.form-attsenha-button{
         width: 100%;
     }
     /*refeicaoconfirm fim*/
+    /*aviso inicio*/
+    .aviso{
+        top: 30%;
+        right: 25%;
+        left: 25%;
+        width: auto;
+    }
+    /*aviso fim*/
 }
 
 
