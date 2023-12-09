@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<title></title>
-		<link rel="stylesheet" href="css/style.css" />
-	</head>
 
-	<body>
-		<div class="container-login">
-			<div class="login-box">
-				<div class="login- content">
-					<h2 class="login-h2">Login</h2>
-					<hr class="login-hr" />
-					<div class="form-login">
-						<form action="/login" method="post">
-							<div class="form-login-content">
-								<input class="login-input" type="text" name="cpf" id="cpf" placeholder="CPF" />
-								<input class="login-input" type="password" name="senha" id="senha" placeholder="Senha" />
-								<input class="login-button-login" type="submit" value="Login" />
-								<a class="login-criar-conta" href="/cadastro">Criar conta</a>
-							</div>
-						</form>
-					</div>
-				</div>
+<head>
+    <%- include('../partials/head')%>
+
+   <style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+   </style>
+   <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body style="min-height: 0; justify-content: center; flex-direction: column;">
+    <div class="login">
+        <div class="login-header">
+            <img src="img/logo2.png" alt="" style="width: 70%;">
+          <h1>Login</h1>
+        </div>
+        <form action="/login" method="post">
+			<div class="form-login-content">
+				<input class="login-input" type="text" name="cpf" id="cpf" placeholder="CPF" />
+				<input class="login-input" type="password" name="senha" id="senha" placeholder="Senha" />
+				<input class="login-button-login" type="submit" value="Login" />
+				<a class="login-criar-conta" href="/cadastro">Criar conta</a>
 			</div>
-		</div>
-	</body>
+		</form>
+      <br>
+    <br>
+</body>
+
 </html>

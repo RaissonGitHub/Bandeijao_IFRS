@@ -14,14 +14,14 @@
         <hr class="pedido-hr" />
         <div class="form-pedidos">
             <div class="form-pedidos-content">
-                <form action="filtrarPedidos" method="post">
+                <form action="filtrarPedidos" method="post" class="filtrar-pedidos-form">
                     <div class="form-pedidos-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
                         <input type="text" name="filtro" id="filtro" />
                         <button type="submit" id="filtrar">Filtrar</button>
                     </div>
                 </form>
-                <form action="pedidos" method="post" style="overflow: auto;">
+                <form action="pedidos" method="post"  class="form-pedidos-post">
 
                     <div class="form-pedidos-buttons">
                         <input type="submit" id="inserir" class="buttons" name="button" value="Novo Pedido" />

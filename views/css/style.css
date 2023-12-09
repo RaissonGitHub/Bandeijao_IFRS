@@ -186,29 +186,20 @@ button[name="drop"]:hover {
 /*Home fim*/
 
 /*login inicio*/
-.container-login{
-    width: 100%;
-    height: 100vh;
+
+.login {
+    background-color: #fff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.login-box{
-    width: 600px;
-    height: 400px;
-    margin: 50px auto auto auto;
-    border: solid 1px black;
-}
-.login-content{
-    display: flex;
-    flex-direction: column;
-}
-.login-hr{
-    margin: 7px 0;
-}
-.login-h2{
+.login-header {
     text-align: center;
-    font-size: 2.5em;
+    margin-bottom: 20px;
 }
-.login-content hr{
-    margin-bottom: 10px;
+.login-header h1{
+    color: #17882c;
 }
 .form-login-content{
     display: flex;
@@ -243,13 +234,7 @@ button[name="drop"]:hover {
 .login-criar-conta:hover{
     text-decoration: underline;
 }
-.login-esqueceu-senha{
-    font-size: 1.1em;
-    margin: 10px;
-}
-.login-esqueceu-senha:hover{
-    text-decoration: underline;
-}
+
 
 
 /*login fim*/
@@ -365,6 +350,9 @@ button[name="drop"]:hover {
     margin-bottom: 25px;
     width: 90%;
 
+}
+.filtrar-pedidos-form,.form-pedidos-post{
+    width: 100%;
 }
 
 .form-pedidos {
@@ -1936,6 +1924,11 @@ a.form-attsenha-button{
         justify-content: center;
     }
 
+    /*login inicio*/
+    .login{
+        width: 75%;
+    }
+    /*login fim*/
 
     /*Home incio*/
     .menu-drop {
@@ -1951,7 +1944,12 @@ a.form-attsenha-button{
     .cardapio-pratos{
         gap: 25px;
     }
+    .form-cardapios-buttons{
+        justify-content: center;
+
+    }
     /*Cardapio fim*/
+
     /*pedidos inicio*/
 
     .pedido-h1 {
@@ -1986,8 +1984,20 @@ a.form-attsenha-button{
         margin-top: 10px;
         justify-content: space-evenly;
     }
+    #inserir{
+        margin-left: 0;
+    }
 
     /*pedidos fim*/
+
+    /*ticket inicio*/
+    .form-filtrarticket{
+        width: 100%;
+    }
+    .form-ticket{
+        width: 100%;
+    }
+    /*ticket fim*/
 
     /*usuarios inicio*/
 
@@ -2022,6 +2032,9 @@ a.form-attsenha-button{
     .form-usuario-buttons {
         margin-top: 10px;
         justify-content: space-evenly;
+    }   
+    .form-usuario-post{
+        width: 100%;
     }
 
     /*usuarios fim*/
@@ -2059,10 +2072,23 @@ a.form-attsenha-button{
         margin-top: 10px;
         justify-content: space-evenly;
     }
+    .form-curso-post{
+        width: 100%;
+    }
 
     /*curso fim*/
 
-    
+    /*alimentos inicio*/
+    .form-alimentos-post{
+        width: 100%;
+    }
+    /*alimentos fim*/
+
+    /*listarestricoes inicio*/
+    .form-restricoes-post{
+        width: 100%;
+    }
+    /*listarestricoes fim*/
 
     /*sucesso inicio*/
 
@@ -2091,11 +2117,166 @@ a.form-attsenha-button{
         width: 100%;
     }
     /*Perfil fim*/
+    /*feedback inicio*/
+    .feedback-input-text, .feedback-input-textarea {
+        width: auto;
+    }
+    .form-feedback-content {
+        align-items: center;
+        width: auto;
+        padding: 0;
+    }
+    .feedback-label {
+        text-align: center;
+    }
+    .feedback-enviar{
+        width: auto;
+    }
+    /*feedback fim*/
+
+    /*listafeedback inicio*/
+    .form-feedback-post{
+        width: 100%;
+    }
+    /*listafeedback fim*/
+    /*listacardapio inicio*/
+    .form-cardapios-buttons{
+        flex-wrap: wrap;
+    }
+    .form-filtrar-cardapio{
+        width: 100%;
+    }
+    .form-listacardapio-post{
+        width: 100%;
+        overflow: auto;
+    }
+    .form-cardapios-filtro{
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .cardapios-card {
+        width: auto;
+    }
+    /*listacardapio fim*/
+
+    /*attcadastro inicio*/
+    .form-cadastro{
+        width: 95%;
+        border-radius: 5px;
+    }
+    .form-control{
+        width: 40%;
+    }
+    /*attcadastro fim*/
+
+    /*restricoes inicio*/
+    .form-addrestricoes-content{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .form-addrestricoes-content-enviar{
+        width: auto;
+    }
+    /*restricoes fim*/
+
+    /*addcurso inicio*/
+    .form-addcurso{
+        width: 95%;
+        border-radius: 5px;
+    }
+    .form-control-addcurso{
+        width: auto;
+    }
+    /*addcurso fim*/
+
+    /*addcardapio inicio*/
+    .form-addcardapio{
+        width: 95%;
+    }
+    .form-control-addcardapio{
+        width: auto ;
+    }
+    .form-addcardapio-inputs-dia label{
+        width: auto;
+    }
+    .form-addcardapio-inputs-dia{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    /*addcardapio fim*/
+
+    /*attsenha inicio*/
+    .attsenha-box{
+        width: auto;
+    }
+    /*attsenha fim*/
+
+    /*vincalimento inicio*/
+    .form-vincalimento-post{
+        width: 100%;
+    }
+    .javinc{
+        margin: 25px 0;
+    }
+    /*vincalimento fim*/
+
+    /*refeicao inicio*/
+    .refeicao-imagem{
+        width: 100%;
+    }
+    .refeicao-descricao span{
+        text-indent: 0em;
+    }
+    .refeicao-imagem img {
+        width: 90%;
+        height: 90%;
+        padding: 0;
+    }
+    .refeicao-nome-tipo{
+        align-items: center;
+    }
+    .refeicao-ingredientes-inputs{
+        align-items: center;
+    }
+    .refeicao-descricao{
+        display: flex;
+        align-items: center;
+        margin: 50px 0;
+        width: 100%;
+        padding: 0;
+    }
+    .refeicao-descricao p{
+        width: 90%;
+    }
+    .refeicao-card-preco-content input{
+        margin: 5px;
+    }
+    .refeicao-content {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(auto-fill, minmax(65px,0.1fr));
+        grid-template-areas:
+            "img tit tit"
+            "img c c    "
+            "d d d"
+            "e e e";
+        justify-items: center;
+    }
+    /*refeicao fim*/
+    /*refeicaoconfirm inicio*/
+    .refeicao-confirm-buttons{
+        width: 100%;
+    }
+    /*refeicaoconfirm fim*/
 }
 
 
 /* Dispositivos um pouco maiores, mas ainda pequenos (Pequenos Tablets e Smartphones + largos, 600px para cima) */
 @media only screen and (min-width: 600px) {
+    
+    .login{
+        width: 30%;
+    }
     /*Home incio*/
 
     /*Home fim*/
@@ -2165,6 +2346,22 @@ a.form-attsenha-button{
     /*sucesso inicio*/
 
     /*sucesso fim*/
+
+    /*cardapio*/
+    .form-filtrar-cardapio{
+        width: 100%;
+    }
+    .form-listacardapio-post{
+        width: 100%;
+
+    }
+    .cardapios-card-list{
+        width: 90%;
+    }
+    #cardapios-table-content{
+        
+    }
+    /*cardapio*/
 }
 
 /* Dispostivos Largos (laptops/desktops, 992px para cima) */
