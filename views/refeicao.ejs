@@ -17,7 +17,7 @@
 							<img src="<%=cardapio.imagem%>" alt="" />
 						</div>
 						<div class="refeicao-nome-tipo">
-							<h2>Prato</h2>
+							<h2>Cardapio <%=cardapio.id%></h2>
 							<span>Tipo:<%=cardapio.tipo%></span>
 						</div>
 						<div class="refeicao-ingredientes-inputs">
@@ -37,7 +37,7 @@
 						<div class="refeicao-card-preco">
 							<div class="refeicao-card-preco-content">
 								<h2>Pedido</h2>
-								<h3>Prato</h3>
+								<h3>Cardapio <%=cardapio.id%></h3>
 								<span>R$ <%=cardapio.valor.toFixed(2)%></span>
 								<input type="submit" value="Fazer Pedido" />
 							</div>

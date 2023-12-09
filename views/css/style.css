@@ -1922,6 +1922,7 @@ a.form-attsenha-button{
     .container{
         width: 100%;
         justify-content: center;
+        min-height:auto;
     }
 
     /*login inicio*/
@@ -2101,7 +2102,6 @@ a.form-attsenha-button{
     .perfil-cabecario-content{
         width: auto;
         align-items: center;
-        padding: 0 15px 15px;
     }
     .perfil-hr{
         width: 90%;
@@ -2358,9 +2358,7 @@ a.form-attsenha-button{
     .cardapios-card-list{
         width: 90%;
     }
-    #cardapios-table-content{
-        
-    }
+    
     /*cardapio*/
 }
 
