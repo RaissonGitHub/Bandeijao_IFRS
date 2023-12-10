@@ -638,6 +638,7 @@ app.post("/vincalimentos", (req, res) => {
 				//para cada alimento selecionado
 				c.desvincularAlimentoNoCarpio(connection, a); //vincular ao cardapio
 			}
+			
 			//renderizar pagina de sucesso
 			res.render("sucesso", { aviso: "", logado, adm, mensagem: "Alimento desvinculado com sucesso!", link: "/listacardapio" });
 		}
