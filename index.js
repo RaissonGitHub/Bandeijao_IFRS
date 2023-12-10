@@ -1,3 +1,9 @@
+/* Um curso deve ser adicionado no banco primeiro*/
+/* a primeira inserção de um adm deve ser feita no banco de dados*/
+/* se houver um adm ele pode atualizar outros usuarios para a situação de adm*/
+/* e tambem criar outro curso*/
+
+
 //Imports dos modulos
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -139,6 +145,7 @@ app.post("/cadastro", function (req, res) {
 		u.senha = req.body.senha;
 		u.curso.id = req.body.curso;
 		u.perfil = "user";
+		
 
 		if (buttonClicked === "Enviar") {
 			//cadastrar os dados do formulario
