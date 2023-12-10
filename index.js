@@ -700,7 +700,7 @@ app.post("/refeicaoconfirm", (req, res) => {
 				if (c.alimentos.indexOf(row) == -1) {
 					//se o alimento não estiver no array
 					const a = new Alimento();
-					(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
+					(a.nome = row.nome), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
 				}
 			});
 			res.render("refeicaoconfirm", { aviso: "", cardapio: c, logado, adm , restricoes:restricoes});
