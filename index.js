@@ -138,7 +138,7 @@ app.post("/cadastro", function (req, res) {
 		u.caracAlimenticia = req.body.escolha;
 		u.senha = req.body.senha;
 		u.curso.id = req.body.curso;
-		u.perfil = "user"
+		u.perfil = "user";
 
 		if (buttonClicked === "Enviar") {
 			//cadastrar os dados do formulario
@@ -235,13 +235,13 @@ app.get("/curso", (req, res) => {
 		res.redirect("/");
 	}
 });
-app.post('/filtrarCursos',(req,res)=>{
+app.post("/filtrarCursos", (req, res) => {
 	const c = new Curso();
 	c.nome = "%" + req.body.filtro + "%";
 	c.filtrarCurso(connection, function (result) {
 		res.render("cursos", { aviso: "", cursos: result, logado, adm });
 	});
-})
+});
 let selecao;
 
 app.post("/curso", (req, res) => {
@@ -317,7 +317,7 @@ app.post("/addcurso", (req, res) => {
 app.get("/cardapio", (req, res) => {
 	const cardapio = new Cardapio();
 	//listar os cardapios cadastrados
-	cardapio.listar(connection, function (result) {
+	cardapio.listarPeloDia(connection, new Date().getDay(), function (result) {
 		res.render("cardapio", { aviso: "", cardapios: result, logado, adm });
 	});
 });
@@ -441,7 +441,7 @@ app.post("/listacardapio", (req, res) => {
 			c.id = req.body.checkbox; //variavel para saber qual caixa foi marcada
 			IdAtual = c.id; //variavel global para saber qual caixa foi marcada
 			//se um cardapio for marcado
-			
+
 			//listar todos os alimentos disponiveis
 			c.alimento.listar(connection, function (result) {
 				c.listaEspecifica(connection, function (result1) {
@@ -518,40 +518,37 @@ app.post("/listacardapio", (req, res) => {
 		}
 	}
 });
-app.post('/filtrarCardapios',(req,res)=>{
-	const c = new Cardapio()
-	c.id = "%"+req.body.filtro+"%"
-	c.filtrarCardapio(connection,function(result){
-	const cardapios = {};
+app.post("/filtrarCardapios", (req, res) => {
+	const c = new Cardapio();
+	c.id = "%" + req.body.filtro + "%";
+	c.filtrarCardapio(connection, function (result) {
+		const cardapios = {};
 
-	// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
-	result.forEach((row) => {
-		const cardapioId = row.id_cardapio;
-		if (!cardapios[cardapioId]) {
-			cardapios[cardapioId] = new Cardapio();
-			(cardapios[cardapioId].id_cardapio = cardapioId),
-				(cardapios[cardapioId].dia = row.dia),
-				(cardapios[cardapioId].tipo = row.tipo),
-				(cardapios[cardapioId].imagem = row.imagem),
-				(cardapios[cardapioId].descricao = row.descricao),
-				(cardapios[cardapioId].valor = row.valor),
-				(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
-		}
-		//se id_alimento não é nulo adicionar alimento
-		if (row.id_alimento) {
-			const a = new Alimento();
-			(a.nome = row.nome_alimento),
-				(a.unidade = row.unidade),
-				(a.valorNutricional = row.valor_nutricional),
-				cardapios[cardapioId].alimentos.push(a);
-		}
+		// Organiza os resultados em um objeto onde cada cardápio tem uma lista de alimentos associados
+		result.forEach((row) => {
+			const cardapioId = row.id_cardapio;
+			if (!cardapios[cardapioId]) {
+				cardapios[cardapioId] = new Cardapio();
+				(cardapios[cardapioId].id_cardapio = cardapioId),
+					(cardapios[cardapioId].dia = row.dia),
+					(cardapios[cardapioId].tipo = row.tipo),
+					(cardapios[cardapioId].imagem = row.imagem),
+					(cardapios[cardapioId].descricao = row.descricao),
+					(cardapios[cardapioId].valor = row.valor),
+					(cardapios[cardapioId].alimentos = []); //array para saber os alimentos associados do cardapio especifico
+			}
+			//se id_alimento não é nulo adicionar alimento
+			if (row.id_alimento) {
+				const a = new Alimento();
+				(a.nome = row.nome_alimento),
+					(a.unidade = row.unidade),
+					(a.valorNutricional = row.valor_nutricional),
+					cardapios[cardapioId].alimentos.push(a);
+			}
+		});
+		res.render("listacardapio", { aviso: "", cardapios: cardapios, logado, adm });
 	});
-	res.render("listacardapio", { aviso: "", cardapios: cardapios, logado, adm });
-	})
-
-})
-
-
+});
 
 //addcardapio
 app.get("/addcardapio", (req, res) => {
@@ -586,7 +583,7 @@ app.post("/addcardapio", (req, res) => {
 			c.tipo = req.body.tipo;
 			c.valor = req.body.valor;
 			c.atualizar(connection);
-			res.render("sucesso", { aviso:"",logado, adm, mensagem: "Atualização de cardapio concluida com sucesso!", link: "/listacardapio" });
+			res.render("sucesso", { aviso: "", logado, adm, mensagem: "Atualização de cardapio concluida com sucesso!", link: "/listacardapio" });
 		}
 	}
 });
@@ -600,8 +597,8 @@ app.post("/vincalimentos", (req, res) => {
 	if (buttonClicked === "Adicionar Alimento") {
 		if (!ali) {
 			const c = new Cardapio();
-			c.id = IdAtual 
-			
+			c.id = IdAtual;
+
 			const a = new Alimento();
 			//listar todos os alimentos disponiveis
 			a.listar(connection, function (result) {
@@ -620,8 +617,8 @@ app.post("/vincalimentos", (req, res) => {
 	} else if (buttonClicked === "Desvincular Alimento") {
 		if (!ali) {
 			const c = new Cardapio();
-			c.id = IdAtual 
-			
+			c.id = IdAtual;
+
 			const a = new Alimento();
 			//listar todos os alimentos disponiveis
 			a.listar(connection, function (result) {
@@ -646,7 +643,7 @@ let IdAtual = ""; //variavel usada para pegar o id dos cardapios
 app.get("/refeicao/:id", (req, res) => {
 	const c = new Cardapio();
 	c.id = req.params.id; //pega o id do cardapio definido como parametro
-	IdAtual = c.id
+	IdAtual = c.id;
 
 	//listagem desse cardapio a partir do id
 	c.listaEspecifica(connection, function (result) {
@@ -656,41 +653,50 @@ app.get("/refeicao/:id", (req, res) => {
 		c.descricao = result[0].descricao;
 		c.valor = result[0].valor;
 		c.alimentos = []; //array para guardas os alimentos do cardapio
-		c.imagem =result[0].imagem
+		c.imagem = result[0].imagem;
 		result.forEach((row) => {
 			if (c.alimentos.indexOf(row) == -1) {
 				//se o alimento não estiver no array
 				const a = new Alimento();
-				
+
 				(a.nome = row.nome), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
 			}
 		});
 		//carregue a pagina de refeicao com os dados do cardapio selecionado
-		res.render("refeicao", { aviso:"",cardapio: c, logado, adm });
+		res.render("refeicao", { aviso: "", cardapio: c, logado, adm });
 	});
 });
 
 //refeicaoconfirm
 app.post("/refeicaoconfirm", (req, res) => {
-	const c = new Cardapio();
-	c.id = IdAtual;
-	//listagem desse cardapio a partir do id de /refeicao
-	c.listaEspecifica(connection, function (result) {
-		//obtenção dos dados
-		c.dia = result[0].dia;
-		c.tipo = result[0].tipo;
-		c.descricao = result[0].descricao;
-		c.valor = result[0].valor;
-		c.imagem = result[0].imagem
-		c.alimentos = []; //array para guardas os alimentos do cardapio
-		result.forEach((row) => {
-			if (c.alimentos.indexOf(row) == -1) {
-				//se o alimento não estiver no array
-				const a = new Alimento();
-				(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
-			}
+	const u = new Usuario();
+	u.cpf = req.session.login;
+	u.restricao.listarEspecifica(connection, u.cpf,function (resultUser) {
+		let restricoes = []
+		resultUser.forEach((r,index)=>{
+			restricoes.push(r.nome_restricao)
+		})
+		const c = new Cardapio();
+		c.id = IdAtual;
+
+		//listagem desse cardapio a partir do id de /refeicao
+		c.listaEspecifica(connection, function (result) {
+			//obtenção dos dados
+			c.dia = result[0].dia;
+			c.tipo = result[0].tipo;
+			c.descricao = result[0].descricao;
+			c.valor = result[0].valor;
+			c.imagem = result[0].imagem;
+			c.alimentos = []; //array para guardas os alimentos do cardapio
+			result.forEach((row) => {
+				if (c.alimentos.indexOf(row) == -1) {
+					//se o alimento não estiver no array
+					const a = new Alimento();
+					(a.nome = row.nome_alimento), (a.unidade = row.unidade), (a.valorNutricional = row.valor_nutricional), c.alimentos.push(a); //coloque no array
+				}
+			});
+			res.render("refeicaoconfirm", { aviso: "", cardapio: c, logado, adm , restricoes:restricoes});
 		});
-		res.render("refeicaoconfirm", { aviso: "", cardapio: c, logado, adm });
 	});
 });
 
@@ -967,13 +973,12 @@ app.post("/filtrarAlimentos", (req, res) => {
 app.post("/filtrarAlimentosVinc", (req, res) => {
 	const a = new Alimento();
 	const c = new Cardapio();
-	c.id = IdAtual 
+	c.id = IdAtual;
 	a.nome = "%" + req.body.filtro + "%";
 	a.filtrarAlimento(connection, function (result) {
 		c.listaEspecifica(connection, function (result1) {
 			res.render("vincalimento", { aviso: "", c: c, alimento: result, cali: result1, logado, adm });
 		});
-		
 	});
 });
 
@@ -1056,7 +1061,7 @@ app.post("/delrestricao", (req, res) => {
 	const r = new RestricaoAlimentar();
 	const opcao = req.body.opcao;
 	r.id = opcao;
-	r.desvincularRestricao(connection,req.session.login,r.id);
+	r.desvincularRestricao(connection, req.session.login, r.id);
 	const u = new Usuario();
 	//listar as restrições do usuario
 	u.restricao.listarEspecifica(connection, req.session.login, function (result) {
@@ -1141,7 +1146,8 @@ app.post("/addrestricao", (req, res) => {
 			if (encontrou) {
 				//se encontrou
 				r.listar(connection, function (result) {
-					res.render("addrestricao", { aviso: "Restrição já cadastrada", restricao: result, logado, adm , acao:"Cadastrar"})}); //nao cadastre
+					res.render("addrestricao", { aviso: "Restrição já cadastrada", restricao: result, logado, adm, acao: "Cadastrar" });
+				}); //nao cadastre
 			} else {
 				//se nao encontrou
 				//adicione a restrição
@@ -1160,7 +1166,8 @@ app.post("/addrestricao", (req, res) => {
 			if (encontrou) {
 				//se encontrou
 				r.listar(connection, function (result) {
-					res.render("listarestricoes", { aviso: "Restrição já cadastrada", restricao: result, logado, adm })}); //nao altere
+					res.render("listarestricoes", { aviso: "Restrição já cadastrada", restricao: result, logado, adm });
+				}); //nao altere
 			} else {
 				//se nao encontrou
 				//adicione a restrição
@@ -1242,14 +1249,13 @@ app.get("/listafeedback", (req, res) => {
 		});
 	}
 });
-app.post('/filtrarMensagem',function(req,res){
-	const m = new Mensagem()
-	m.id = "%"+req.body.filtro+"%"
-	m.filtrarMensagem(connection,function(result){
+app.post("/filtrarMensagem", function (req, res) {
+	const m = new Mensagem();
+	m.id = "%" + req.body.filtro + "%";
+	m.filtrarMensagem(connection, function (result) {
 		res.render("listafeedback", { aviso: "", mensgens: result, logado, adm });
-	})
-
-})
+	});
+});
 app.post("/listafeedback", (req, res) => {
 	const buttonClicked = req.body.button;
 	if (buttonClicked === "Nova Mensagem") {
@@ -1322,10 +1328,10 @@ app.post("/ticket", (req, res) => {
 	}
 });
 app.post("/filtrarticket", (req, res) => {
-	const p = new Pedido()
-	p.usuario.cpf = req.session.login
+	const p = new Pedido();
+	p.usuario.cpf = req.session.login;
 	p.id = "%" + req.body.filtro + "%";
-	
+
 	p.filtrarTicket(connection, function (result) {
 		res.render("ticket", { aviso: "", pedido: result, logado, adm });
 	});
