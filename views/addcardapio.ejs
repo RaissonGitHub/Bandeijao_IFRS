@@ -15,27 +15,27 @@
                     <h2 class="form-addcardapio-titulo">Cadastro de Cardápio</h2>
                     <div class="form-addcardapio-inputs">
                         <label for="descricao">Descrição do Cardápio:</label>
-                        <textarea name="descricao" id="descricao" class="form-control-addcardapio"></textarea>
+                        <textarea name="descricao" id="descricao" class="form-control-addcardapio"><%=cardapio.descricao%></textarea>
                         <label for="imagem">Link da imagem:</label>
                         <input type="text" class="form-control-addcardapio" name="imagem" id="imagem"
-                            placeholder="Valor:" required />
+                            placeholder="Valor:"  value="<%=cardapio.imagem%>"/>
                         <label for="valor">Valor:</label>
                         <input type="number" class="form-control-addcardapio" name="valor" id="valor"
-                            placeholder="Valor:" required />
+                            placeholder="Valor:" required value="<%=cardapio.valor%>"/>
                     </div>
 
                     <div class="form-addcardapio-inputs-radio">
                         <label for="tipo">Tipo do Cardápio:</label>
                         <div>
-                            <input type="radio" id="onivoro" value="onivoro" name="tipo" required />
+                            <input type="radio" id="onivoro" value="onivoro" name="tipo" required <%if(cardapio.tipo == "onivoro"){%>checked<%}%>/>
                             <label for="onivoro" class="legenda">Onívoro</label>
                         </div>
                         <div>
-                            <input type="radio" id="veget" value="vegetariano" name="tipo" />
+                            <input type="radio" id="veget" value="vegetariano" name="tipo" <%if(cardapio.tipo == "vegetariano"){%>checked<%}%> />
                             <label for="veget" class="legenda">Vegetariano</label>
                         </div>
                         <div>
-                            <input type="radio" id="vegan" value="vegano" name="tipo" />
+                            <input type="radio" id="vegan" value="vegano" name="tipo" <%if(cardapio.tipo == "vegano"){%>checked<%}%>/>
                             <label for="vegan" class="legenda">Vegano</label>
                         </div>
                     </div>
@@ -44,34 +44,34 @@
                         <span>Dia do Cardápio:</span>
 
                         <label class="legenda">
-                            <input type="radio" id="segunda" value="segunda-feira" name="dia" required />
+                            <input type="radio" id="segunda" value="segunda-feira" name="dia" required <%if(cardapio.dia == "segunda-feira"){%>checked<%}%> />
                             segunda-feira
                         </label>
 
                         <label class="legenda">
-                            <input type="radio" id="terça" value="terça-feira" name="dia" />
+                            <input type="radio" id="terça" value="terça-feira" name="dia" <%if(cardapio.dia == "terça-feira"){%>checked<%}%>/>
                             terça-feira
                         </label>
 
                         <label class="legenda">
-                            <input type="radio" id="quarta" value="quarta-feira" name="dia" />
+                            <input type="radio" id="quarta" value="quarta-feira" name="dia"<%if(cardapio.dia == "quarta-feira"){%>checked<%}%> />
                             quarta-feira
                         </label>
 
                         <label fclass="legenda">
-                            <input type="radio" id="quinta" value="quinta-feira" name="dia" required />
+                            <input type="radio" id="quinta" value="quinta-feira" name="dia" required <%if(cardapio.dia == "quinta-feira"){%>checked<%}%>/>
                             quinta-feira
                         </label>
 
                         <label class="legenda">
-                            <input type="radio" id="sexta" value="sexta-feira" name="dia" />
+                            <input type="radio" id="sexta" value="sexta-feira" name="dia" <%if(cardapio.dia == "sexta-feira"){%>checked<%}%>/>
                             sexta-feira
                         </label>
                     </div>
                     
                     <div class="form-addcardapio-buttons">
-                        <input type="submit" class="button" name="button" value="Enviar" />
-                        <a href="/curso" class="button">Voltar</a>
+                        <input type="submit" class="button" name="button" value="<%=acao%>" />
+                        <a href="/listacardapio" class="button">Voltar</a>
                     </div>
                 </div>
             </form>

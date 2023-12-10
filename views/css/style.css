@@ -1,3 +1,9 @@
+@media print {
+    .no-print {
+      display: none;
+    }
+  }
+
 /*Estilo global inicio*/
 * {
     margin: 0;
@@ -23,7 +29,16 @@ header {
 }
 
 nav {
-    width: 15%
+    width: 15%;
+    display: block;
+}
+.cellbutton, .fechar-nav{
+    display: none;
+}
+
+.table{
+    overflow: auto;
+
 }
 
 .container {
@@ -171,29 +186,20 @@ button[name="drop"]:hover {
 /*Home fim*/
 
 /*login inicio*/
-.container-login{
-    width: 100%;
-    height: 100vh;
+
+.login {
+    background-color: #fff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.login-box{
-    width: 600px;
-    height: 400px;
-    margin: 50px auto auto auto;
-    border: solid 1px black;
-}
-.login-content{
-    display: flex;
-    flex-direction: column;
-}
-.login-hr{
-    margin: 7px 0;
-}
-.login-h2{
+.login-header {
     text-align: center;
-    font-size: 2.5em;
+    margin-bottom: 20px;
 }
-.login-content hr{
-    margin-bottom: 10px;
+.login-header h1{
+    color: #17882c;
 }
 .form-login-content{
     display: flex;
@@ -228,13 +234,7 @@ button[name="drop"]:hover {
 .login-criar-conta:hover{
     text-decoration: underline;
 }
-.login-esqueceu-senha{
-    font-size: 1.1em;
-    margin: 10px;
-}
-.login-esqueceu-senha:hover{
-    text-decoration: underline;
-}
+
 
 
 /*login fim*/
@@ -351,16 +351,21 @@ button[name="drop"]:hover {
     width: 90%;
 
 }
+.filtrar-pedidos-form,.form-pedidos-post{
+    width: 100%;
+}
 
 .form-pedidos {
     display: flex;
     flex-direction: row;
     width: 100%;
+    overflow: auto;
 }
 
 .form-pedidos-content {
+    overflow: auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -799,9 +804,13 @@ a.form-attsenha-button{
 }
 .cardapio-content{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .opcao-escolhida{
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -815,50 +824,60 @@ a.form-attsenha-button{
     height: 2px;
     background-color: #000000;
 }
-.cardapio-pratos{
-    width: 100%;
-    height: 250px;
-
-}
-.cardapio-prato-carnivoro,.cardapio-prato-vegetariano,.cardapio-prato-vegano{
-    width: 100%;
+.cardapio-pratos {
+    width: 90%;
+    gap: 7px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    height: 100%;
 }
-.cardapio-prato-img{
-    width: 300px;
-    padding: 35px;
-    
-}
-.cardapio-prato-nome-desc{
-    width: 200px;
+.cardapio-prato-carnivoro, .cardapio-prato-vegetariano, .cardapio-prato-vegano {
+    /* width: 100%; */
     display: flex;
-    height: 100%;
-    text-align: justify;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    width: 200px;
+    justify-content: center;
+    /* height: 200px; */
+}
+.cardapio-prato-img {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 130px;
+}
+.cardapio-prato-nome-desc {
+    width: 100%;
+    display: flex;
+    height: 45%;
+    /* text-align: justify; */
     flex-direction: column;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
-.cardapio-prato-nome-desc a{
+.cardapio-prato-nome-desc a {
     text-decoration: underline;
-    padding: 25px 25px 25px 0;
+    padding: 25px  0;
     font-size: 1.7em;
     font-weight: bold;
     color: #000000;
+    width: 100%;
 }
-.cardapio-prato-preco{
-    width: 130px;
-    height: 100%;
+.cardapio-prato-preco {
+    width: 100%;
+    height: 16%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    /* text-align: right; */
+    justify-content: flex-end;
+    flex-direction: row;
 }
 .cardapio-prato-preco span{
-    font-size: 1.4em;
-    padding: 25px;
+    font-size: 1em;
+    padding: 15px;
 }
 .cardapio-tipos button{
     cursor: pointer;
@@ -912,6 +931,7 @@ a.form-attsenha-button{
     cursor: pointer;
 }
 .refeicao-descricao{
+    margin-top: 100px;
     padding: 0 0 0 15px;
     display: flex;
     flex-direction: column;
@@ -923,6 +943,9 @@ a.form-attsenha-button{
     font-size: 1.3em;
     text-indent:4em;
     margin-bottom: 10px;
+}
+.refeicao-descricao p{
+    word-break: break-word;
 }
 .refeicao-card-preco{
     width: 70%;
@@ -1517,6 +1540,81 @@ a.form-attsenha-button{
 }
 
 /*sucesso fim*/
+/*Aviso inicio*/
+.fechar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.fundo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.aviso {
+    top: 30%;
+    left: 40%;
+    background-color: #fff;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+}
+
+.aviso-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.aviso-header {
+    margin: 0;
+    color: #17882c;
+}
+
+.aviso-info p {
+    margin: 5px 0;
+}
+/*Aviso fim*/
+/*ticket inicio*/
+
+  
+  .ticket {
+    background-color: #fff;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ticket-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .ticket-header h1 {
+    margin: 0;
+    color: #17882c;
+  }
+  
+  .ticket-info p {
+    margin: 5px 0;
+  }
+  
+  .ticket-footer {
+    border-top: 1px dashed #ccc;
+    margin-top: 20px;
+    padding-top: 10px;
+    font-style: italic;
+    font-size: 12px;
+    color: #888;
+  }
+  
+/*ticket fim*/
 
 /*curso inicio*/
 
@@ -1533,12 +1631,13 @@ a.form-attsenha-button{
 .form-curso {
     display: flex;
     flex-direction: row;
+    overflow: auto;
     width: 100%;
 }
 
 .form-curso-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -1654,9 +1753,10 @@ a.form-attsenha-button{
 
 .form-usuario-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
+    overflow: auto;
 }
 
 .form-usuario-filtro {
@@ -1762,27 +1862,74 @@ a.form-attsenha-button{
     }
     nav{
         width: 100%;
-        
+        display: none;
     }
-    .logo-bandeijao{
-        width: 80%;
+    .fechar-nav{
+        font-size: 25px;
+        width: 10%;
+    }
+    .header-content {
+        background-image: linear-gradient(to right, #17882c 0, #238335 100%);
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .cellbutton{
+        display: flex;
+        height: 100%;
+        display: flex;
+        width: 20%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .logo-bandeijao {
+        height: 100%;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+         margin-left: 0; 
+    }
+    .logo-bandeijao img {
+        width: 170px;
+        height: 90%;
     }
     .login-ancora{
         width: 20%;
     }
-    .nav-content{
-        height: 80px;
+    .nav-content {
+        align-items: flex-end;
     }
-    .nav-content ul{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        grid-template-rows: repeat(2,1fr);
+    .nav-content ul {
+        width: 85%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .nav-content li {
+        list-style: none;
+        width: 50%;
+        display: flex;
+        line-height: 2.5em;
+    }
+    .hr-nav{
+        width:100%
     }
 
     .container{
         width: 100%;
         justify-content: center;
+        min-height:auto;
     }
+
+    /*login inicio*/
+    .login{
+        width: 75%;
+    }
+    /*login fim*/
 
     /*Home incio*/
     .menu-drop {
@@ -1794,6 +1941,15 @@ a.form-attsenha-button{
         margin-top: 25px;
     }
     /*Home fim*/
+    /*Cardapio inicio*/
+    .cardapio-pratos{
+        gap: 25px;
+    }
+    .form-cardapios-buttons{
+        justify-content: center;
+
+    }
+    /*Cardapio fim*/
 
     /*pedidos inicio*/
 
@@ -1829,8 +1985,20 @@ a.form-attsenha-button{
         margin-top: 10px;
         justify-content: space-evenly;
     }
+    #inserir{
+        margin-left: 0;
+    }
 
     /*pedidos fim*/
+
+    /*ticket inicio*/
+    .form-filtrarticket{
+        width: 100%;
+    }
+    .form-ticket{
+        width: 100%;
+    }
+    /*ticket fim*/
 
     /*usuarios inicio*/
 
@@ -1865,6 +2033,9 @@ a.form-attsenha-button{
     .form-usuario-buttons {
         margin-top: 10px;
         justify-content: space-evenly;
+    }   
+    .form-usuario-post{
+        width: 100%;
     }
 
     /*usuarios fim*/
@@ -1902,10 +2073,23 @@ a.form-attsenha-button{
         margin-top: 10px;
         justify-content: space-evenly;
     }
+    .form-curso-post{
+        width: 100%;
+    }
 
     /*curso fim*/
 
-    
+    /*alimentos inicio*/
+    .form-alimentos-post{
+        width: 100%;
+    }
+    /*alimentos fim*/
+
+    /*listarestricoes inicio*/
+    .form-restricoes-post{
+        width: 100%;
+    }
+    /*listarestricoes fim*/
 
     /*sucesso inicio*/
 
@@ -1914,12 +2098,193 @@ a.form-attsenha-button{
     }
 
     /*sucesso fim*/
+    /*Perfil inicio*/
+    .perfil-cabecario-content{
+        width: auto;
+        align-items: center;
+    }
+    .perfil-hr{
+        width: 90%;
+    }
+    .perfil-dados-content{
+        display: flex;
+        flex-direction: column;
+        word-break: break-all;
+        font-size: 1em;
+        gap:10px;
+    }
+    .span-dados{
+        width: 100%;
+    }
+    /*Perfil fim*/
+    /*feedback inicio*/
+    .feedback-input-text, .feedback-input-textarea {
+        width: auto;
+    }
+    .form-feedback-content {
+        align-items: center;
+        width: auto;
+        padding: 0;
+    }
+    .feedback-label {
+        text-align: center;
+    }
+    .feedback-enviar{
+        width: auto;
+    }
+    /*feedback fim*/
 
+    /*listafeedback inicio*/
+    .form-feedback-post{
+        width: 100%;
+    }
+    /*listafeedback fim*/
+    /*listacardapio inicio*/
+    .form-cardapios-buttons{
+        flex-wrap: wrap;
+    }
+    .form-filtrar-cardapio{
+        width: 100%;
+    }
+    .form-listacardapio-post{
+        width: 100%;
+        overflow: auto;
+    }
+    .form-cardapios-filtro{
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .cardapios-card {
+        width: auto;
+    }
+    /*listacardapio fim*/
+
+    /*attcadastro inicio*/
+    .form-cadastro{
+        width: 95%;
+        border-radius: 5px;
+    }
+    .form-control{
+        width: 40%;
+    }
+    /*attcadastro fim*/
+
+    /*restricoes inicio*/
+    .form-addrestricoes-content{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .form-addrestricoes-content-enviar{
+        width: auto;
+    }
+    /*restricoes fim*/
+
+    /*addcurso inicio*/
+    .form-addcurso{
+        width: 95%;
+        border-radius: 5px;
+    }
+    .form-control-addcurso{
+        width: auto;
+    }
+    /*addcurso fim*/
+
+    /*addcardapio inicio*/
+    .form-addcardapio{
+        width: 95%;
+    }
+    .form-control-addcardapio{
+        width: auto ;
+    }
+    .form-addcardapio-inputs-dia label{
+        width: auto;
+    }
+    .form-addcardapio-inputs-dia{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    /*addcardapio fim*/
+
+    /*attsenha inicio*/
+    .attsenha-box{
+        width: auto;
+    }
+    /*attsenha fim*/
+
+    /*vincalimento inicio*/
+    .form-vincalimento-post{
+        width: 100%;
+    }
+    .javinc{
+        margin: 25px 0;
+    }
+    /*vincalimento fim*/
+
+    /*refeicao inicio*/
+    .refeicao-imagem{
+        width: 100%;
+    }
+    .refeicao-descricao span{
+        text-indent: 0em;
+    }
+    .refeicao-imagem img {
+        width: 90%;
+        height: 90%;
+        padding: 0;
+    }
+    .refeicao-nome-tipo{
+        align-items: center;
+    }
+    .refeicao-ingredientes-inputs{
+        align-items: center;
+    }
+    .refeicao-descricao{
+        display: flex;
+        align-items: center;
+        margin: 50px 0;
+        width: 100%;
+        padding: 0;
+    }
+    .refeicao-descricao p{
+        width: 90%;
+    }
+    .refeicao-card-preco-content input{
+        margin: 5px;
+    }
+    .refeicao-content {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(auto-fill, minmax(65px,0.1fr));
+        grid-template-areas:
+            "img tit tit"
+            "img c c    "
+            "d d d"
+            "e e e";
+        justify-items: center;
+    }
+    /*refeicao fim*/
+    /*refeicaoconfirm inicio*/
+    .refeicao-confirm-buttons{
+        width: 100%;
+    }
+    /*refeicaoconfirm fim*/
+    /*aviso inicio*/
+    .aviso{
+        top: 30%;
+        right: 25%;
+        left: 25%;
+        width: auto;
+    }
+    /*aviso fim*/
 }
 
 
 /* Dispositivos um pouco maiores, mas ainda pequenos (Pequenos Tablets e Smartphones + largos, 600px para cima) */
 @media only screen and (min-width: 600px) {
+    
+    .login{
+        width: 30%;
+    }
     /*Home incio*/
 
     /*Home fim*/
@@ -1989,6 +2354,20 @@ a.form-attsenha-button{
     /*sucesso inicio*/
 
     /*sucesso fim*/
+
+    /*cardapio*/
+    .form-filtrar-cardapio{
+        width: 100%;
+    }
+    .form-listacardapio-post{
+        width: 100%;
+
+    }
+    .cardapios-card-list{
+        width: 90%;
+    }
+    
+    /*cardapio*/
 }
 
 /* Dispostivos Largos (laptops/desktops, 992px para cima) */

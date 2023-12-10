@@ -13,13 +13,15 @@
         <h1 class="pedido-h1">Restrições</h1>
         <hr class="pedido-hr" />
         <div class="form-pedidos">
-            <form action="/listarestricoes" method="post">
-                <div class="form-pedidos-content">
+            <div class="form-pedidos-content">
+                <form action="filtrarRestricao" method="post">
                     <div class="form-pedidos-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
-                        <input type="text" id="filtro" />
-                        <button id="filtrar">Filtrar</button>
+                        <input type="text" name="filtro" id="filtro" />
+                        <button type="submit" id="filtrar">Filtrar</button>
                     </div>
+                </form>
+                <form action="/listarestricoes" method="post" class="form-restricoes-post">
                     <div class="form-pedidos-buttons">
                         <input type="submit" id="inserir" class="buttons" name="button" value="Nova Restrição" />
                         <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Restrição" />
@@ -34,7 +36,7 @@
                             </tr>
                             <%restricao.forEach((r,index)=> { %>
                                 <tr>
-                                    <td><input type="checkbox" name="checkbox" value="<%=r.id_restricao%>" /></td>
+                                    <td><input type="radio" name="checkbox" value="<%=r.id_restricao%>" /></td>
                                     <td>
                                         <%= r.id_restricao %>
                                     </td>

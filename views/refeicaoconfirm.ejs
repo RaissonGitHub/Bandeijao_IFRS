@@ -18,7 +18,7 @@
             <form action="/realizarpedido" method="post">
             <div class="refeicao-confirm-content">
                 <div class="refeicao-confirm-nome-tipo">
-                    <h2>Pedido</h2>
+                    <h2>Cardapio <%=cardapio.id%></h2>
                     <span>Preço: R$ <%=cardapio.valor.toFixed(2)%></span>
                     <span>Tipo: <%=cardapio.tipo%></span>
                 </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div>
                         <label for="observacao">Observação:</label> <br>
-                        <textarea name="observacao" id="observacao" cols="30" rows="10"></textarea>
+                        <textarea name="observacao" id="observacao" cols="30" rows="10"><%=restricoes%></textarea>
                     </div>
                 </div>
 

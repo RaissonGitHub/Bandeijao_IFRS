@@ -16,7 +16,7 @@
     <div class="container">
         <div class="cardapio">
             <div class="cardapio-content">
-                <h1>Cardapio - dia</h1>
+                <h1>Cardapios</h1>
                 <div class="cardapio-tipos">
                     <button name="carnivoro" id="carnivorob"><img src="img/bife.png" alt=""
                             class="cardapio-tipos-button-img"></button>
@@ -30,13 +30,13 @@
                     <h2 id="opcao-escolhida-h2">Onívoro</h2>
                     <hr>
                 </div>
-                <form class="cardapio-pratos">
+                <form class="cardapio-pratos" >
                     <%cardapios.forEach((c,index)=>{%>
                         <%if(c.tipo==="onivoro" ){%>
                             <div class="cardapio-prato-carnivoro">
                                 <img class="cardapio-prato-img" src="<%=c.imagem%>" alt="">
                                 <div class="cardapio-prato-nome-desc">
-                                    <a href="/refeicao/ <%=c.id_cardapio%>">Cardápio</a>
+                                    <a href="/refeicao/<%=c.id_cardapio%>">Cardápio <%=c.id_cardapio%></a>
                                     <p>
                                         <%=c.descricao%>
                                     </p>

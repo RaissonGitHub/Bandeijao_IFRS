@@ -1,6 +1,7 @@
 module.exports = class RestricaoAlimentar {
 	constructor() {
 		this.nome = "";
+		this.id =0
 	}
 	//listar todas as restrições do banco
 	listar(connection, callback) {
@@ -30,9 +31,42 @@ module.exports = class RestricaoAlimentar {
 	}
 	//vincular restricoes a um usuario especifico
 	vincularRestricao(connection, id,curso,id_restricao) {
-		const sql = "INSERT INTO usuario_has_restricao_alimentar (usuario_cpf,usuario_curso_id_curso,restricao_alimentar_id_restricao) VALUES(?,?,?)";
+		const sql = "INSERT IGNORE INTO usuario_has_restricao_alimentar (usuario_cpf,usuario_curso_id_curso,restricao_alimentar_id_restricao) VALUES(?,?,?)";
+		
 		connection.query(sql,[id,curso,id_restricao],function(err){
             if(err) throw err;
         });
+	}
+	desvincularRestricao(connection,id,id_restricao){
+		const sql = `Delete from usuario_has_restricao_alimentar where usuario_cpf = ? and restricao_alimentar_id_restricao=?`
+		connection.query(sql,[id,id_restricao],function(err){
+			if(err) throw err;
+		})
+	}
+	filtrarRestricao(connection,callback){
+		const sql = 'SELECT * from restricao_alimentar where nome_restricao like ?'
+		connection.query(sql,[this.nome],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
+	listaPorId(connection,callback){
+		const sql = `Select * from restricao_alimentar where id_restricao = ?`
+		connection.query(sql,[this.id],function(err,result){
+			if(err) throw err;
+			return callback(result);
+		})
+	}
+	excluir(connection){
+		const sql = `delete from restricao_alimentar where id_restricao = ?`
+		connection.query(sql,[this.id],function(err){
+			if(err) throw err;
+		})
+	}
+	atualizar(connection){
+		const sql = `update restricao_alimentar set nome_restricao = ? where id_restricao = ?`
+		connection.query(sql,[this.nome,this.id],function(err){
+			if(err) throw err;
+		})
 	}
 };

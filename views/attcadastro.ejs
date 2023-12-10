@@ -10,63 +10,67 @@
     <nav><%- include('../partials/nav')%></nav>
     <div class="container">
         <div class="form-cadastro">
-            <form action="/formulario" method="post">
+            <form action="/attcadastro" method="post">
                 <div class="form-cadastro-content">
                     <h2 class="form-cadastro-titulo">Atualizar Cadastro</h2>
                     <div class="form-cadastro-inputs">
                         <input type="text" class="form-control" name="nome" placeholder="Primeiro nome:" required
-                            pattern="[A-Za-zÀ-ÿ]{3,}" />
+                             value="<%=usuario.nome%>"/>
 
                         <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome:" required
-                            pattern="[A-Za-zÀ-ÿ]{3,}" />
+                             value="<%=usuario.sobrenome%>"/>
 
-                        <input type="number" class="form-control" name="matricula" placeholder="Matricula:" required />
+                        <input type="number" class="form-control" name="matricula" placeholder="Matricula:" required value="<%=usuario.matricula%>"/>
 
                         <input type="tel" class="form-control" name="telefone" placeholder="Telefone:" required
-                            pattern="\(\d{2}\) \d{5}-\d{4}|\d{11}|\(\d{2}\) \d{9}|\d{2} \d{9}" />
+                             value="<%=usuario.telefone%>"/>
 
                         <input type="text" class="form-control" name="cpf" placeholder="CPF:" required
-                            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11}" />
+                             value="<%=usuario.cpf%>" readonly/>
 
-                        <input type="email" class="form-control" name="email" placeholder="Email:" required />
+                        <input type="email" class="form-control" name="email" placeholder="Email:" required value="<%=usuario.email%>"/>
 
-                        <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha:" required >
 
-                        <input type="password" class="form-control" name="rsenha" id="rsenha" placeholder="Repita a senha:" required >
                     </div>
                     <div class="form-cadastro-select">
                         <select type="text" name="curso" class="select" required>
-                            <option value="valor1">Selecione seu curso:</option>
-                            <option value="valor2">Técnico em Informática</option>
-                            <option value="valor3">Técnico em Eletrônica</option>
-                            <option value="valor4">Técnico em Lazer</option>
-                            <option value="valor5">Técnico em Turismo</option>
-                            <option value="valor6">Analise de Sistemas</option>
-                            <option value="valor7">Letras</option>
-                            <option value="valor8">PROEJA</option>
-                            <option value="valor9">Agroecologia</option>
-                            <option value="valor10">Servidor/Funcionário</option>
+                            <option value="#" disabled selected>Selecione seu curso:</option>
+                            <%cursos.forEach((c)=>{%>
+                                <option value="<%= c.id_curso %>" <% if (c.nome === usuario.nome_curso) { %> selected <% } %> >
+                                    <%= c.nome %>
+                                </option>
+                            <%})%>
                         </select>
                     </div>
                     <div class="form-cadastro-inputs-radio">
                         <p>Você se identifica como:</p>
                         <div>
-                            <input type="radio" id="onivoro" name="escolha" required />
+                            <input type="radio" id="onivoro" value="onivoro" name="escolha" required <%if(usuario.caracteristica_alimenticia == "onivoro"){%>checked<%}%> />
                             <label for="onivoro" class="legenda">Onívoro</label>
                         </div>
                         <div>
-                            <input type="radio" id="veget" name="escolha" />
+                            <input type="radio" id="veget" value="vegetariano" name="escolha" <%if(usuario.caracteristica_alimenticia == "vegetariano"){%>checked<%}%> />
                             <label for="veget" class="legenda">Vegetariano</label>
                         </div>
                         <div>
-                            <input type="radio" id="vegan" name="escolha" />
+                            <input type="radio" id="vegan" value="vegano" name="escolha"<%if(usuario.caracteristica_alimenticia == "vegano"){%>checked<%}%>  />
                             <label for="vegan" class="legenda">Vegano</label>
                         </div>
                     </div>
+                    <%if(adm){%>
+                    <div class="admcheck">
+                        <span>Perfil do usuário:</span>  
+                        <br>                                              
+                        <label for="isadm">Adm</label>
+                        <input type="radio" name="isadm" id="isadm" value="adm" <%if(usuario.perfil == "adm"){%>checked<%}%>>                      
+                        <label for="isuser">User</label>
+                        <input type="radio" name="isadm" id="isuser" value="user" <%if(usuario.perfil == "user"){%>checked<%}%>>                      
+                    </div>
+                    <%}%>
                     
                     <div class="form-cadastro-buttons">
                         <input type="submit" class="button" name="button" value="Enviar" />
-                        <a href="/pagcadastro" class="button">Voltar</a>
+                        <a href="<%=link%>" class="button">Voltar</a>
                     </div>
                 </div>
             </form>

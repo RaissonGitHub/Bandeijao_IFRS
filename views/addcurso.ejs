@@ -12,23 +12,24 @@
         <div class="form-addcurso">
             <form action="/addcurso" method="post">
                 <div class="form-addcurso-content">
-                    <h2 class="form-addcurso-titulo">Cadastro de curso</h2>
+                    <h2 class="form-addcurso-titulo"><%=acao%> de curso</h2>
                     <div class="form-addcurso-inputs">
                         <label for="nome">Nome do curso:</label>
-                        <input type="text" class="form-control-addcurso" name="nome" id="nome" placeholder="Nome do curso:"
+                        <input type="text" class="form-control-addcurso" name="nome" id="nome" placeholder="Nome do curso:" value="<%=curso.nome%>"
                              />
 
                         <label for="tempo">Tempo:</label>
-                        <input type="text" class="form-control-addcurso" name="tempo" id="tempo" required />
+                        <input type="text" class="form-control-addcurso" name="tempo" id="tempo" required  value="<%=curso.tempo%>"/>
 
                         <label for="modalidade">Modalidade:</label>
                         <input type="text" class="form-control-addcurso" name="modalidade" id="modalidade"
-                            placeholder="Modalidade:"/>
+                            placeholder="Modalidade:" value="<%=curso.modalidade%>"/>
+
                     </div>
 
 
                     <div class="form-addcurso-buttons">
-                        <input type="submit" class="button" name="button" value="Enviar" />
+                        <input type="submit" class="button" name="button" value="<%=envio%>" />
                         <a href="/curso" class="button">Voltar</a>
                     </div>
                 </div>

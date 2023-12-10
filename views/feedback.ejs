@@ -19,11 +19,11 @@
                 <form action="/feedback" method="post">
                     <div class="form-feedback-content">
                         <label class="feedback-label" for="assunto">Assunto:</label>
-                        <input class="feedback-input-text" type="text" name="assunto" id="assunto" required>
+                        <input class="feedback-input-text" type="text" name="assunto" id="assunto" required value="<%=m.assunto%>">
                         <label class="feedback-label" for="mensagem">Mensagem:</label>
-                        <textarea class="feedback-input-textarea" name="mensagem" id="mensagem" cols="30" rows="10"></textarea>
+                        <textarea class="feedback-input-textarea" name="mensagem" id="mensagem" cols="30" rows="10" ><%=m.mensagem%></textarea>
                         <div class="feedback-div-enviar">
-                            <input class="feedback-enviar" type="submit" value="Enviar">
+                            <input class="feedback-enviar" name ="acao" type="submit" value="<%=acao%>">
                         </div>
                     </div>
                 </form>

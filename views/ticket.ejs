@@ -8,34 +8,31 @@
 <body>
     <header><%- include('../partials/header') %></header>
     <nav><%- include('../partials/nav') %></nav>
-
+    
     <div class="container">
-        <h1 class="pedido-h1">Pedidos</h1>
+
+        <h1 class="pedido-h1">Tickets</h1>
         <hr class="pedido-hr" />
         <div class="form-pedidos">
             <div class="form-pedidos-content">
-                <form action="filtrarPedidos" method="post" class="filtrar-pedidos-form">
+                <form action="filtrarticket" method="post" class="form-filtrarticket">
                     <div class="form-pedidos-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
                         <input type="text" name="filtro" id="filtro" />
                         <button type="submit" id="filtrar">Filtrar</button>
                     </div>
                 </form>
-                <form action="pedidos" method="post"  class="form-pedidos-post">
+                <form action="ticket" method="post" class="form-ticket">
 
                     <div class="form-pedidos-buttons">
-                        <input type="submit" id="inserir" class="buttons" name="button" value="Novo Pedido" />
-                        <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Pedido" />
-                        <input type="submit" id="excluir" class="buttons" name="button" value="Excluir Pedido" />
+                        <input type="submit" id="inserir" class="buttons" name="button" value="Visualizar Ticket" />
                     </div>
                     <div class="form-pedidos-table">
                         <table id="pedidos-table-content">
                             <tr>
                                 <th>Seleção</th>
                                 <th>N° Pedido</th>
-                                <th>Id Cardápio</th>
                                 <th>Data emissão</th>
-                                <th>Pagamento</th>
                                 <th>Obs</th>
                                 <th>Ticket</th>
                             </tr>
@@ -45,7 +42,6 @@
                                     <td>
                                         <%= p.id_pedido %>
                                     </td>
-                                    <td><%=p.cardapio_id_cardapio%></td>
                                     <td>
                                         <%= p.data_emissao.getDate() %>/
                                             <%= p.data_emissao.getMonth() + 1 %>/
@@ -57,10 +53,10 @@
                                         <td>
                                             <%= p.pagamento %>
                                         </td>
+
                                         <td>
-                                            <%= p.observacao%>
+                                            <%=p.ticket%>
                                         </td>
-                                        <td><%=p.ticket%></td>
                                 </tr>
                                 <%})%>
                         </table>
@@ -68,10 +64,15 @@
             </div>
             </form>
         </div>
+
+
+
+
     </div>
     <footer>
         <%- include('../partials/footer')%>
     </footer>
+    
 </body>
 
 </html>

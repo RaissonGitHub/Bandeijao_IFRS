@@ -39,7 +39,7 @@
                     <h2 style="width: 100%;">Minhas restrições</h2>
                     <%restricoes.forEach((r)=>{%>
                         <label class="custom-checkbox">
-                            <input type="checkbox" value="<%=r.restricao_alimentar_id_restricao%>">
+                            <input type="checkbox" name="opcao" value="<%=r.restricao_alimentar_id_restricao%>">
                             <span class="checkmark"></span>
                             <%=r.nome_restricao%>
                         </label>

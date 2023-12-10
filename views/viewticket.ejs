@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <%- include('../partials/head')%>
+
+   <style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+   </style>
+</head>
+
+<body style="min-height: 0; justify-content: center; flex-direction: column;">
+    <div class="ticket">
+        <div class="ticket-header">
+            <img src="img/logo2.png" alt="" style="width: 70%;">
+          <h1>INGRESSO BANDEIJAO</h1>
+        </div>
+        <div class="ticket-info">
+          <p>N° Pedido: <%=pedido.id_pedido%></p>
+          <p>CPF: <%=pedido.usuario_cpf%></p>
+          <p>Cardápio: <%=pedido.cardapio_id_cardapio%></p>
+          <p>Data emissão: <%= String(pedido.data_emissao.getHours()).padStart(2, '0' ) %>:<%=String(pedido.data_emissao.getMinutes()).padStart(2, '0' ) %> <%= pedido.data_emissao.getDate() %>/<%= pedido.data_emissao.getMonth() + 1 %>/<%= pedido.data_emissao.getFullYear()%> </p>
+        </div>
+        <div class="ticket-footer">
+          <p>Admitido apenas com este ticket.</p>
+        </div>
+      </div>
+      <br>
+    <button class="no-print" onclick="window.print()">Imprimir Página</button>
+    <br>
+    <a class="no-print" href="/ticket">Voltar</a>
+</body>
+
+</html>

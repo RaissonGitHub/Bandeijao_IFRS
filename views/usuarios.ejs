@@ -13,13 +13,15 @@
         <h1 class="usuario-h1">Usuários</h1>
         <hr class="usuario-hr" />
         <div class="form-usuario">
-            <form action="/usuarios" method="post">
-                <div class="form-usuario-content">
+            <div class="form-usuario-content">
+                <form action="filtrarUsuario" method="post">
                     <div class="form-usuario-filtro">
                         <label for="filtro" style="margin-left: 15px">Filtro:</label><br />
-                        <input type="text" id="filtro" />
-                        <button id="filtrar">Filtrar</button>
+                        <input type="text" name="filtro" id="filtro" />
+                        <button type="submit" id="filtrar">Filtrar</button>
                     </div>
+                </form>
+                <form action="/usuarios" method="post" class="form-usuario-post">
                     <div class="form-usuario-buttons">
                         <input type="submit" id="inserir" class="buttons" name="button" value="Novo Usuário" />
                         <input type="submit" id="atualizar" class="buttons" name="button" value="Atualizar Usuário" />
@@ -36,11 +38,12 @@
                                 <th>Curso</th>
                                 <th>Telefone</th>
                                 <th>Email</th>
+                                <th>Perfil</th>
                             </tr>
                             
                             <% usuario.forEach((u, index)=> { %>
                                 <tr>
-                                    <td><input type="checkbox" id="u.cpf" /></td>
+                                    <td><input type="radio" name="cpf" value="<%= u.cpf %>" /></td>
 
                                     <td>
                                         <%= u.cpf %>
@@ -63,6 +66,9 @@
                                     </td>
                                     <td>
                                         <%= u.email %>
+                                    </td>
+                                    <td>
+                                        <%=u.perfil%>
                                     </td>
                                     
                                 </tr>
